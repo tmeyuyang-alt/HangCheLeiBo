@@ -1,0 +1,15 @@
+config:
+- name: A1
+  datablock: ''
+- name: B1
+  datablock: ''
+- name: C1
+  datablock: ''
+- name: A2
+  datablock: ''
+- name: B2
+  datablock: ''
+- name: C2
+  datablock: ''
+configType: ConfigDataBase
+decimalPlaces: 3

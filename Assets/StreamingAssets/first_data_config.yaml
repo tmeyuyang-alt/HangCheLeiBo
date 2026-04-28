@@ -1,0 +1,19 @@
+PlcType: PLC
+IPAddress: 127.0.0.1:5056
+config:
+- name: 一次电流A
+  datablock: ''
+- name: 一次电流B
+  datablock: ''
+- name: 一次电流C
+  datablock: ''
+- name: 功率因数
+  datablock: ''
+- name: 无功功率
+  datablock: ''
+- name: 有功功率
+  datablock: ''
+- name: 一次电压
+  datablock: ''
+configType: ConfigDataBase
+decimalPlaces: 3

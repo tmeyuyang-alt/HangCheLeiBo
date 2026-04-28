@@ -1,0 +1,15 @@
+config:
+- name: A1
+  datablock: DBX1.0
+- name: B1
+  datablock: DBX1.0
+- name: C1
+  datablock: DBX1.0
+- name: A2
+  datablock: DBX1.0
+- name: B2
+  datablock: DBX1.0
+- name: C2
+  datablock: DBX1.0
+configType: ElectricityConfigData
+decimalPlaces: 3

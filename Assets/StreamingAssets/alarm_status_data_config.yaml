@@ -1,0 +1,21 @@
+config:
+- name: 本体重瓦斯
+  datablock: ''
+- name: 分柜重瓦斯
+  datablock: ''
+- name: 本体轻瓦斯
+  datablock: ''
+- name: 分柜轻瓦斯
+  datablock: ''
+- name: 油温高高
+  datablock: ''
+- name: 油温高
+  datablock: ''
+- name: 压力释放
+  datablock: ''
+- name: 本体油位异常
+  datablock: ''
+- name: 分柜油位异常
+  datablock: ''
+configType: ConfigDataBase
+decimalPlaces: 3

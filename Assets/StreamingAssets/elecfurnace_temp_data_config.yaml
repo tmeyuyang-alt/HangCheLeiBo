@@ -1,0 +1,12 @@
+config:
+- name: 炉壁温度A
+  datablock: ''
+  canDelete: true
+- name: 炉壁温度B
+  datablock: ''
+  canDelete: true
+- name: 炉壁温度C
+  datablock: ''
+  canDelete: true
+configType: ElectricFurnaceTempeData
+decimalPlaces: 3

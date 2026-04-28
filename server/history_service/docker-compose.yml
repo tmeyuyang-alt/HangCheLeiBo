@@ -1,0 +1,48 @@
+services:
+  tdengine:
+    image: tdengine/tdengine:3.3.6.0
+    container_name: history-service-tdengine
+    restart: unless-stopped
+    environment:
+      TAOS_FIRST_EP: tdengine
+      TAOS_FQDN: tdengine
+    ports:
+      - "6041:6041"   # taosAdapter WebSocket/REST (app uses this)
+    volumes:
+      - tdengine_data:/var/lib/taos
+      - tdengine_log:/var/log/taos
+    healthcheck:
+      test: ["CMD-SHELL", "taos -s 'SELECT 1' > /dev/null 2>&1 && wget -qO- http://localhost:6041/-/ping > /dev/null 2>&1"]
+      interval: 5s
+      timeout: 15s
+      retries: 30
+      start_period: 30s
+
+  app:
+    image: history-service:latest
+    container_name: history-service-app
+    restart: unless-stopped
+    depends_on:
+      tdengine:
+        condition: service_healthy
+    environment:
+      TDENGINE_URL: "taosws://root:taosdata@tdengine:6041"
+      TDENGINE_DATABASE: "history_service"
+      AUTO_INIT_SCHEMA: "true"
+      AUTO_START_COLLECTOR: "false"
+      COLLECT_INTERVAL_SECONDS: "1"
+      PLC_RACK: "0"
+      PLC_SLOT: "1"
+      PLC_CONNECT_TIMEOUT_SECONDS: "3"
+      PLC_MAX_READ_BYTES: "200"
+      SHIFT_START_HOUR: "8"
+      SHIFT_LENGTH_HOURS: "12"
+      DATA_KEEP_DAYS: "730"
+    ports:
+      - "8000:8000"
+    volumes:
+      - /opt/history_service_import:/opt/history_service_import:ro
+
+volumes:
+  tdengine_data:
+  tdengine_log:

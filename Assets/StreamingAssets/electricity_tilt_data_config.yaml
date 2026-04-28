@@ -1,0 +1,15 @@
+config:
+- name: 电极A1
+  datablock: ''
+- name: 电极B1
+  datablock: ''
+- name: 电极C1
+  datablock: ''
+- name: 电极A2
+  datablock: ''
+- name: 电极B2
+  datablock: ''
+- name: 电极C2
+  datablock: ''
+configType: ElectrodeTiltConfigData
+decimalPlaces: 3

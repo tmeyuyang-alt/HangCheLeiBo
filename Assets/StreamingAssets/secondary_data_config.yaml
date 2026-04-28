@@ -1,0 +1,21 @@
+config:
+- name: 二次电流A1
+  datablock: ''
+  canDelete: true
+- name: 一次电流B1
+  datablock: ''
+  canDelete: true
+- name: 一次电流C1
+  datablock: ''
+  canDelete: true
+- name: 二次电流A2
+  datablock: ''
+  canDelete: true
+- name: 二次电流B2
+  datablock: ''
+  canDelete: true
+- name: 二次电流C2
+  datablock: ''
+  canDelete: true
+configType: ConfigDataBase
+decimalPlaces: 3
