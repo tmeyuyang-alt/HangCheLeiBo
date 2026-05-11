@@ -12,5 +12,110 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1a17af72ad4558af7a7802cb7d95fc, type: 3}
   m_Name: "\u5168\u5C40\u6309\u94AE"
   m_EditorClassIdentifier: 
-  sharedIpAddress: 127.0.0.1
-  points: []
+  sharedIpAddress: 192.168.10.10
+  points:
+  - displayName: "\u624B\u52A8\u6A21\u5F0F"
+    dataType: 0
+    address: DB1.DBX0.0
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u81EA\u52A8\u6A21\u5F0F"
+    dataType: 0
+    address: DB1.DBX0.1
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u901F\u5EA6\u6A21\u5F0F"
+    dataType: 0
+    address: DB1.DBX0.2
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u5168\u5C40\u70B9\u52A8"
+    dataType: 0
+    address: DB1.DBX0.3
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u5168\u5C40\u9AD8\u901F"
+    dataType: 0
+    address: DB1.DBX0.4
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u6545\u969C\u590D\u4F4D"
+    dataType: 0
+    address: DB1.DBX0.5
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u6545\u969C\u786E\u8BA4"
+    dataType: 0
+    address: DB1.DBX0.6
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u6025\u505C\u70B9\u6309"
+    dataType: 0
+    address: DB1.DBX0.7
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u8FDC\u7A0B\u53CD\u9988"
+    dataType: 0
+    address: DB1.DBX1.0
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u624B\u52A8\u540C\u6B65\u5347"
+    dataType: 0
+    address: DB1.DBX1.1
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u624B\u52A8\u540C\u6B65\u964D"
+    dataType: 0
+    address: DB1.DBX1.2
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u81EA\u52A8\u542F\u52A8"
+    dataType: 0
+    address: DB1.DBX1.3
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u81EA\u52A8\u505C\u6B62"
+    dataType: 0
+    address: DB1.DBX1.4
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u4E00\u952E\u5F00\u76D6"
+    dataType: 0
+    address: DB1.DBX1.5
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u4E00\u952E\u5173\u76D6"
+    dataType: 0
+    address: DB1.DBX1.6
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0

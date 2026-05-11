@@ -20,27 +20,19 @@ public class AddTask : MonoBehaviour
     public Dropdown mDropFangLiao;
     public Dropdown mDropZhuaLiao;
 
-    public void Update()
-    {
-        print(mDropFangLiao.value);
-    }
 
+    public void OnOpen(int arg)
+    {
+        gameObject.SetActive(true);
+        mDropZhuaLiao.value=arg-1;
+    }
     public void SetValue()
     {
-        // plcConfigManager.SetValue(FangLiaoKey, Convert.ToInt32(mInputFangLiao.text));
-       
-        
-        //print(mDropFangLiao.value);
-        //print(mDropZhuaLiao.value);
-        
-        
-      
         plcConfigManager.SetValue(FangLiaoKey, mDropFangLiao.value+1);
         plcConfigManager.SetValue(ZhuaLiaoKey, mDropZhuaLiao.value+1);
         plcConfigManager.SetValue(ZhuaDouNumKey, Convert.ToInt32(mInputZhuaDou.text));
         plcConfigManager.SetValue(ConfirmKey, true);
         gameObject.SetActive(false);
-        
     }
     
     

@@ -17,22 +17,22 @@ public class ShouDongCtrlItem : MonoBehaviour
 
     public void Move1()
     {
-        plcConfigManager.SetValueNoNotify(MoveKey1,true);
+        plcConfigManager.SetBool(MoveKey1,true);
     }
 
     public void Stop1()
     {
-        plcConfigManager.SetValueNoNotify(MoveKey1,false);
+        plcConfigManager.SetBool(MoveKey1,false);
     }
 
     public void Move2()
     {
-        plcConfigManager.SetValueNoNotify(MoveKey2,true);
+        plcConfigManager.SetBool(MoveKey2,true);
     }
 
     public void Stop2()
     {
-        plcConfigManager.SetValueNoNotify(MoveKey2,false);
+        plcConfigManager.SetBool(MoveKey2,false);
     }
     
 
@@ -44,6 +44,6 @@ public class ShouDongCtrlItem : MonoBehaviour
 
     public void SetStopkey()
     {
-        plcConfigManager.SetValueNoNotify(Stopkey,true);
+        plcConfigManager.SetPulseBool(Stopkey,true);
     }
 }

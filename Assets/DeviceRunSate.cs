@@ -22,18 +22,23 @@ public class DeviceRunSate : MonoBehaviour
    public void UpdateUI()
    {
       
-
-       if (!plcConfigManager.GetBool(errorKey))
+       if (plcConfigManager.GetFloatValue(DianLiuKey)>0)
        {
-           info.text = plcConfigManager.GetBool(key) ? "<color=Green>运行</color>" : "<color=White>未运行</color>";
+           info.text = "<color=Green>运行</color>";
        }
        else
        {
-           info.text ="<color=Red>运行故障</color>";
+           info.text =  "<color=White>未运行</color>";
        }
+       if (plcConfigManager.GetBool(errorKey))
+       {
+           info.text ="<color=Red>运行故障</color>";  //info.text = plcConfigManager.GetBool(key) ? "<color=Green>运行</color>" : "<color=White>未运行</color>";
+       }
+      
        
        DianliuInfo.text = plcConfigManager.GetFloatValue(DianLiuKey).ToString("F0")+" A";
        PingLvInfo.text = plcConfigManager.GetFloatValue(PingLvKey).ToString("F0")+" Hz";
+       
    }
 
 }

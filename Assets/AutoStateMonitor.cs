@@ -13,15 +13,9 @@ public class AutoStateMonitor : MonoBehaviour
 
     public string key;
     
-    
-    private void Awake()
-    {
-        //instance=this;
-    }
-
     private void Update()
     {
-        isAuto = plcConfigManager.GetBool(key);
+        isAuto = !plcConfigManager.GetBool(key);
     }
 
 

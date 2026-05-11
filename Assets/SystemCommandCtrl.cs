@@ -33,28 +33,28 @@ public class SystemCommandCtrl : MonoBehaviour
 
     public void ErrorReset()
     {
-        plcConfigManager.SetValue(ErrorResetKey,true);
+        plcConfigManager.SetPulseBool(ErrorResetKey,true);
     }
 
     public void ErrorComfirm()
     {
-        plcConfigManager.SetValue(ErrorComfirmKey,true);
+        plcConfigManager.SetPulseBool(ErrorComfirmKey,true);
     }
     
     public void ForceStop()
     {
-        plcConfigManager.SetValue(ForceStopKey, true);
+        plcConfigManager.SetPulseBool(ForceStopKey, true);
     }
   
     public void SetShouDongCommand()
     {
-        plcConfigManager.SetValue(mShouDongKey, true);
-       // plcConfigManager.SetValue(mAutoKey, false);
+        plcConfigManager.SetBool(mShouDongKey, true);
+      
     }
     public void SetAutoCommand()
     {
-        plcConfigManager.SetValue(mAutoKey, true);
-       // PLCConfigManager.Instance.SetValue(mShouDongKey, false);
+        plcConfigManager.SetBool(mShouDongKey, false);
+      
     }
     
     

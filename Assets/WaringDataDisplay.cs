@@ -77,7 +77,7 @@ public class WaringDataDisplay : MonoBehaviour
     /// </summary>
     private void TryRefreshOnce()
     {
-        if (ConfigManager.Instance == null || ConfigManager.Instance.items == null)
+        if (plcConfigManager == null || plcConfigManager.plcConfigs == null)
             return;
 
         // 本次扫描到的 Key
@@ -85,65 +85,63 @@ public class WaringDataDisplay : MonoBehaviour
 
         try
         {
-            foreach (var cfg in ConfigManager.Instance.items)
+            foreach (var item in plcConfigManager.plcConfigs)
             {
-                if (cfg == null || string.IsNullOrEmpty(cfg.Name)) continue;
+                string key = item.Key;
+                PLCConfig cfg = item.Value;
 
-                // 只处理名称包含“故障信号”的条目
-                if (!cfg.Name.Contains("故障信号显示")) continue;
+                if (string.IsNullOrEmpty(key) || cfg == null) continue;
+
+                string shortName = cfg.ShortName;
+                bool isFaultPoint = key.Contains("故障") ||
+                                    (!string.IsNullOrEmpty(shortName) && shortName.Contains("故障"));
+
+                // 只处理 PLCConfigManager 中点位名字带“故障”的地址
+                if (!isFaultPoint) continue;
 
                 bool isFault = false;
                 try
                 {
-                    isFault = plcConfigManager != null && plcConfigManager.GetBool(cfg.Name);
+                    isFault = plcConfigManager.GetBool(key);
                 }
                 catch (Exception e)
                 {
                     // 读取出错不影响其它项
-                    Debug.LogWarning($"[WaringDataDisplay] GetBool('{cfg.Name}') 失败：{e.Message}");
+                    Debug.LogWarning($"[WaringDataDisplay] GetBool('{key}') 失败：{e.Message}");
                     continue;
                 }
 
-                seenThisTick.Add(cfg.Name);
-                string displayName;
-                // 统一的显示名（修复 Replace 不生效：创建与刷新都使用 displayName）
-                if (cfg.DisplayName=="无")
-                {
-                     displayName = cfg.Name.Replace("故障信号显示", " ").Trim();
-                }
-                else
-                {
-                    displayName = cfg.DisplayName;
-                }
-            
+                seenThisTick.Add(key);
+                string displayName = string.IsNullOrEmpty(shortName) ? key : shortName;
+              
 
                 if (isFault)
                 {
-                    if (!_activeItems.ContainsKey(cfg.Name))
+                    if (!_activeItems.ContainsKey(key))
                     {
                         var go = Instantiate(ChoosePrefab(), content);
-                        go.name = cfg.Name;
+                        go.name = key;
                         go.SetActive(true);
                         SetFirstChildText(go, displayName);
-                        _activeItems[cfg.Name] = go;
-                        _order.Add(cfg.Name); // 记录顺序
+                        _activeItems[key] = go;
+                        _order.Add(key); // 记录顺序
                     }
                     else
                     {
                         // 已存在：更新文本，保持和创建时一致的展示规则
-                        SetFirstChildText(_activeItems[cfg.Name], displayName);
+                        SetFirstChildText(_activeItems[key], displayName);
                     }
                 }
                 else
                 {
                     // 故障恢复：销毁并移除
-                    if (_activeItems.TryGetValue(cfg.Name, out var go) && go != null)
+                    if (_activeItems.TryGetValue(key, out var go) && go != null)
                     {
                         Destroy(go);
                     }
-                    if (_activeItems.Remove(cfg.Name))
+                    if (_activeItems.Remove(key))
                     {
-                        _order.Remove(cfg.Name);
+                        _order.Remove(key);
                     }
                 }
             }

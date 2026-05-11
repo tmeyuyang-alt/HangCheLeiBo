@@ -8,6 +8,8 @@ public class TaskItem : MonoBehaviour
 {
     
     public PLCConfigManager plcConfigManager;
+
+    public int myIndex;
     
     public string DeviceName;
     //下料仓号
@@ -36,15 +38,18 @@ public class TaskItem : MonoBehaviour
     {
         BuildKey();
         
-        InvokeRepeating("UpdateUI",1,1);
+        InvokeRepeating("UpdateUI",0.1f,0.1f);
+        //isSelect.onValueChanged.AddListener(BeenSelected);
     }
+
+   
 
     public void BuildKey()
     {
-        XiaLiaoCangNameKey = "任务" + DeviceName + "放料仓号";
-        ZhuaLiaoCangNameKey =  "任务" + DeviceName + "取料仓号";
+        XiaLiaoCangNameKey = "排队中" + DeviceName + "放料仓号";
+        ZhuaLiaoCangNameKey =  "排队中" + DeviceName + "取料仓号";
         
-        ZhuaDouNumKey=  "任务" + DeviceName + "抓料斗数";
+        ZhuaDouNumKey=  "排队中" + DeviceName + "抓料斗数";
         // XiaLiaoXKey = "任务" + DeviceName + "放料位X";
         // XiaLiaoYKey = "任务" + DeviceName + "放料位Y";
         // XiaLiaoZKey = "任务" + DeviceName + "放料位Z";
@@ -53,9 +58,9 @@ public class TaskItem : MonoBehaviour
         // ZhuaLiaoZKey = "任务" + DeviceName + "取料位Z";
         
         
-        MoveUpKey = "任务" + DeviceName + "前移";
-        MoveDownKey = "任务" + DeviceName + "后移";
-        DeleteKey = "任务" + DeviceName + "删除";
+        MoveUpKey = "排队中" + DeviceName + "前移";
+        MoveDownKey = "排队中" + DeviceName + "后移";
+        DeleteKey = "排队中" + DeviceName + "删除";
     }
 
     private void Update()
@@ -92,35 +97,15 @@ public class TaskItem : MonoBehaviour
                 XiaLiaoNameInfo.text = "--";
                 break;
             case 1:
-                XiaLiaoNameInfo.text = "1号磷矿";
+                XiaLiaoNameInfo.text = "1";
                 break;
             case 2:
-                XiaLiaoNameInfo.text = "2号硅石";
+                XiaLiaoNameInfo.text = "2";
                 break;
             case 3:
-                XiaLiaoNameInfo.text = "3号白煤";
+                XiaLiaoNameInfo.text = "3";
                 break;
-            case 4:
-                XiaLiaoNameInfo.text = "4号球/磷矿";
-                break;
-            case 5:
-                XiaLiaoNameInfo.text = "5号仓";
-                break;
-            case 6:
-                XiaLiaoNameInfo.text = "6号磷矿";
-                break;
-            case 7:
-                XiaLiaoNameInfo.text = "7号硅石";
-                break;
-            case 8:
-                XiaLiaoNameInfo.text = "8号白煤";
-                break;
-             case 9:
-                XiaLiaoNameInfo.text = "9号球/磷矿";
-                break;
-              case 10:
-                XiaLiaoNameInfo.text = "10号仓";
-                break;
+           
         }
         switch (plcConfigManager.GetIntValue(ZhuaLiaoCangNameKey))
         {
@@ -128,74 +113,63 @@ public class TaskItem : MonoBehaviour
                ZhuaLiaoNameInfo.text = "--";
                 break;
             case 1:
-                ZhuaLiaoNameInfo.text = "1白煤";
+                ZhuaLiaoNameInfo.text = "1";
                 break;
             case 2:
-                ZhuaLiaoNameInfo.text = "2硅石";
+                ZhuaLiaoNameInfo.text = "2";
                 break;
             case 3:
-                ZhuaLiaoNameInfo.text = "3硅石";
+                ZhuaLiaoNameInfo.text = "3";
                 break;
             case 4:
-                ZhuaLiaoNameInfo.text = "4磷矿";
+                ZhuaLiaoNameInfo.text = "4";
                 break;
             case 5:
-                ZhuaLiaoNameInfo.text = "5磷矿";
+                ZhuaLiaoNameInfo.text = "5";
                 break;
             case 6:
-                ZhuaLiaoNameInfo.text = "6磷矿";
+                ZhuaLiaoNameInfo.text = "6";
                 break;
+            case 7:
+                ZhuaLiaoNameInfo.text = "7";
+                break;
+            case 8:
+                ZhuaLiaoNameInfo.text = "8";
+                break;
+            case 9:
+                ZhuaLiaoNameInfo.text = "9";
+                break;
+            case 10:
+                ZhuaLiaoNameInfo.text = "10";
+                break;
+            case 11:
+                ZhuaLiaoNameInfo.text = "11";
+                break;
+            case 12:
+                ZhuaLiaoNameInfo.text = "12";
+                break;
+            
         }
 
         ZhuaDouNumInfo.text = plcConfigManager.GetIntValue(ZhuaDouNumKey).ToString();
 
-
-
-
-
-        // if (XiaLiaoXInfo!=null)
-        // {
-        //     XiaLiaoXInfo.text = plcConfigManager.GetFloatValue(XiaLiaoXKey).ToString("F1");
-        // }
-        // if (XiaLiaoYInfo!=null)
-        // {
-        //     XiaLiaoYInfo.text = plcConfigManager.GetFloatValue(XiaLiaoYKey).ToString("F1");
-        // }
-        // if (XiaLiaoZInfo!=null)
-        // {
-        //     XiaLiaoZInfo.text = plcConfigManager.GetFloatValue(XiaLiaoZKey).ToString("F1");
-        // }
-        //
-        //
-        // if (ZhuaLiaoXInfo!=null)
-        // {
-        //     ZhuaLiaoXInfo.text = plcConfigManager.GetFloatValue(ZhuaLiaoXKey).ToString("F1");
-        // }
-        // if (ZhuaLiaoYInfo!=null)
-        // {
-        //     ZhuaLiaoYInfo.text = plcConfigManager.GetFloatValue(ZhuaLiaoYKey).ToString("F1");
-        // }
-        // if (ZhuaLiaoZInfo!=null)
-        // {
-        //     ZhuaLiaoZInfo.text = plcConfigManager.GetFloatValue(ZhuaLiaoZKey).ToString("F1");
-        // }
-
     }
     public void MoveUp()
     {
-        plcConfigManager.SetValue(MoveUpKey, true);
-        isSelect.isOn = false;
+        plcConfigManager.SetPulseBool(MoveUpKey, true);
+        
+        TaskListManager.Instance.MoveUp(Convert.ToInt32(gameObject.name));
     }
 
     public void MoveDown()
     {
-        plcConfigManager.SetValue(MoveDownKey, true);
-        isSelect.isOn = false;
+        plcConfigManager.SetPulseBool(MoveDownKey, true);
+        TaskListManager.Instance.MoveDown(Convert.ToInt32(gameObject.name));
     }
 
     public void Delete()
     {
-        plcConfigManager.SetValue(DeleteKey, true);
+        plcConfigManager.SetPulseBool(DeleteKey, true);
         isSelect.isOn = false;
     }
     

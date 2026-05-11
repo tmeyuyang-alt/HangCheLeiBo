@@ -11,10 +11,10 @@ using System.IO;
 using System.Threading.Tasks;
 
 public class PLCConfigManager : MonoBehaviour
-{
-    //public static PLCConfigManager Instance;
+{ 
+    public static PLCConfigManager Instance;
 
-    public string configName = "plc2.config";
+    //public string configName = "plc2.config";
     public string deviceSignalJsonName = "DeviceSignalConfigs.json";
     public int defaultPort = 102;
     public short defaultRack = 0;
@@ -68,42 +68,42 @@ public class PLCConfigManager : MonoBehaviour
         public byte[] data;
     }
     [ContextMenu("Write")]
-    public void WriteConfig()
-    {
-        string excelPath = Application.streamingAssetsPath + "/config.xlsx";
-        string configPath = Application.streamingAssetsPath + "/"+configName;
-        FileInfo fileInfo = new FileInfo(excelPath);
-        plcConfigsTmp = new Dictionary<string, PLCConfig>();
-        using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
-        {
-          
-            ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets[1];
-            for (int i = 2; i < workSheet.Dimension.End.Row+1; i++)// 寰幆璇诲彇绗?-3琛屾暟鎹?
-            {
-                string key=workSheet.Cells[i, 1].Value.ToString()+ workSheet.Cells[i, 2].Value.ToString();
-                plcConfigsTmp.Add(key, new PLCConfig { IPAddress = "192.168.10.55", Port = 102,Slot=1, DataBlock = workSheet.Cells[i, 3].Value.ToString(), DataType = workSheet.Cells[i, 4].Value.ToString(),ShortName =workSheet.Cells[i, 7].Value.ToString() });
-                DataUtil.Serializer<Dictionary<string, PLCConfig>>(configPath, plcConfigsTmp);
-
-            }
-
-        }
-    }
+    // public void WriteConfig()
+    // {
+    //     string excelPath = Application.streamingAssetsPath + "/config.xlsx";
+    //     //string configPath = Application.streamingAssetsPath + "/"+configName;
+    //     FileInfo fileInfo = new FileInfo(excelPath);
+    //     plcConfigsTmp = new Dictionary<string, PLCConfig>();
+    //     using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+    //     {
+    //       
+    //         ExcelWorksheet workSheet = excelPackage.Workbook.Worksheets[1];
+    //         for (int i = 2; i < workSheet.Dimension.End.Row+1; i++)// 寰幆璇诲彇绗?-3琛屾暟鎹?
+    //         {
+    //             string key=workSheet.Cells[i, 1].Value.ToString()+ workSheet.Cells[i, 2].Value.ToString();
+    //             plcConfigsTmp.Add(key, new PLCConfig { IPAddress = "192.168.10.55", Port = 102,Slot=1, DataBlock = workSheet.Cells[i, 3].Value.ToString(), DataType = workSheet.Cells[i, 4].Value.ToString(),ShortName =workSheet.Cells[i, 7].Value.ToString() });
+    //             DataUtil.Serializer<Dictionary<string, PLCConfig>>(configPath, plcConfigsTmp);
+    //
+    //         }
+    //
+    //     }
+    // }
     private void Awake()
     {
-        //Instance = this;
-
-        if (!TryLoadConfigsFromJson())
-        {
-            string path = Application.streamingAssetsPath + "/" + configName;
-            if (File.Exists(path))
-            {
-                plcConfigs = DataUtil.Deserializer<Dictionary<string, PLCConfig>>(path);
-            }
-            else
-            {
-                plcConfigs = new Dictionary<string, PLCConfig>();
-            }
-        }
+        Instance = this;
+        TryLoadConfigsFromJson();
+        // if (!TryLoadConfigsFromJson())
+        // {
+        //     string path = Application.streamingAssetsPath + "/" + configName;
+        //     if (File.Exists(path))
+        //     {
+        //         plcConfigs = DataUtil.Deserializer<Dictionary<string, PLCConfig>>(path);
+        //     }
+        //     else
+        //     {
+        //         plcConfigs = new Dictionary<string, PLCConfig>();
+        //     }
+        // }
 
         InitializeRuntimeState();
 
@@ -402,6 +402,54 @@ public class PLCConfigManager : MonoBehaviour
         }
         return null;
     }
+
+    public  void SetBool(string key, object value)
+    { 
+        string connectKey = string.Empty;
+
+        if (plcConfigs.ContainsKey(key))
+        {
+            connectKey = GetConfigConnectKey(plcConfigs[key]);
+
+        }
+        var plcConnect = GetPLCConnect(connectKey);
+
+       
+        plcConnect.Write(plcConfigs[key].DataBlock,value,key+"设置值为："+value);
+        
+    }
+
+    public async  void SetPulseBool(string key,object value)
+    {
+        print(key);
+        string connectKey = string.Empty;
+
+        if (plcConfigs.ContainsKey(key))
+        {
+            connectKey = GetConfigConnectKey(plcConfigs[key]);
+
+        }
+        var plcConnect = GetPLCConnect(connectKey);
+
+        // if (plcConnect != null)
+        // {
+        //     if (!TryConnect(plcConnect)) return;
+        // }
+        // else
+        // {
+        //     Debug.LogError("PLC鑾峰彇澶辫触锛?);
+        //     return;
+        // }
+        plcConnect.Write(plcConfigs[key].DataBlock,value,key+"设置值为："+value);
+
+        await Task.Delay(500);
+         
+        if (value is bool)
+        {
+            value = false;
+            plcConnect.Write(plcConfigs[key].DataBlock,value,(GetShortName(key)+"设置值为："+value));
+        }
+    }
     public async void SetValue(string key,object value)
     {
         print(key);
@@ -427,11 +475,11 @@ public class PLCConfigManager : MonoBehaviour
 
          await Task.Delay(500);
          
-         if (value is bool)
-         {
-             value = false;
-             //plcConnect.Write(plcConfigs[key].DataBlock,value,(GetShortName(key)+"设置值为："+value));
-         }
+         // if (value is bool)
+         // {
+         //     value = false;
+         //     plcConnect.Write(plcConfigs[key].DataBlock,value,(GetShortName(key)+"设置值为："+value));
+         // }
 
          PopCtrl.Instance.ShowPop(GetShortName(key) + "设定成功");
          
