@@ -1,0 +1,2784 @@
+﻿{
+    "sharedIpAddress": "192.168.10.10",
+    "devices": [
+        {
+            "deviceName": "DeviceSignalConfig",
+            "points": []
+        },
+        {
+            "deviceName": "任务",
+            "points": [
+                {
+                    "displayName": "任务总数量",
+                    "dataType": 1,
+                    "address": "DB4.DBW0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "完成标志",
+                    "dataType": 0,
+                    "address": "DB4.DBX4.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "任务终止",
+                    "dataType": 0,
+                    "address": "DB4.DBX4.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "初始化启动",
+                    "dataType": 0,
+                    "address": "DB4.DBX4.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "自动创建",
+                    "dataType": 0,
+                    "address": "DB4.DBX4.3",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "缺料插队",
+                    "dataType": 0,
+                    "address": "DB4.DBX4.4",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "全图刷新",
+                    "dataType": 0,
+                    "address": "DB4.DBX4.5",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "全局按钮",
+            "points": [
+                {
+                    "displayName": "手动模式",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "自动模式",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "速度模式",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "全局点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "全局高速",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.4",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "故障复位",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.5",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "故障确认",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.6",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "急停点按",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.7",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "远程反馈",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "手动同步升",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "手动同步降",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "自动启动",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "自动停止",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.4",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "一键开盖",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.5",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "一键关盖",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.6",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "大车",
+            "points": [
+                {
+                    "displayName": "东",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "西",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车变频频率",
+                    "dataType": 2,
+                    "address": "DB2.DBD44",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "大车变频电流",
+                    "dataType": 2,
+                    "address": "DB2.DBD48",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "大车当前位置",
+                    "dataType": 2,
+                    "address": "DB2.DBD92",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "大车故障",
+            "points": [
+                {
+                    "displayName": "大车总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车变频器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车电机风扇热过载1",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车电机风扇热过载2",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车抱闸热过载1",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车抱闸热过载2",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车东极限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.6",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车西极限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX8.7",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车闭环故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX9.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车东软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX9.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车西软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX9.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车中控急停",
+                    "dataType": 0,
+                    "address": "DB3.DBX10.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车遥控器急停",
+                    "dataType": 0,
+                    "address": "DB3.DBX10.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车电阻箱1温度高",
+                    "dataType": 0,
+                    "address": "DB3.DBX10.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "小车",
+            "points": [
+                {
+                    "displayName": "南",
+                    "dataType": 0,
+                    "address": "DB1.DBX8.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "北",
+                    "dataType": 0,
+                    "address": "DB1.DBX8.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX8.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车变频频率",
+                    "dataType": 2,
+                    "address": "DB2.DBD36",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "小车变频电流",
+                    "dataType": 2,
+                    "address": "DB2.DBD40",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "小车当前位置",
+                    "dataType": 2,
+                    "address": "DB2.DBD96",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX8.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "小车故障",
+            "points": [
+                {
+                    "displayName": "小车总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车变频器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车电机风扇热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车抱闸热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车南极限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车北极限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车闭环故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.6",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车南软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX6.7",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车北软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX7.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "执行中",
+            "points": [
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBD8",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBD12",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "已抓斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBD258",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "剩余斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBD262",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "抓手",
+            "points": [
+                {
+                    "displayName": "抓",
+                    "dataType": 0,
+                    "address": "DB1.DBX4.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放",
+                    "dataType": 0,
+                    "address": "DB1.DBX4.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX4.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓斗变频频率",
+                    "dataType": 2,
+                    "address": "DB2.DBD28",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "抓斗变频电流",
+                    "dataType": 2,
+                    "address": "DB2.DBD32",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "抓斗当前开度",
+                    "dataType": 2,
+                    "address": "DB2.DBD104",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX4.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "抓斗故障",
+            "points": [
+                {
+                    "displayName": "抓斗总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓斗变频器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓斗电机风扇热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓斗抱闸热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓斗闭环故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓斗开软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓斗闭软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.6",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中1",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX20.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX20.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX20.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW22",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW26",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW30",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中10",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX146.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX146.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX146.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW148",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW152",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW156",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中11",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX160.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX160.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX160.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW162",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW166",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW170",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中12",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX174.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX174.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX174.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW176",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW180",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW184",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中13",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX188.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX188.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX188.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW190",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW194",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW198",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中14",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX202.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX202.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX202.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW204",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW208",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW212",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中15",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX216.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX216.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX216.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW218",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW222",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW226",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中16",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX230.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX230.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX230.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW232",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW236",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW240",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中2",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX34.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX34.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX34.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW36",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW40",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW44",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中3",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX48.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX48.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX48.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW50",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW54",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW58",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中4",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX62.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX62.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX62.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW64",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW68",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW72",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中5",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX76.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX76.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX76.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW78",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW82",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW86",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中6",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX90.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX90.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX90.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW92",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW96",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW100",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中7",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX104.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX104.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX104.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW106",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW110",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW114",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中8",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX118.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX118.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX118.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW120",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW124",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW128",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "排队中9",
+            "points": [
+                {
+                    "displayName": "删除",
+                    "dataType": 0,
+                    "address": "DB4.DBX132.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "前移",
+                    "dataType": 0,
+                    "address": "DB4.DBX132.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "后移",
+                    "dataType": 0,
+                    "address": "DB4.DBX132.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW134",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW138",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW142",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "提升",
+            "points": [
+                {
+                    "displayName": "升",
+                    "dataType": 0,
+                    "address": "DB1.DBX2.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "降",
+                    "dataType": 0,
+                    "address": "DB1.DBX2.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX2.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升变频频率",
+                    "dataType": 2,
+                    "address": "DB2.DBD20",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "提升变频电流",
+                    "dataType": 2,
+                    "address": "DB2.DBD24",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "抓斗当前高度",
+                    "dataType": 2,
+                    "address": "DB2.DBD100",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX2.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "提升故障",
+            "points": [
+                {
+                    "displayName": "提升总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升变频器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升电机风扇热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升抱闸热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升上极限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升上软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升闭环故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.6",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "提升下软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX2.7",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "新增",
+            "points": [
+                {
+                    "displayName": "放料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW244",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "取料仓号",
+                    "dataType": 1,
+                    "address": "DB4.DBW248",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "抓料斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW252",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "确认新增",
+                    "dataType": 0,
+                    "address": "DB4.DBX256.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "已抓斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW258",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "剩余斗数",
+                    "dataType": 1,
+                    "address": "DB4.DBW262",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "电阻温度设置",
+            "points": [
+                {
+                    "displayName": "制动电阻箱温度上限",
+                    "dataType": 2,
+                    "address": "DB1.DBD12",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "制动电阻箱温度下限",
+                    "dataType": 2,
+                    "address": "DB1.DBD16",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "制动电阻箱温度报警",
+                    "dataType": 2,
+                    "address": "DB1.DBD20",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板1",
+            "points": [
+                {
+                    "displayName": "开",
+                    "dataType": 0,
+                    "address": "DB1.DBX56.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "关",
+                    "dataType": 0,
+                    "address": "DB1.DBX56.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX56.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板开到位1",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板关到位1",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.6",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板开1",
+                    "dataType": 1,
+                    "address": "DB1.DBW68",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板关1",
+                    "dataType": 1,
+                    "address": "DB1.DBW92",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX56.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板1故障",
+            "points": [
+                {
+                    "displayName": "盖板1总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX12.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板1热过载报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX12.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板1开启失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX12.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板1关闭失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX12.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板1自动开启报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX12.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板1自动关闭报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX12.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板2",
+            "points": [
+                {
+                    "displayName": "开",
+                    "dataType": 0,
+                    "address": "DB1.DBX58.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "关",
+                    "dataType": 0,
+                    "address": "DB1.DBX58.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX58.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板开到位2",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板关到位2",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.7",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板开2",
+                    "dataType": 1,
+                    "address": "DB1.DBW72",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板关2",
+                    "dataType": 1,
+                    "address": "DB1.DBW96",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX58.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板2故障",
+            "points": [
+                {
+                    "displayName": "盖板2总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板2热过载报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板2开启失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板2关闭失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板2自动开启报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板2自动关闭报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板3",
+            "points": [
+                {
+                    "displayName": "开",
+                    "dataType": 0,
+                    "address": "DB1.DBX60.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "关",
+                    "dataType": 0,
+                    "address": "DB1.DBX60.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX60.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板开到位3",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板关到位3",
+                    "dataType": 0,
+                    "address": "DB1.DBX121.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板开3",
+                    "dataType": 1,
+                    "address": "DB1.DBW76",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板关3",
+                    "dataType": 1,
+                    "address": "DB1.DBW100",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX60.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板3故障",
+            "points": [
+                {
+                    "displayName": "盖板3总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板3热过载报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板3开启失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板3关闭失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板3自动开启报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板3自动关闭报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板4",
+            "points": [
+                {
+                    "displayName": "开",
+                    "dataType": 0,
+                    "address": "DB1.DBX62.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "关",
+                    "dataType": 0,
+                    "address": "DB1.DBX62.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX62.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板开到位4",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板关到位4",
+                    "dataType": 0,
+                    "address": "DB1.DBX121.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板开4",
+                    "dataType": 1,
+                    "address": "DB1.DBW80",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板关4",
+                    "dataType": 1,
+                    "address": "DB1.DBW104",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX62.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板4故障",
+            "points": [
+                {
+                    "displayName": "盖板4总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX18.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板4热过载报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX18.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板4开启失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX18.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板4关闭失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX18.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板4自动开启报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX18.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板4自动关闭报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX18.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板5",
+            "points": [
+                {
+                    "displayName": "开",
+                    "dataType": 0,
+                    "address": "DB1.DBX64.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "关",
+                    "dataType": 0,
+                    "address": "DB1.DBX64.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX64.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板开到位5",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板关到位5",
+                    "dataType": 0,
+                    "address": "DB1.DBX121.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板开5",
+                    "dataType": 1,
+                    "address": "DB1.DBW84",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板关5",
+                    "dataType": 1,
+                    "address": "DB1.DBW108",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX64.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板5故障",
+            "points": [
+                {
+                    "displayName": "盖板5总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX20.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板5热过载报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX20.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板5开启失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX20.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板5关闭失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX20.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板5自动开启报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX20.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板5自动关闭报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX20.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板6",
+            "points": [
+                {
+                    "displayName": "开",
+                    "dataType": 0,
+                    "address": "DB1.DBX66.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "关",
+                    "dataType": 0,
+                    "address": "DB1.DBX66.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX66.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板开到位6",
+                    "dataType": 0,
+                    "address": "DB1.DBX120.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板关到位6",
+                    "dataType": 0,
+                    "address": "DB1.DBX121.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "盖板开6",
+                    "dataType": 1,
+                    "address": "DB1.DBW88",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板关6",
+                    "dataType": 1,
+                    "address": "DB1.DBW112",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX66.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "盖板6故障",
+            "points": [
+                {
+                    "displayName": "盖板6总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX22.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板6热过载报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX22.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板6开启失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX22.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板6关闭失败报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX22.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板6自动开启报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX22.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "盖板6自动关闭报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX22.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "高速使能",
+            "points": [
+                {
+                    "displayName": "提升",
+                    "dataType": 0,
+                    "address": "DB1.DBX10.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "抓斗",
+                    "dataType": 0,
+                    "address": "DB1.DBX10.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "小车",
+                    "dataType": 0,
+                    "address": "DB1.DBX10.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "大车",
+                    "dataType": 0,
+                    "address": "DB1.DBX10.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                }
+            ]
+        }
+    ]
+}

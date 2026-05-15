@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GaiBanCtrl : MonoBehaviour
 {
@@ -8,6 +11,9 @@ public class GaiBanCtrl : MonoBehaviour
 
     public string openKey;
     public string closeKey;
+    
+    public Button openButton;
+    //public Button closeButton;
 
     public string openStateKey;
     public string closeStateKey;
@@ -18,26 +24,25 @@ public class GaiBanCtrl : MonoBehaviour
     public int index;
     public bool tmpOpen;
     public bool tmpClose;
+
+    public float OpenArg=-180f;
+    public float CloseArg=-90f;
+    
+    bool isOpen=false;
     
     [Tooltip("盖板开合动画时间（秒）")]
     public float animationTime = 1f;
 
-    private Coroutine _rotateCoroutine;
-    [ContextMenu("Open")]
-    public void Open()
-    {
-        RotateTo(0f);
-    }
-
-    [ContextMenu("Close")]
-    public void Close()
-    {
-        RotateTo(-90f);
-    }
-    
-
+    private Tween _rotateTween;
+    private float _rotateTargetX;
+    private bool _hasRotateTarget;
+   
     private void Start()
     {
+        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
+        openButton.onClick.AddListener(SendOpenCmd);
+        //closeButton.onClick.AddListener(SendCloseCmd);
+        
         openKey=gameObject.name+"开";
         closeKey = gameObject.name + "关";
 
@@ -51,14 +56,47 @@ public class GaiBanCtrl : MonoBehaviour
     {
         
     }
+    [ContextMenu("Open")]
+    public void Open()
+    {
+        RotateTo(OpenArg);
+        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
+        //closeButton.gameObject.SetActive(true);
+        //openButton.gameObject.SetActive(false);
+    }
+
+    [ContextMenu("Close")]
+    public void Close()
+    {
+        RotateTo(CloseArg);
+        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"开";
+        //closeButton.gameObject.SetActive(false);
+        //openButton.gameObject.SetActive(true);
+    }
+
+
+    public void SendOpenCmd()
+    {
+        if (lastOpenState)
+        {
+            PLCConfigManager.Instance.SetPulseBool(closeKey,true);
+        }
+
+        if (lastCloseState)
+        {
+            PLCConfigManager.Instance.SetPulseBool(openKey,true);
+            
+        }
+       
+    }
+    public void SendCloseCmd()
+    {
+       
+    }
 
     private void OnDisable()
     {
-        if (_rotateCoroutine != null)
-        {
-            StopCoroutine(_rotateCoroutine);
-            _rotateCoroutine = null;
-        }
+        KillRotateTween();
     }
 
     public void UpdateState()
@@ -94,6 +132,7 @@ public class GaiBanCtrl : MonoBehaviour
         }
         lastOpenState=tmpOpen;
         lastCloseState=tmpClose;
+       
      
     }
 
@@ -104,12 +143,32 @@ public class GaiBanCtrl : MonoBehaviour
             return;
         }
 
-        if (_rotateCoroutine != null)
+        if (_rotateTween != null && _rotateTween.IsActive() && _rotateTween.IsPlaying() &&
+            _hasRotateTarget && Mathf.Abs(Mathf.DeltaAngle(_rotateTargetX, targetX)) < 0.01f)
         {
-            StopCoroutine(_rotateCoroutine);
+            return;
         }
 
-        _rotateCoroutine = StartCoroutine(RotateXCoroutine(targetX));
+        float currentX = NormalizeAngle(transform.localEulerAngles.x);
+        if (Mathf.Abs(Mathf.DeltaAngle(currentX, targetX)) < 0.01f)
+        {
+            KillRotateTween();
+            return;
+        }
+
+        KillRotateTween();
+
+        _rotateTargetX = targetX;
+        _hasRotateTarget = true;
+        Vector3 targetEuler = new Vector3(targetX, transform.localEulerAngles.y, transform.localEulerAngles.z);
+        _rotateTween = transform
+            .DOLocalRotate(targetEuler, Mathf.Max(0.0001f, animationTime), RotateMode.Fast)
+            .SetEase(Ease.Linear)
+            .OnKill(() =>
+            {
+                _rotateTween = null;
+                _hasRotateTarget = false;
+            });
     }
 
     private bool CanRunCoroutine()
@@ -117,23 +176,24 @@ public class GaiBanCtrl : MonoBehaviour
         return isActiveAndEnabled && gameObject.activeInHierarchy;
     }
 
-    private IEnumerator RotateXCoroutine(float targetX)
+    private void KillRotateTween()
     {
-        
-        float duration = Mathf.Max(0.0001f, animationTime);
-        float elapsed = 0f;
-        Quaternion startRotation = transform.localRotation;
-        Quaternion targetRotation = Quaternion.Euler(targetX, transform.localEulerAngles.y, transform.localEulerAngles.z);
-
-        while (elapsed < duration)
+        if (_rotateTween != null)
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-            transform.localRotation = Quaternion.Lerp(startRotation, targetRotation, t);
-            yield return null;
+            _rotateTween.Kill();
+            _rotateTween = null;
         }
 
-        transform.localRotation = targetRotation;
-        _rotateCoroutine = null;
+        _hasRotateTarget = false;
+    }
+
+    private float NormalizeAngle(float angle)
+    {
+        angle %= 360f;
+        if (angle > 180f)
+        {
+            angle -= 360f;
+        }
+        return angle;
     }
 }

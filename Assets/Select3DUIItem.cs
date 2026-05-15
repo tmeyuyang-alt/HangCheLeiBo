@@ -10,14 +10,42 @@ public class Select3DUIItem : MonoBehaviour
     // Start is called before the first frame update
     public string myName;
     public Color selectedColor;
+    public Color currentColor;
     private Color defaultColor;
     
+    public string keyName;
+    private string currKeyName;
+    
     bool isSelected = false;
+
+    private void Update()
+    {
+      //  transform.LookAt(Camera.main.transform);
+    }
+
+
+    public void SetSelected()
+    {
+        GetComponent<Image>().color = selectedColor;
+            //print(gameObject.name+" set");
+    }
+
+    public void SetCurrent()
+    {
+        GetComponent<Image>().color = currentColor;
+    }
+
+    public void SetDefault()
+    {
+        GetComponent<Image>().color = defaultColor;
+    }
+    
     void Start()
     {
         ChangeName();
         defaultColor = gameObject.GetComponent<Image>().color;
         GetComponent<Button>().onClick.AddListener(BeenSelected);
+      
     }
 
     public void BeenSelected()
@@ -26,14 +54,6 @@ public class Select3DUIItem : MonoBehaviour
        
        TaskListManager.Instance.addTaskPanel.OnOpen((Convert.ToInt32(myName)));
        
-       // if (isSelected)
-       // {
-       //     GetComponent<Image>().color = selectedColor;
-       // }
-       // else
-       // {
-       //     GetComponent<Image>().color =defaultColor;
-       // }
     }
    
     [ContextMenu("C")]
@@ -41,7 +61,6 @@ public class Select3DUIItem : MonoBehaviour
     {
         myName =transform.name;
         transform.GetChild(0).GetComponent<TextMeshProUGUI>().text=myName;
-        
     }
     
 }

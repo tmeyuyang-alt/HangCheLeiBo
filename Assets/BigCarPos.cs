@@ -15,11 +15,17 @@ public class BigCarPos : MonoBehaviour
     public float smoothTime = 0.15f;
 
     public float curr;
+    public bool isNegative=false;
 
     public void Update()
     {
         curr = PLCConfigManager.Instance.GetFloatValue(carKey);
         float tmp = (curr / maxCarPos) * maxLimit;
+
+        if (isNegative)
+        {
+            tmp = -tmp;
+        }
         Vector3 targetPos = new Vector3(transform.localPosition.x, tmp, transform.localPosition.z);
         float t = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(0.0001f, smoothTime));
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, t);

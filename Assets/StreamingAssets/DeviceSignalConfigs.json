@@ -290,7 +290,7 @@
                     "address": "DB3.DBX8.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -299,7 +299,7 @@
                     "address": "DB3.DBX8.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 2,
                     "isHistoryData": false
                 },
                 {
@@ -308,7 +308,7 @@
                     "address": "DB3.DBX8.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -317,7 +317,7 @@
                     "address": "DB3.DBX8.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -326,7 +326,7 @@
                     "address": "DB3.DBX8.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -335,7 +335,7 @@
                     "address": "DB3.DBX8.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -344,7 +344,7 @@
                     "address": "DB3.DBX8.6",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -353,7 +353,7 @@
                     "address": "DB3.DBX8.7",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -362,7 +362,7 @@
                     "address": "DB3.DBX9.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -371,7 +371,7 @@
                     "address": "DB3.DBX9.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -380,7 +380,7 @@
                     "address": "DB3.DBX9.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -389,7 +389,7 @@
                     "address": "DB3.DBX10.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -398,7 +398,7 @@
                     "address": "DB3.DBX10.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -407,7 +407,7 @@
                     "address": "DB3.DBX10.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 }
             ]
@@ -489,7 +489,7 @@
                     "address": "DB3.DBX6.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -498,7 +498,7 @@
                     "address": "DB3.DBX6.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -507,7 +507,7 @@
                     "address": "DB3.DBX6.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -516,7 +516,7 @@
                     "address": "DB3.DBX6.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -525,7 +525,7 @@
                     "address": "DB3.DBX6.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -534,7 +534,7 @@
                     "address": "DB3.DBX6.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 2,
                     "isHistoryData": false
                 },
                 {
@@ -543,7 +543,7 @@
                     "address": "DB3.DBX6.6",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -552,7 +552,7 @@
                     "address": "DB3.DBX6.7",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -561,7 +561,7 @@
                     "address": "DB3.DBX7.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 }
             ]
@@ -684,7 +684,7 @@
                     "address": "DB3.DBX4.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -693,7 +693,7 @@
                     "address": "DB3.DBX4.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -702,7 +702,7 @@
                     "address": "DB3.DBX4.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -711,7 +711,7 @@
                     "address": "DB3.DBX4.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -720,7 +720,7 @@
                     "address": "DB3.DBX4.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -729,7 +729,7 @@
                     "address": "DB3.DBX4.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -738,7 +738,7 @@
                     "address": "DB3.DBX4.6",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 }
             ]
@@ -1764,7 +1764,7 @@
                     "address": "DB3.DBX2.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -1773,7 +1773,7 @@
                     "address": "DB3.DBX2.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -1782,7 +1782,7 @@
                     "address": "DB3.DBX2.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -1791,7 +1791,7 @@
                     "address": "DB3.DBX2.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -1800,7 +1800,7 @@
                     "address": "DB3.DBX2.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -1809,7 +1809,7 @@
                     "address": "DB3.DBX2.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -1818,7 +1818,7 @@
                     "address": "DB3.DBX2.6",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 },
                 {
@@ -1827,7 +1827,7 @@
                     "address": "DB3.DBX2.7",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
+                    "alarmLevel": 1,
                     "isHistoryData": false
                 }
             ]
@@ -1960,7 +1960,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板关到位1",
@@ -1969,7 +1969,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板开1",
@@ -2009,8 +2009,8 @@
                     "address": "DB3.DBX12.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板1热过载报警",
@@ -2018,8 +2018,8 @@
                     "address": "DB3.DBX12.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板1开启失败报警",
@@ -2027,8 +2027,8 @@
                     "address": "DB3.DBX12.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板1关闭失败报警",
@@ -2036,8 +2036,8 @@
                     "address": "DB3.DBX12.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板1自动开启报警",
@@ -2045,8 +2045,8 @@
                     "address": "DB3.DBX12.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板1自动关闭报警",
@@ -2054,8 +2054,8 @@
                     "address": "DB3.DBX12.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 }
             ]
         },
@@ -2096,7 +2096,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板关到位2",
@@ -2105,7 +2105,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板开2",
@@ -2145,8 +2145,8 @@
                     "address": "DB3.DBX14.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板2热过载报警",
@@ -2154,8 +2154,8 @@
                     "address": "DB3.DBX14.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板2开启失败报警",
@@ -2163,8 +2163,8 @@
                     "address": "DB3.DBX14.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板2关闭失败报警",
@@ -2172,8 +2172,8 @@
                     "address": "DB3.DBX14.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板2自动开启报警",
@@ -2181,8 +2181,8 @@
                     "address": "DB3.DBX14.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板2自动关闭报警",
@@ -2190,8 +2190,8 @@
                     "address": "DB3.DBX14.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 }
             ]
         },
@@ -2232,7 +2232,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板关到位3",
@@ -2241,7 +2241,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板开3",
@@ -2281,8 +2281,8 @@
                     "address": "DB3.DBX16.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板3热过载报警",
@@ -2290,8 +2290,8 @@
                     "address": "DB3.DBX16.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板3开启失败报警",
@@ -2299,8 +2299,8 @@
                     "address": "DB3.DBX16.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板3关闭失败报警",
@@ -2308,8 +2308,8 @@
                     "address": "DB3.DBX16.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板3自动开启报警",
@@ -2317,8 +2317,8 @@
                     "address": "DB3.DBX16.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板3自动关闭报警",
@@ -2326,8 +2326,8 @@
                     "address": "DB3.DBX16.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 }
             ]
         },
@@ -2368,7 +2368,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板关到位4",
@@ -2377,7 +2377,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板开4",
@@ -2417,8 +2417,8 @@
                     "address": "DB3.DBX18.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板4热过载报警",
@@ -2426,8 +2426,8 @@
                     "address": "DB3.DBX18.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板4开启失败报警",
@@ -2435,8 +2435,8 @@
                     "address": "DB3.DBX18.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板4关闭失败报警",
@@ -2444,8 +2444,8 @@
                     "address": "DB3.DBX18.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板4自动开启报警",
@@ -2453,8 +2453,8 @@
                     "address": "DB3.DBX18.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板4自动关闭报警",
@@ -2462,8 +2462,8 @@
                     "address": "DB3.DBX18.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 }
             ]
         },
@@ -2504,7 +2504,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板关到位5",
@@ -2513,7 +2513,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板开5",
@@ -2553,8 +2553,8 @@
                     "address": "DB3.DBX20.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板5热过载报警",
@@ -2562,8 +2562,8 @@
                     "address": "DB3.DBX20.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板5开启失败报警",
@@ -2571,8 +2571,8 @@
                     "address": "DB3.DBX20.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板5关闭失败报警",
@@ -2580,8 +2580,8 @@
                     "address": "DB3.DBX20.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板5自动开启报警",
@@ -2589,8 +2589,8 @@
                     "address": "DB3.DBX20.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板5自动关闭报警",
@@ -2598,8 +2598,8 @@
                     "address": "DB3.DBX20.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 }
             ]
         },
@@ -2640,7 +2640,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板关到位6",
@@ -2649,7 +2649,7 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "盖板开6",
@@ -2689,8 +2689,8 @@
                     "address": "DB3.DBX22.0",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板6热过载报警",
@@ -2698,8 +2698,8 @@
                     "address": "DB3.DBX22.1",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板6开启失败报警",
@@ -2707,8 +2707,8 @@
                     "address": "DB3.DBX22.2",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板6关闭失败报警",
@@ -2716,8 +2716,8 @@
                     "address": "DB3.DBX22.3",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板6自动开启报警",
@@ -2725,8 +2725,8 @@
                     "address": "DB3.DBX22.4",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 },
                 {
                     "displayName": "盖板6自动关闭报警",
@@ -2734,8 +2734,8 @@
                     "address": "DB3.DBX22.5",
                     "isWrite": false,
                     "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
+                    "alarmLevel": 1,
+                    "isHistoryData": false
                 }
             ]
         },
@@ -2749,7 +2749,7 @@
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "抓斗",
@@ -2758,7 +2758,7 @@
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "小车",
@@ -2767,7 +2767,7 @@
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 },
                 {
                     "displayName": "大车",
@@ -2776,7 +2776,7 @@
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 }
             ]
         }

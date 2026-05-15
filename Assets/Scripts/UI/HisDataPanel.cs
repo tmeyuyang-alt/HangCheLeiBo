@@ -604,15 +604,16 @@ public class HisDataPanel : UIPanel
     /// </summary>
     private void RefreshLineToggles(List<string> serieLabels)
     {
+       print("1");
         if (lineToggleContainer == null || lineTogglePrefab == null)
             return;
-
+        print("2");
         // 清空旧的切换项
         for (int i = lineToggleContainer.childCount - 1; i >= 0; i--)
         {
             Destroy(lineToggleContainer.GetChild(i).gameObject);
         }
-
+        print("3");
         for (int i = 0; i < serieLabels.Count; i++)
         {
             int serieIndex = i; // 闭包捕获
@@ -625,7 +626,7 @@ public class HisDataPanel : UIPanel
             if (item.info != null)
             {
                 item.info.gameObject.SetActive(true);
-                item.info.text = serieLabels[i];
+                item.info.text = serieLabels[i].Split('.',StringSplitOptions.None)[1];
                 item.info.enabled = true;
                
             }

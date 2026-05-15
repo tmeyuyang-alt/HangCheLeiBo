@@ -1,0 +1,20 @@
+﻿[
+  {
+    "name": "系统管理员",
+    "role": "管理员",
+    "account": "admin",
+    "password": "admin123",
+    "contact": "13540047813",
+    "createDate": "2026-05-13",
+    "IsAdmin": true
+  },
+  {
+    "name": "于洋",
+    "role": "操作员",
+    "account": "yy",
+    "password": "123",
+    "contact": "13540047813",
+    "createDate": "2026-05-13",
+    "IsAdmin": false
+  }
+]

@@ -9,9 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/hangche.unity
     guid: 2765e0442c59b2f4985f672054721838
   - enabled: 1
+    path: Assets/Scenes/1.Login.unity
+    guid: 754b55f02577ab4448db0c50a6a2679f
+  - enabled: 0
     path: Assets/Scenes/LeiBo_hc_01.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Scenes/YN_HC.unity
     guid: 5d20c2b3080887148bf74a866f00126e
+  - enabled: 1
+    path: Assets/Scenes/pb_hc_24.unity
+    guid: 238657fa9a2801c41b91024fe6a18fdf
+  - enabled: 0
+    path: Assets/Scenes/pb_hc_40.unity
+    guid: 512388bbb22ae504998f60099ea5cffa
   m_configObjects: {}

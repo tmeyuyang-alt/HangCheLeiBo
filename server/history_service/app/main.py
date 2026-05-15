@@ -43,12 +43,22 @@ collector_task: asyncio.Task | None = None
 
 async def _collector_loop() -> None:
     interval = max(1, settings.collect_interval_seconds)
+    next_run = asyncio.get_running_loop().time()
     while True:
+        started_at = asyncio.get_running_loop().time()
         try:
-            await collect_once()
+            count = await collect_once()
+            elapsed = asyncio.get_running_loop().time() - started_at
+            print(f"[collector] collected {count} rows in {elapsed:.3f}s")
         except Exception as exc:  # pragma: no cover
             print(f"[collector] collect failed: {exc}")
-        await asyncio.sleep(interval)
+        next_run += interval
+        sleep_seconds = next_run - asyncio.get_running_loop().time()
+        if sleep_seconds <= 0:
+            print(f"[collector] collect cycle is slower than interval={interval}s")
+            next_run = asyncio.get_running_loop().time()
+            continue
+        await asyncio.sleep(sleep_seconds)
 
 
 @app.on_event("startup")
@@ -61,6 +71,9 @@ async def startup() -> None:
 
     if settings.auto_start_collector:
         collector_task = asyncio.create_task(_collector_loop())
+        print(f"[collector] auto started, interval={settings.collect_interval_seconds}s")
+    else:
+        print("[collector] auto start disabled")
 
 
 @app.on_event("shutdown")

@@ -61,11 +61,12 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         public string source;
     }
 
-    private const string DefaultConfigAssetPath = "Assets/DeviceSignalConfig.asset";
+    private const string DefaultConfigAssetSearchFolder = "Assets/方案1";
     private const string DefaultNameLibraryPath = "Assets/DeviceSignalNameLibrary.asset";
     private const string DefaultProjectConfigExcelRelativePath = "Config/deviceConfig.xlsx";
     private const string NameLibraryPrefsKey = "DeviceSignalConfigEditorWindow.NameLibraryGuid";
     private const string ConfigAssetPrefsKey = "DeviceSignalConfigEditorWindow.ConfigAssetGuid";
+    private const string ConfigAssetSearchFolderPrefsKey = "DeviceSignalConfigEditorWindow.ConfigAssetSearchFolder";
     private const string UploadServerUrlPrefsKey = "DeviceSignalConfigEditorWindow.UploadServerUrl";
     private const string UploadPlcIdPrefsKey = "DeviceSignalConfigEditorWindow.UploadPlcId";
     private static readonly string[] AlarmLevelOptions = { "无", "1级", "2级", "3级" };
@@ -79,6 +80,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
     private List<int> pointNamePageIndices = new List<int>();
     private string pendingDeviceName = string.Empty;
     private string pendingSharedIpAddress = string.Empty;
+    private string configAssetSearchFolder = DefaultConfigAssetSearchFolder;
     private string uploadServerUrl = "http://132.232.253.32:8000";
     private string uploadPlcId = "plc01";
     private const int NameOptionsPerPage = 20;
@@ -99,6 +101,20 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
     private static void CreateConfigAsset()
     {
         CreateAssetAtSelectionPath(new DeviceSignalConfigAsset(), "DeviceSignalConfig.asset");
+    }
+
+    private DeviceSignalConfigAsset CreateConfigAssetInConfigFolder()
+    {
+        string searchFolder = GetConfigAssetSearchFolder();
+        EnsureAssetFolder(searchFolder);
+
+        DeviceSignalConfigAsset asset = CreateInstance<DeviceSignalConfigAsset>();
+        string assetPath = AssetDatabase.GenerateUniqueAssetPath($"{searchFolder}/DeviceSignalConfig.asset");
+        AssetDatabase.CreateAsset(asset, assetPath);
+        AssetDatabase.SaveAssets();
+        EditorUtility.FocusProjectWindow();
+        Selection.activeObject = asset;
+        return asset;
     }
 
     private static void CreateAssetAtSelectionPath(UnityEngine.Object asset, string fileName)
@@ -128,10 +144,32 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         Selection.activeObject = asset;
     }
 
+    private static void EnsureAssetFolder(string assetFolderPath)
+    {
+        if (AssetDatabase.IsValidFolder(assetFolderPath))
+        {
+            return;
+        }
+
+        string[] parts = assetFolderPath.Split('/');
+        string currentPath = parts[0];
+        for (int i = 1; i < parts.Length; i++)
+        {
+            string nextPath = $"{currentPath}/{parts[i]}";
+            if (!AssetDatabase.IsValidFolder(nextPath))
+            {
+                AssetDatabase.CreateFolder(currentPath, parts[i]);
+            }
+
+            currentPath = nextPath;
+        }
+    }
+
     private void OnEnable()
     {
         nameLibrary = LoadPersistedAsset<DeviceSignalNameLibrary>(NameLibraryPrefsKey)
             ?? AssetDatabase.LoadAssetAtPath<DeviceSignalNameLibrary>(DefaultNameLibraryPath);
+        configAssetSearchFolder = NormalizeAssetFolderPath(EditorPrefs.GetString(ConfigAssetSearchFolderPrefsKey, DefaultConfigAssetSearchFolder));
         uploadServerUrl = EditorPrefs.GetString(UploadServerUrlPrefsKey, "http://132.232.253.32:8000");
         uploadPlcId = EditorPrefs.GetString(UploadPlcIdPrefsKey, "plc01");
         RefreshConfigAssets();
@@ -155,6 +193,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         using (new EditorGUILayout.VerticalScope(GUILayout.Width(260)))
         {
             EditorGUILayout.LabelField("设备列表", EditorStyles.boldLabel);
+            DrawConfigAssetSearchFolderField();
 
             using (new EditorGUILayout.HorizontalScope())
             {
@@ -165,8 +204,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
 
                 if (GUILayout.Button("新建", GUILayout.Height(24)))
                 {
-                    CreateConfigAsset();
-                    configAsset = Selection.activeObject as DeviceSignalConfigAsset;
+                    configAsset = CreateConfigAssetInConfigFolder();
                     RefreshConfigAssets();
                 }
             }
@@ -174,7 +212,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
             assetListScrollPosition = EditorGUILayout.BeginScrollView(assetListScrollPosition, "box");
             if (allConfigAssets.Count == 0)
             {
-                EditorGUILayout.HelpBox("工程中还没有设备配置资产。", MessageType.Info);
+                EditorGUILayout.HelpBox($"指定目录中还没有设备配置资产：{GetConfigAssetSearchFolder()}", MessageType.Info);
             }
             else
             {
@@ -199,6 +237,44 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
                 }
             }
             EditorGUILayout.EndScrollView();
+        }
+    }
+
+    private void DrawConfigAssetSearchFolderField()
+    {
+        using (new EditorGUILayout.VerticalScope("box"))
+        {
+            DefaultAsset currentFolder = AssetDatabase.LoadAssetAtPath<DefaultAsset>(GetConfigAssetSearchFolder());
+
+            EditorGUI.BeginChangeCheck();
+            DefaultAsset selectedFolder = (DefaultAsset)EditorGUILayout.ObjectField("检索目录", currentFolder, typeof(DefaultAsset), false);
+            if (EditorGUI.EndChangeCheck() && selectedFolder != null)
+            {
+                string selectedPath = AssetDatabase.GetAssetPath(selectedFolder);
+                if (AssetDatabase.IsValidFolder(selectedPath))
+                {
+                    SetConfigAssetSearchFolder(selectedPath);
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("目录无效", "请选择 Project 窗口中的文件夹。", "确定");
+                }
+            }
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                EditorGUILayout.SelectableLabel(GetConfigAssetSearchFolder(), EditorStyles.miniLabel, GUILayout.Height(18));
+
+                if (GUILayout.Button("选择", GUILayout.Width(48), GUILayout.Height(20)))
+                {
+                    string absolutePath = EditorUtility.OpenFolderPanel("选择设备配置检索目录", Application.dataPath, string.Empty);
+                    string assetPath = AbsolutePathToAssetPath(absolutePath);
+                    if (!string.IsNullOrEmpty(assetPath))
+                    {
+                        SetConfigAssetSearchFolder(assetPath);
+                    }
+                }
+            }
         }
     }
 
@@ -342,7 +418,9 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
     {
         allConfigAssets.Clear();
 
-        string[] guids = AssetDatabase.FindAssets("t:DeviceSignalConfigAsset");
+        string searchFolder = GetConfigAssetSearchFolder();
+        EnsureAssetFolder(searchFolder);
+        string[] guids = AssetDatabase.FindAssets("t:DeviceSignalConfigAsset", new[] { searchFolder });
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
@@ -360,7 +438,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
             configAsset = LoadPersistedAsset<DeviceSignalConfigAsset>(ConfigAssetPrefsKey);
             if (configAsset == null || !allConfigAssets.Contains(configAsset))
             {
-                configAsset = allConfigAssets.Count > 0 ? allConfigAssets[0] : AssetDatabase.LoadAssetAtPath<DeviceSignalConfigAsset>(DefaultConfigAssetPath);
+                configAsset = allConfigAssets.Count > 0 ? allConfigAssets[0] : AssetDatabase.LoadAssetAtPath<DeviceSignalConfigAsset>($"{searchFolder}/DeviceSignalConfig.asset");
             }
         }
 
@@ -1354,14 +1432,15 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
 
     private DeviceSignalConfigAsset CreateConfigAssetForImport(string deviceName)
     {
-        string targetDirectory = "Assets";
+        string targetDirectory = GetConfigAssetSearchFolder();
+        EnsureAssetFolder(targetDirectory);
         if (configAsset != null)
         {
             string currentAssetPath = AssetDatabase.GetAssetPath(configAsset);
             if (!string.IsNullOrEmpty(currentAssetPath))
             {
                 string currentDirectory = Path.GetDirectoryName(currentAssetPath)?.Replace("\\", "/");
-                if (!string.IsNullOrEmpty(currentDirectory))
+                if (!string.IsNullOrEmpty(currentDirectory) && IsPathInsideConfigAssetSearchFolder(currentDirectory))
                 {
                     targetDirectory = currentDirectory;
                 }
@@ -1374,6 +1453,74 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         newAsset.points = new List<DeviceSignalPoint>();
         AssetDatabase.CreateAsset(newAsset, assetPath);
         return newAsset;
+    }
+
+    private bool IsPathInsideConfigAssetSearchFolder(string assetPath)
+    {
+        string searchFolder = GetConfigAssetSearchFolder();
+        return assetPath.Equals(searchFolder, StringComparison.OrdinalIgnoreCase)
+            || assetPath.StartsWith(searchFolder + "/", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private string GetConfigAssetSearchFolder()
+    {
+        configAssetSearchFolder = NormalizeAssetFolderPath(configAssetSearchFolder);
+        return configAssetSearchFolder;
+    }
+
+    private void SetConfigAssetSearchFolder(string assetFolderPath)
+    {
+        string normalizedPath = NormalizeAssetFolderPath(assetFolderPath);
+        if (normalizedPath == GetConfigAssetSearchFolder())
+        {
+            return;
+        }
+
+        configAssetSearchFolder = normalizedPath;
+        EditorPrefs.SetString(ConfigAssetSearchFolderPrefsKey, configAssetSearchFolder);
+        configAsset = null;
+        RefreshConfigAssets();
+        Repaint();
+    }
+
+    private static string NormalizeAssetFolderPath(string assetFolderPath)
+    {
+        string normalizedPath = string.IsNullOrWhiteSpace(assetFolderPath)
+            ? DefaultConfigAssetSearchFolder
+            : assetFolderPath.Trim().Replace("\\", "/").TrimEnd('/');
+
+        if (string.IsNullOrEmpty(normalizedPath)
+            || (!normalizedPath.Equals("Assets", StringComparison.OrdinalIgnoreCase)
+                && !normalizedPath.StartsWith("Assets/", StringComparison.OrdinalIgnoreCase)))
+        {
+            return DefaultConfigAssetSearchFolder;
+        }
+
+        return normalizedPath;
+    }
+
+    private static string AbsolutePathToAssetPath(string absolutePath)
+    {
+        if (string.IsNullOrWhiteSpace(absolutePath))
+        {
+            return string.Empty;
+        }
+
+        string normalizedAbsolutePath = absolutePath.Replace("\\", "/").TrimEnd('/');
+        string normalizedDataPath = Application.dataPath.Replace("\\", "/").TrimEnd('/');
+
+        if (normalizedAbsolutePath.Equals(normalizedDataPath, StringComparison.OrdinalIgnoreCase))
+        {
+            return "Assets";
+        }
+
+        if (!normalizedAbsolutePath.StartsWith(normalizedDataPath + "/", StringComparison.OrdinalIgnoreCase))
+        {
+            EditorUtility.DisplayDialog("目录无效", "检索目录必须位于当前工程的 Assets 目录下。", "确定");
+            return string.Empty;
+        }
+
+        return "Assets" + normalizedAbsolutePath.Substring(normalizedDataPath.Length);
     }
 
     private List<DeviceSignalPoint> ClonePoints(List<DeviceSignalPoint> sourcePoints)

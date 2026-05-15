@@ -180,7 +180,7 @@ def _read_ip(ip: str, chunks: list[ReadChunk]) -> list[tuple[PointBinding, float
     _ensure_snap7()
     client = snap7.client.Client()
     client.set_connection_type(3)
-    client.connect(ip, settings.plc_rack, settings.plc_slot, settings.plc_connect_timeout_seconds * 1000)
+    client.connect(ip, settings.plc_rack, settings.plc_slot, settings.plc_tcp_port)
 
     records: list[tuple[PointBinding, float | None, str | None]] = []
     try:
@@ -211,9 +211,15 @@ async def collect_once(plc_id: str | None = None) -> int:
     loop = asyncio.get_running_loop()
     all_records: list[tuple[PointBinding, float | None, str | None]] = []
 
-    for ip, chunks in grouped.items():
-        records = await loop.run_in_executor(None, _read_ip, ip, chunks)
-        all_records.extend(records)
+    read_tasks = [
+        loop.run_in_executor(None, _read_ip, ip, chunks)
+        for ip, chunks in grouped.items()
+    ]
+    for result in await asyncio.gather(*read_tasks, return_exceptions=True):
+        if isinstance(result, Exception):
+            print(f"[collector] PLC read failed: {result}")
+            continue
+        all_records.extend(result)
 
     if not all_records:
         return 0

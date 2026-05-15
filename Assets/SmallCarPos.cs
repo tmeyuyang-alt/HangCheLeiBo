@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SmallCarPos : MonoBehaviour
 {
+    public bool isNegative=true;
     public string carKey;
 
     public float maxLimit;
@@ -19,7 +20,15 @@ public class SmallCarPos : MonoBehaviour
     public void Update()
     {
         curr = PLCConfigManager.Instance.GetFloatValue(carKey);
-        float tmp = -(curr/ maxCarPos) * maxLimit;
+        float tmp=0;
+        if (isNegative)
+        { 
+            tmp = -(curr/ maxCarPos) * maxLimit;  
+        }
+        else
+        {
+             tmp = (curr/ maxCarPos) * maxLimit;
+        }       
         
         Vector3 targetPos = new Vector3(tmp, transform.localPosition.y, transform.localPosition.z);
         float t = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(0.0001f, smoothTime));
