@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class LiveCameraConfig : MonoBehaviour
@@ -12,7 +13,10 @@ public class LiveCameraConfig : MonoBehaviour
     {
         instance = this;
         string configPath = Application.streamingAssetsPath + "/camera.config";
-        config= DataUtil.Deserializer<Dictionary<string, string>>(configPath);
+        if (File.Exists(configPath))
+            config = DataUtil.Deserializer<Dictionary<string, string>>(configPath);
+        else
+            config = new Dictionary<string, string>();
     }
 
 

@@ -26,7 +26,9 @@ public class Select3DUICtrl : MonoBehaviour
         {
             VARIABLE.SetDefault();
         }
+       
         
+     
         if (totalNum>0)
         {
             
@@ -34,13 +36,9 @@ public class Select3DUICtrl : MonoBehaviour
             {
                 
                 tmpInt=PLCConfigManager.Instance.GetIntValue("排队中"+i.ToString()+"取料仓号");
-                tmpInt2=PLCConfigManager.Instance.GetIntValue("执行中取料仓号");
+               
                 
                 //print(i+"---"+tmpInt+"---"+tmpInt2);
-
-
-
-              
                 
                 foreach (var VARIABLE in items)
                 {
@@ -60,6 +58,17 @@ public class Select3DUICtrl : MonoBehaviour
                 }
             }
 
+        }
+        
+        tmpInt2=PLCConfigManager.Instance.GetIntValue("执行中取料仓号");
+        
+        
+        foreach (var VARIABLE in items)
+        {
+            if (tmpInt2.ToString()==VARIABLE.name)
+            {
+                VARIABLE.SetCurrent();
+            }
         }
      
         

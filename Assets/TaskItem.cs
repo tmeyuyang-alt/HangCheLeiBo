@@ -9,7 +9,7 @@ public class TaskItem : MonoBehaviour
     
     public PLCConfigManager plcConfigManager;
 
-    public int myIndex;
+    //public int myIndex;
     
     public string DeviceName;
     //下料仓号

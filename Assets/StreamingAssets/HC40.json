@@ -1090,10 +1090,6 @@
             ]
         },
         {
-            "deviceName": "DeviceSignalConfig",
-            "points": []
-        },
-        {
             "deviceName": "任务",
             "points": [
                 {
@@ -1219,7 +1215,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "故障确认",
+                    "displayName": "标定设置",
                     "dataType": 0,
                     "address": "DB1.DBX0.6",
                     "isWrite": true,
@@ -1679,7 +1675,7 @@
                     "displayName": "放料仓号",
                     "dataType": 1,
                     "address": "DB4.DBW8",
-                    "isWrite": true,
+                    "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
                     "isHistoryData": false
@@ -1688,7 +1684,7 @@
                     "displayName": "取料仓号",
                     "dataType": 1,
                     "address": "DB4.DBW12",
-                    "isWrite": true,
+                    "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
                     "isHistoryData": false
@@ -1697,7 +1693,7 @@
                     "displayName": "抓料斗数",
                     "dataType": 1,
                     "address": "DB4.DBW16",
-                    "isWrite": true,
+                    "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
                     "isHistoryData": false
@@ -3013,6 +3009,15 @@
                     "displayName": "制动电阻箱温度报警",
                     "dataType": 2,
                     "address": "DB1.DBD22",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "制动电阻箱1当前温度",
+                    "dataType": 2,
+                    "address": "DB2.DBD18",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,

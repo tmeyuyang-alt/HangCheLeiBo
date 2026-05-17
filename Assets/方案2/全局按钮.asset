@@ -56,7 +56,7 @@ MonoBehaviour:
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
-  - displayName: "\u6545\u969C\u786E\u8BA4"
+  - displayName: "\u6807\u5B9A\u8BBE\u7F6E"
     dataType: 0
     address: DB1.DBX0.6
     isWrite: 1

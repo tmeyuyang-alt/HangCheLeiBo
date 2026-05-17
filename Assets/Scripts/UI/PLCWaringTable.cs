@@ -292,7 +292,7 @@ public class PLCWaringTable : MonoBehaviour
         // 更新分页（Pages 分页基于【每页条数】和【总条数】）
         int lineNum = _totalRecords;
         if (pages != null)
-            pages.UpdatePageNumber(retPageSize, lineNum);
+            pages.UpdatePageNumber(retPageSize, lineNum, _currentPage - 1);
 
         ShowRows();
 

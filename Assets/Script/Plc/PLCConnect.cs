@@ -7,6 +7,9 @@ using System;
 public class PLCConnect
 {
     private Plc plc;
+    private readonly object syncRoot = new object();
+
+    public object SyncRoot => syncRoot;
 
     public string ipaddrees = "127.0.0.1";
 
@@ -18,37 +21,50 @@ public class PLCConnect
     public CpuType type= CpuType.S71500;
     public async void OpenAsync()
     {
-        if (plc != null)
+        lock (syncRoot)
         {
-            plc.Close();
+            if (plc != null)
+            {
+                plc.Close();
+            }
+
+            plc = new Plc(type, ipaddrees, port, rack, slot);
+            plc.ReadTimeout = 100;
+            plc.WriteTimeout = 100;
         }
 
-        plc = new Plc(type, ipaddrees, port, rack, slot);
-        plc.ReadTimeout = 100;
-        plc.WriteTimeout = 100;
         //plc.Open();
         await plc.OpenAsync();
     }
     public void  Open()
     {
-        if (plc != null)
+        lock (syncRoot)
         {
-            plc.Close();
-        }
+            if (plc != null)
+            {
+                plc.Close();
+            }
 
-        plc = new Plc(type, ipaddrees, port, rack, slot);
-        plc.ReadTimeout = 100;
-        plc.WriteTimeout = 100;
-        plc.Open();
+            plc = new Plc(type, ipaddrees, port, rack, slot);
+            plc.ReadTimeout = 100;
+            plc.WriteTimeout = 100;
+            plc.Open();
+        }
     }
     public bool IsConnected()
     {
-        if (plc == null) return false;
-        return plc.IsConnected;
+        lock (syncRoot)
+        {
+            if (plc == null) return false;
+            return plc.IsConnected;
+        }
     }
     public void Close()
     {
-        if (plc != null) plc.Close();
+        lock (syncRoot)
+        {
+            if (plc != null) plc.Close();
+        }
     }
     /// <summary>
     /// 读取
@@ -57,37 +73,43 @@ public class PLCConnect
     /// <returns></returns>
     public object Read(string address)
     {
-        if (plc == null || !IsConnected() ||address=="")
-            return null;
+        lock (syncRoot)
+        {
+            if (plc == null || !plc.IsConnected ||address=="")
+                return null;
 
-        try
-        {
-            object go = plc.Read(address);
-            
-            return go;
-        }
-        catch(Exception ex)
-        {
-            Debug.LogWarning(ex.Message +" "+ address);
-            return null;
+            try
+            {
+                object go = plc.Read(address);
+                
+                return go;
+            }
+            catch(Exception ex)
+            {
+                Debug.LogWarning(ex.Message +" "+ address);
+                return null;
+            }
         }
     }
 
     public object Read(DataType type, int dbNumber, int startByte, VarType varType, byte bitNumber)
     {
-        if (plc == null || !IsConnected())
-            return null;
-
-        try
+        lock (syncRoot)
         {
-            object go = plc.Read(type, dbNumber, startByte, varType, 1, bitNumber);
+            if (plc == null || !plc.IsConnected)
+                return null;
 
-            return go;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogWarning(ex.Message + " " + startByte + " " + varType);
-            return null;
+            try
+            {
+                object go = plc.Read(type, dbNumber, startByte, varType, 1, bitNumber);
+
+                return go;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message + " " + startByte + " " + varType);
+                return null;
+            }
         }
     }
     //plcConnect.Read(adr.DataType, adr.DbNumber, adr.StartByte, adr.VarType, 1, (byte)adr.BitNumber);
@@ -106,19 +128,41 @@ public class PLCConnect
     /// <param name="description">可读描述，如 "1#称 启动"（可不填）</param>
     public void Write(string address, object value, string description = "")
     {
-        if (plc == null || !IsConnected())
-            return;
+        lock (syncRoot)
+        {
+            if (plc == null || !plc.IsConnected)
+                return;
 
-        plc.Write(address, value);
-        PLCOperationLogger.Instance?.Log(address, value?.ToString() ?? "", description);
+            try
+            {
+                plc.Write(address, value);
+                PLCOperationLogger.Instance?.Log(address, value?.ToString() ?? "", description);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message + " " + address);
+                plc.Close();
+            }
+        }
     }
     public void WriteNoLog(string address, object value, string description = "")
     {
-        if (plc == null || !IsConnected())
-            return;
+        lock (syncRoot)
+        {
+            if (plc == null || !plc.IsConnected)
+                return;
 
-        plc.Write(address, value);
-       // PLCOperationLogger.Instance?.Log(address, value?.ToString() ?? "", description);
+            try
+            {
+                plc.Write(address, value);
+               // PLCOperationLogger.Instance?.Log(address, value?.ToString() ?? "", description);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message + " " + address);
+                plc.Close();
+            }
+        }
     }
 
 
@@ -128,22 +172,44 @@ public class PLCConnect
     /// <param name="description">可读描述，如 "1#称 启动"（可不填）</param>
     public void Write(DataType type, int db, int startByteAdr, object value, int bitAdr = -1, string description = "")
     {
-        // BOOL：走 bit 写
-        if (value is bool b)
+        lock (syncRoot)
         {
-            // bitAdr 必须 0~7
-            plc.WriteBit(type, db, startByteAdr, bitAdr, b);
+            if (plc == null || !plc.IsConnected)
+                return;
 
-            string boolAddr = $"DB{db}.DBX{startByteAdr}.{bitAdr}";
-            PLCOperationLogger.Instance?.Log(boolAddr, b.ToString(), description);
-            return;
+            // BOOL：走 bit 写
+            if (value is bool b)
+            {
+                try
+                {
+                    // bitAdr 必须 0~7
+                    plc.WriteBit(type, db, startByteAdr, bitAdr, b);
+
+                    string boolAddr = $"DB{db}.DBX{startByteAdr}.{bitAdr}";
+                    PLCOperationLogger.Instance?.Log(boolAddr, b.ToString(), description);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogWarning(ex.Message + " " + startByteAdr);
+                    plc.Close();
+                }
+                return;
+            }
+
+            try
+            {
+                // 非 BOOL：严禁走带 bitAdr 的重载
+                plc.Write(type, db, startByteAdr, value);
+
+                string addr = $"DB{db}.DBW{startByteAdr}";
+                PLCOperationLogger.Instance?.Log(addr, value?.ToString() ?? "", description);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message + " " + startByteAdr);
+                plc.Close();
+            }
         }
-
-        // 非 BOOL：严禁走带 bitAdr 的重载
-        plc.Write(type, db, startByteAdr, value);
-
-        string addr = $"DB{db}.DBW{startByteAdr}";
-        PLCOperationLogger.Instance?.Log(addr, value?.ToString() ?? "", description);
     }
 
     public Plc GetPlc()

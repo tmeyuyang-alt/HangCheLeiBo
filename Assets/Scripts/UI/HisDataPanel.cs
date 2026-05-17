@@ -114,7 +114,7 @@ public class HisDataPanel : UIPanel
                     dataText = "--";
                 }
 
-                table.GetItem(i + 1, x).GetComponent<Text>().text = dataText;
+                table.GetItem(i + 1, x).GetComponent<Text>().text = FormatDisplayValue(dataText);
             }
         }
 
@@ -462,6 +462,23 @@ public class HisDataPanel : UIPanel
         {
             return parsed.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
         }
+
+        return rawValue;
+    }
+
+    private string FormatDisplayValue(string rawValue)
+    {
+        if (string.IsNullOrWhiteSpace(rawValue) || rawValue == "--")
+            return "--";
+
+        if (DateTime.TryParse(rawValue, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out _))
+            return rawValue;
+
+        if (double.TryParse(rawValue, NumberStyles.Float, CultureInfo.InvariantCulture, out double invariantValue))
+            return invariantValue.ToString("0.###", CultureInfo.InvariantCulture);
+
+        if (double.TryParse(rawValue, NumberStyles.Float, CultureInfo.CurrentCulture, out double currentValue))
+            return currentValue.ToString("0.###", CultureInfo.CurrentCulture);
 
         return rawValue;
     }

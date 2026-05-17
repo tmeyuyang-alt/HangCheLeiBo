@@ -15,13 +15,15 @@ public class RemoteCtrlDisplay : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (plcConfigManager.GetBool(key))
+        if (!plcConfigManager.GetBool(key))
         {
             btnInfo.color = Color.green;
+            btnInfo.text = "遥控器控制";
         }
         else
         {
             btnInfo.color = Color.white;
+            btnInfo.text = "远程控制";
         }
     }
 

@@ -19,6 +19,10 @@ public class PLCConfigManager : MonoBehaviour
     public int defaultPort = 102;
     public short defaultRack = 0;
     public short defaultSlot = 1;
+    [Header("PLC 自动重连")]
+    public bool autoReconnect = true;
+    public float reconnectInterval = 3f;
+    public float maxReconnectInterval = 30f;
     
     [Serializable]
     private class DeviceSignalConfigProjectFile
@@ -38,6 +42,7 @@ public class PLCConfigManager : MonoBehaviour
     private class ReconnectState {
         public int failCount = 0;
         public DateTime nextTryAt = DateTime.MinValue;
+        public bool isConnecting = false;
     }
     private readonly Dictionary<PLCConnect, ReconnectState> reconnectInfo
         = new Dictionary<PLCConnect, ReconnectState>();
@@ -212,6 +217,7 @@ public class PLCConfigManager : MonoBehaviour
         plcAddress.Clear();
         plcConnectDic.Clear();
         plcTryConnect.Clear();
+        reconnectInfo.Clear();
         datablockSplit.Clear();
 
         foreach (var config in plcConfigs)
@@ -222,6 +228,7 @@ public class PLCConfigManager : MonoBehaviour
             }
 
             string key = GetConfigConnectKey(config.Value);
+            bool isNewConnect = false;
             if (!plcConnectDic.ContainsKey(key))
             {
                 PLCConnect connect = new PLCConnect();
@@ -230,11 +237,13 @@ public class PLCConfigManager : MonoBehaviour
                 connect.rack = config.Value.Rack;
                 connect.slot = config.Value.Slot;
                 plcConnectDic.Add(key, connect);
+                reconnectInfo[connect] = new ReconnectState();
+                isNewConnect = true;
             }
 
-            if (!plcConnectDic[key].IsConnected())
+            if (isNewConnect && !plcConnectDic[key].IsConnected())
             {
-                plcConnectDic[key].Open();
+                EnsureConnected(plcConnectDic[key], key, true);
             }
 
             try
@@ -403,18 +412,36 @@ public class PLCConfigManager : MonoBehaviour
         return null;
     }
 
+    private PLCConnect GetConnectedPLCConnectByConfigKey(string key, string operationName)
+    {
+        if (!plcConfigs.ContainsKey(key))
+        {
+            Debug.LogError($"[PLCConfigManager] {operationName}失败，未找到 PLC 配置: {key}");
+            return null;
+        }
+
+        string connectKey = GetConfigConnectKey(plcConfigs[key]);
+        PLCConnect plcConnect = GetPLCConnect(connectKey);
+        if (plcConnect == null)
+        {
+            Debug.LogError($"[PLCConfigManager] {operationName}失败，未找到 PLC 连接: {connectKey}");
+            return null;
+        }
+
+        if (!EnsureConnected(plcConnect, connectKey, true))
+        {
+            Debug.LogError($"[PLCConfigManager] {operationName}失败，PLC 未连接: {connectKey}");
+            return null;
+        }
+
+        return plcConnect;
+    }
+
     public  void SetBool(string key, object value)
     { 
-        string connectKey = string.Empty;
+        var plcConnect = GetConnectedPLCConnectByConfigKey(key, "写入 Bool");
+        if (plcConnect == null) return;
 
-        if (plcConfigs.ContainsKey(key))
-        {
-            connectKey = GetConfigConnectKey(plcConfigs[key]);
-
-        }
-        var plcConnect = GetPLCConnect(connectKey);
-
-       
         plcConnect.Write(plcConfigs[key].DataBlock,value,key+"设置值为："+value);
         
     }
@@ -422,14 +449,8 @@ public class PLCConfigManager : MonoBehaviour
     public async  void SetPulseBool(string key,object value)
     {
         print(key);
-        string connectKey = string.Empty;
-
-        if (plcConfigs.ContainsKey(key))
-        {
-            connectKey = GetConfigConnectKey(plcConfigs[key]);
-
-        }
-        var plcConnect = GetPLCConnect(connectKey);
+        var plcConnect = GetConnectedPLCConnectByConfigKey(key, "脉冲写入");
+        if (plcConnect == null) return;
 
         // if (plcConnect != null)
         // {
@@ -453,14 +474,8 @@ public class PLCConfigManager : MonoBehaviour
     public async void SetValue(string key,object value)
     {
         print(key);
-        string connectKey = string.Empty;
-
-        if (plcConfigs.ContainsKey(key))
-        {
-            connectKey = GetConfigConnectKey(plcConfigs[key]);
-
-        }
-        var plcConnect = GetPLCConnect(connectKey);
+        var plcConnect = GetConnectedPLCConnectByConfigKey(key, "写入数值");
+        if (plcConnect == null) return;
 
         // if (plcConnect != null)
         // {
@@ -487,14 +502,8 @@ public class PLCConfigManager : MonoBehaviour
     public async void SetValueConfirm(string key,object value)
     {
         print(key);
-        string connectKey = string.Empty;
-
-        if (plcConfigs.ContainsKey(key))
-        {
-            connectKey = GetConfigConnectKey(plcConfigs[key]);
-
-        }
-        var plcConnect = GetPLCConnect(connectKey);
+        var plcConnect = GetConnectedPLCConnectByConfigKey(key, "确认写入");
+        if (plcConnect == null) return;
 
         // if (plcConnect != null)
         // {
@@ -521,14 +530,8 @@ public class PLCConfigManager : MonoBehaviour
     public async void SetValueNoNotify(string key,object value)
     {
         print(key);
-        string connectKey = string.Empty;
-
-        if (plcConfigs.ContainsKey(key))
-        {
-            connectKey = GetConfigConnectKey(plcConfigs[key]);
-
-        }
-        var plcConnect = GetPLCConnect(connectKey);
+        var plcConnect = GetConnectedPLCConnectByConfigKey(key, "静默写入");
+        if (plcConnect == null) return;
 
         // if (plcConnect != null)
         // {
@@ -553,30 +556,8 @@ public class PLCConfigManager : MonoBehaviour
     }
    public async void SetValue(string key, object value, bool isKeep = false)
 {
-    if (!plcConfigs.ContainsKey(key))
-    {
-        Debug.LogError($"[WRITE] 閰嶇疆缂哄け: {key}");
-        return;
-    }
-
-    string connectKey = GetConfigConnectKey(plcConfigs[key]);
-    var conn = GetPLCConnect(connectKey);
-    if (conn == null)
-    {
-        Debug.LogError($"[WRITE] 鏈壘鍒拌繛鎺? {connectKey}");
-        return;
-    }
-
-    // 纭繚宸茶繛鎺ワ紙鍚屾鎵撳紑锛岄伩鍏嶁€滄病涓嬪彂鈥濓級
-    if (!conn.IsConnected())
-    {
-        try { conn.Open(); }
-        catch (Exception e)
-        {
-            Debug.LogError($"[WRITE] 杩炴帴澶辫触: {connectKey} 鈻?{e.Message}");
-            return;
-        }
-    }
+    var conn = GetConnectedPLCConnectByConfigKey(key, "写入数值");
+    if (conn == null) return;
 
     try
     {
@@ -605,46 +586,17 @@ public class PLCConfigManager : MonoBehaviour
 
     public void SetValue(string key, int offset, object value)
     {
-        string connectKey = string.Empty;
-        if (plcConfigs.ContainsKey(key))
-        {
-            connectKey = GetConfigConnectKey(plcConfigs[key]);
+        var plcConnect = GetConnectedPLCConnectByConfigKey(key, "偏移写入");
+        if (plcConnect == null) return;
 
-        }
-        var plcConnect = GetPLCConnect(connectKey);
-
-        if (plcConnect != null)
-        {
-            if (!TryConnect(plcConnect)) return;
-        }
-        else
-        {
-            //Debug.LogError("PLC鑾峰彇澶辫触锛?);
-            return;
-        }
         PLCAddress adr = GetPLCAddress(plcConfigs[key].DataBlock);
         plcConnect.Write(adr.DataType, adr.DbNumber, adr.StartByte+offset, value, adr.BitNumber);
     }
 
     public void SetValueBit(string key, int offset, object value)
     {
-        string connectKey = string.Empty;
-        if (plcConfigs.ContainsKey(key))
-        {
-            connectKey = GetConfigConnectKey(plcConfigs[key]);
-
-        }
-        var plcConnect = GetPLCConnect(connectKey);
-
-        if (plcConnect != null)
-        {
-            if (!TryConnect(plcConnect)) return;
-        }
-        else
-        {
-            //Debug.LogError("PLC鑾峰彇澶辫触锛?);
-            return;
-        }
+        var plcConnect = GetConnectedPLCConnectByConfigKey(key, "位写入");
+        if (plcConnect == null) return;
 
         PLCAddress adr = GetPLCAddress(plcConfigs[key].DataBlock);
 
@@ -860,22 +812,122 @@ public class PLCConfigManager : MonoBehaviour
 
     public bool TryConnect(PLCConnect connect)
     {
-        if (connect.IsConnected()) return true;
+        return EnsureConnected(connect, string.Empty);
+    }
 
-        if (plcTryConnect.ContainsKey(connect))
+    private bool EnsureConnected(PLCConnect connect, string connectKey, bool force = false)
+    {
+        if (connect == null)
         {
-            if ((System.DateTime.Now - plcTryConnect[connect]).TotalSeconds > 3.0f)
+            return false;
+        }
+
+        if (connect.IsConnected())
+        {
+            ResetReconnectState(connect);
+            return true;
+        }
+
+        if (!autoReconnect && !force)
+        {
+            return false;
+        }
+
+        ReconnectState state = GetReconnectState(connect);
+        DateTime now = DateTime.Now;
+
+        lock (state)
+        {
+            if (state.isConnecting)
             {
-                plcTryConnect[connect] = System.DateTime.Now;
-                connect.OpenAsync();
                 return false;
             }
+
+            if (!force && now < state.nextTryAt)
+            {
+                return false;
+            }
+
+            state.isConnecting = true;
         }
-        else {
-            plcTryConnect.Add(connect, System.DateTime.Now);
-            connect.OpenAsync();
+
+        try
+        {
+            connect.Close();
+            connect.Open();
+            ResetReconnectState(connect);
+            Debug.Log($"[PLCConfigManager] PLC 已连接: {GetReconnectLogName(connectKey, connect)}");
+            return true;
         }
-        return false;
+        catch (Exception ex)
+        {
+            ScheduleReconnect(connect, connectKey, ex.Message);
+            return false;
+        }
+        finally
+        {
+            lock (state)
+            {
+                state.isConnecting = false;
+            }
+        }
+    }
+
+    private ReconnectState GetReconnectState(PLCConnect connect)
+    {
+        lock (reconnectInfo)
+        {
+            if (!reconnectInfo.TryGetValue(connect, out ReconnectState state))
+            {
+                state = new ReconnectState();
+                reconnectInfo[connect] = state;
+            }
+
+            return state;
+        }
+    }
+
+    private void ResetReconnectState(PLCConnect connect)
+    {
+        ReconnectState state = GetReconnectState(connect);
+        lock (state)
+        {
+            state.failCount = 0;
+            state.nextTryAt = DateTime.MinValue;
+        }
+    }
+
+    private void ScheduleReconnect(PLCConnect connect, string connectKey, string reason)
+    {
+        ReconnectState state = GetReconnectState(connect);
+        lock (state)
+        {
+            state.failCount++;
+            double interval = Math.Min(maxReconnectInterval, reconnectInterval * Math.Max(1, state.failCount));
+            state.nextTryAt = DateTime.Now.AddSeconds(interval);
+            Debug.LogWarning($"[PLCConfigManager] PLC 连接失败，{interval:0.#} 秒后重试: {GetReconnectLogName(connectKey, connect)}，原因: {reason}");
+        }
+    }
+
+    private void MarkDisconnected(PLCConnect connect, string connectKey, string reason)
+    {
+        if (connect == null)
+        {
+            return;
+        }
+
+        connect.Close();
+        ScheduleReconnect(connect, connectKey, reason);
+    }
+
+    private string GetReconnectLogName(string connectKey, PLCConnect connect)
+    {
+        if (!string.IsNullOrWhiteSpace(connectKey))
+        {
+            return connectKey;
+        }
+
+        return $"{connect.ipaddrees}:{connect.port}:{connect.rack}:{connect.slot}";
     }
 
  // 姣忔鏈€澶ц鍙栧瓧鑺傦紙鎸?S7-300/1200/1500 鐨勫父瑙?PDU 鍙?200锛屽繀瑕佹椂鍙皟鍒?222锛?
@@ -924,25 +976,39 @@ public void ReadData()
 {
     foreach (var kv in plcConnectDic)
     {
-        var plc = kv.Value.GetPlc();
-        if (plc == null || !plc.IsConnected) continue;
-
-        foreach (var db in datablockSplit)
+        PLCConnect connect = kv.Value;
+        if (!EnsureConnected(connect, kv.Key))
         {
-            int dbNumber  = db.Key;
-            int startAddr = db.Value.min;
-            int count     = db.Value.max - db.Value.min;
+            continue;
+        }
 
-            if (count <= 0) continue;
-
-            if (db.Value.data == null || db.Value.data.Length != count)
-                db.Value.data = new byte[count];
-
-            // 鏍稿績锛氬缁堣蛋瀹夊叏鍒嗙墖
-            bool ok = SafeReadDbBytes(plc, dbNumber, startAddr, count, db.Value.data);
-            if (!ok)
+        lock (connect.SyncRoot)
+        {
+            var plc = connect.GetPlc();
+            if (plc == null || !plc.IsConnected)
             {
-                // 宸叉湁璇︾粏鏃ュ織锛岃繖閲屽彲瑙嗛渶瑕佺户缁鐞?
+                MarkDisconnected(connect, kv.Key, "PLC 状态为未连接");
+                continue;
+            }
+
+            foreach (var db in datablockSplit)
+            {
+                int dbNumber  = db.Key;
+                int startAddr = db.Value.min;
+                int count     = db.Value.max - db.Value.min;
+
+                if (count <= 0) continue;
+
+                if (db.Value.data == null || db.Value.data.Length != count)
+                    db.Value.data = new byte[count];
+
+                // 鏍稿績锛氬缁堣蛋瀹夊叏鍒嗙墖
+                bool ok = SafeReadDbBytes(plc, dbNumber, startAddr, count, db.Value.data);
+                if (!ok)
+                {
+                    MarkDisconnected(connect, kv.Key, $"读取 DB{dbNumber} 失败");
+                    break;
+                }
             }
         }
 

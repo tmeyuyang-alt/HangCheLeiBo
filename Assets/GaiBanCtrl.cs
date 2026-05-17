@@ -74,6 +74,18 @@ public class GaiBanCtrl : MonoBehaviour
         //openButton.gameObject.SetActive(true);
     }
 
+    public void OpenQuick()
+    {
+        transform.localRotation=Quaternion.Euler(new Vector3(OpenArg,transform.localRotation.eulerAngles.y,transform.localRotation.eulerAngles.z));
+        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
+    }
+
+    public void CloseQuick()
+    {
+        transform.localRotation=Quaternion.Euler(new Vector3(CloseArg,transform.localRotation.eulerAngles.y,transform.localRotation.eulerAngles.z));
+        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"开";
+    }
+
 
     public void SendOpenCmd()
     {
@@ -101,12 +113,14 @@ public class GaiBanCtrl : MonoBehaviour
 
     public void UpdateState()
     {
+        tmpOpen = PLCConfigManager.Instance.GetBool(openStateKey);
+        tmpClose = PLCConfigManager.Instance.GetBool(closeStateKey);
+        
         if (!CanRunCoroutine())
         {
             return;
         }
-        tmpOpen = PLCConfigManager.Instance.GetBool(openStateKey);
-        tmpClose = PLCConfigManager.Instance.GetBool(closeStateKey);
+       
         if (tmpOpen==false && tmpClose==false)
         {
             if (lastOpenState)
@@ -130,6 +144,22 @@ public class GaiBanCtrl : MonoBehaviour
                 Close();
             }
         }
+        
+        if (tmpOpen)
+        {
+            OpenQuick();
+            return;
+        }
+
+        if (tmpClose)
+        {
+            CloseQuick();
+            return;
+        }
+
+   
+        
+        
         lastOpenState=tmpOpen;
         lastCloseState=tmpClose;
        

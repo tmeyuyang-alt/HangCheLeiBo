@@ -50,6 +50,11 @@ public class Pages : MonoBehaviour
 
     public void UpdatePageNumber(int limitNumber, int Sum)
     {
+        UpdatePageNumber(limitNumber, Sum, 0);
+    }
+
+    public void UpdatePageNumber(int limitNumber, int Sum, int selectedPageIndex)
+    {
         //int pageNum = Sum / limitNumber;
 
         //int temp = Sum - pageNum * limitNumber;
@@ -57,19 +62,24 @@ public class Pages : MonoBehaviour
         //{
         //    pageNum = pageNum + 1;
         //}
-        this.limitNumber = limitNumber;
+        this.limitNumber = Mathf.Max(1, limitNumber);
 
-        int pageNum = Mathf.CeilToInt(Sum * 1.0f / limitNumber);
+        int pageNum = Mathf.Max(1, Mathf.CeilToInt(Sum * 1.0f / this.limitNumber));
 
-        IndexNumber = 0;
         dataCount = Sum;
 
-        maxpagesSum = Mathf.CeilToInt(pageNum * 1.0f / MaxPageNum);
+        maxpagesSum = Mathf.Max(1, Mathf.CeilToInt(pageNum * 1.0f / MaxPageNum));
+        selectedPageIndex = Mathf.Clamp(selectedPageIndex, 0, pageNum - 1);
+        pagesIndex = selectedPageIndex / MaxPageNum;
+        IndexNumber = selectedPageIndex - pagesIndex * MaxPageNum;
 
 
         for (int i = 1; i < Group.childCount - 1; i++)
         {
-            if (i <= pageNum)
+            int pageNumber = i + pagesIndex * MaxPageNum;
+            Group.GetChild(i).GetComponentInChildren<Text>().text = pageNumber.ToString();
+
+            if (pageNumber <= pageNum)
                 Group.GetChild(i).gameObject.SetActive(true);
             else
                 Group.GetChild(i).gameObject.SetActive(false);

@@ -9,6 +9,8 @@ public class RiseUpCtrl : MonoBehaviour
     public float offset = 2;
     
     public float maxLimit;
+    
+    public float downLimit=-10;
     //public float minLimit;
     
     public float maxCarPos;
@@ -21,7 +23,10 @@ public class RiseUpCtrl : MonoBehaviour
     {
         curr = PLCConfigManager.Instance.GetFloatValue(carKey);
         float tmp = -(curr / maxCarPos) * maxLimit;
-        
+        if (tmp<=downLimit)
+        {
+            tmp = downLimit;
+        }
         Vector3 targetPos = new Vector3(transform.localPosition.x, transform.localPosition.y, tmp+offset);
         float t = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(0.0001f, smoothTime));
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, t);
