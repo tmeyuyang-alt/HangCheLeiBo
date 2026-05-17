@@ -76,12 +76,14 @@ public class GaiBanCtrl : MonoBehaviour
 
     public void OpenQuick()
     {
+        KillRotateTween();
         transform.localRotation=Quaternion.Euler(new Vector3(OpenArg,transform.localRotation.eulerAngles.y,transform.localRotation.eulerAngles.z));
         openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
     }
 
     public void CloseQuick()
     {
+        KillRotateTween();
         transform.localRotation=Quaternion.Euler(new Vector3(CloseArg,transform.localRotation.eulerAngles.y,transform.localRotation.eulerAngles.z));
         openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"开";
     }
@@ -132,19 +134,20 @@ public class GaiBanCtrl : MonoBehaviour
                 Open();
             }
         }
-        else
-        {
-            if (tmpOpen)
-            {
-                Open();
-            }
-
-            if (tmpClose)
-            {
-                Close();
-            }
-        }
-        
+        // else
+        // {
+        //     if (tmpOpen)
+        //     {
+        //         Open();
+        //     }
+        //
+        //     if (tmpClose)
+        //     {
+        //         Close();
+        //     }
+        // }
+        lastOpenState=tmpOpen;
+        lastCloseState=tmpClose;
         if (tmpOpen)
         {
             OpenQuick();
@@ -160,8 +163,7 @@ public class GaiBanCtrl : MonoBehaviour
    
         
         
-        lastOpenState=tmpOpen;
-        lastCloseState=tmpClose;
+       
        
      
     }

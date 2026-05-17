@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f1a17af72ad4558af7a7802cb7d95fc, type: 3}
   m_Name: "\u4EFB\u52A1"
   m_EditorClassIdentifier: 
-  sharedIpAddress: 192.168.10.10
+  sharedIpAddress: 192.168.10.20
   points:
   - displayName: "\u4EFB\u52A1\u603B\u6570\u91CF"
     dataType: 1

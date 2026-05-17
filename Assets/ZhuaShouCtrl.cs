@@ -10,6 +10,8 @@ public class ZhuaShouCtrl : MonoBehaviour
     public string stateName;
     public int layer = 0;
 
+    public float offset = 0.01f;
+
     [Range(0f, 1f)]
     public float progress;
 
@@ -48,8 +50,8 @@ public class ZhuaShouCtrl : MonoBehaviour
         {
             return;
         }
-         curr = PLCConfigManager.Instance.GetFloatValue(Key);
-        SetProgress(PLCConfigManager.Instance.GetFloatValue(Key));
+         curr = PLCConfigManager.Instance.GetFloatValue(Key)+offset;
+        SetProgress(PLCConfigManager.Instance.GetFloatValue(Key)+offset);
     }
 
     public void SetProgress(float value)

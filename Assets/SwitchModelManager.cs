@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UMP.Wrappers;
 using UnityEngine;
 
 public class SwitchModelManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class SwitchModelManager : MonoBehaviour
    public WarningNotify warningNotify;
    public HisDataPanel hisDataPanel;
    public PLCWaringTable plcWarningTable;
+   //public WarningNotify warningNotify2;
 
    
    [ContextMenu("Switch Models1")]
@@ -21,8 +23,9 @@ public class SwitchModelManager : MonoBehaviour
    {
       plcConfig.deviceSignalJsonName = model1Json;
       warningNotify.configName=plcConfig.deviceSignalJsonName;
+      warningNotify.plcId = plcid;
       hisDataPanel.plcId = plcid;
-      plcWarningTable.plcId = plcConfig.deviceSignalJsonName;
+      plcWarningTable.plcId = plcid;
       
       foreach (var VARIABLE in models1)
       {
@@ -40,8 +43,9 @@ public class SwitchModelManager : MonoBehaviour
       plcConfig.deviceSignalJsonName = model2Json;
       warningNotify.configName=plcConfig.deviceSignalJsonName;
       hisDataPanel.plcId = plcid;
-      plcWarningTable.plcId = plcConfig.deviceSignalJsonName;
-      plcConfig.deviceSignalJsonName = model2Json;
+      warningNotify.plcId = plcid;
+      plcWarningTable.plcId = plcid;
+      
       foreach (var VARIABLE in models1)
       {
          VARIABLE.SetActive(false);

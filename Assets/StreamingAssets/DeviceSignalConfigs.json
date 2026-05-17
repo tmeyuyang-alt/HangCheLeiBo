@@ -1,10 +1,6 @@
 ﻿{
-    "sharedIpAddress": "192.168.10.10",
+    "sharedIpAddress": "127.0.0.1",
     "devices": [
-        {
-            "deviceName": "DeviceSignalConfig",
-            "points": []
-        },
         {
             "deviceName": "任务",
             "points": [
@@ -131,15 +127,6 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "故障确认",
-                    "dataType": 0,
-                    "address": "DB1.DBX0.6",
-                    "isWrite": true,
-                    "isPulse": true,
-                    "alarmLevel": 0,
-                    "isHistoryData": false
-                },
-                {
                     "displayName": "急停点按",
                     "dataType": 0,
                     "address": "DB1.DBX0.7",
@@ -206,6 +193,15 @@
                     "displayName": "一键关盖",
                     "dataType": 0,
                     "address": "DB1.DBX1.6",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "标定设置",
+                    "dataType": 0,
+                    "address": "DB1.DBX0.6",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -579,7 +575,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "抓料仓号",
+                    "displayName": "取料仓号",
                     "dataType": 1,
                     "address": "DB4.DBD12",
                     "isWrite": false,
@@ -1917,6 +1913,15 @@
                     "dataType": 2,
                     "address": "DB1.DBD20",
                     "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "制动电阻箱1当前温度",
+                    "dataType": 2,
+                    "address": "DB2.DBD12",
+                    "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
                     "isHistoryData": false

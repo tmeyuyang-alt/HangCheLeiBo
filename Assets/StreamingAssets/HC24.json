@@ -1,5 +1,5 @@
 ﻿{
-    "sharedIpAddress": "192.168.10.10",
+    "sharedIpAddress": "192.168.10.20",
     "devices": [
         {
             "deviceName": "任务",
