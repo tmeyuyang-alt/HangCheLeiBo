@@ -695,7 +695,7 @@ MonoBehaviour:
   toggleShowPwd: {fileID: 508258937}
   btnLogin: {fileID: 1163700922}
   wrongInfo: {fileID: 754131949}
-  mainSceneName: pb_hc_24
+  mainSceneName: 2.Main
 --- !u!114 &190584715
 MonoBehaviour:
   m_ObjectHideFlags: 0

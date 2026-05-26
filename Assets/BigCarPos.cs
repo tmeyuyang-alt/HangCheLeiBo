@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BigCarPos : MonoBehaviour
 {
+    public bool isDebug=false;
     public string carKey;
 
     public float maxLimit;
@@ -19,7 +20,11 @@ public class BigCarPos : MonoBehaviour
 
     public void Update()
     {
-        curr = PLCConfigManager.Instance.GetFloatValue(carKey);
+       
+        if (!isDebug)
+        {
+            curr = PLCConfigManager.Instance.GetFloatValue(carKey);
+        }
         float tmp = (curr / maxCarPos) * maxLimit;
 
         if (isNegative)

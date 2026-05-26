@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1a17af72ad4558af7a7802cb7d95fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 18ef2108e52347e49969ca4d0869cb70, type: 3}
   m_Name: "\u5168\u5C40\u6309\u94AE"
   m_EditorClassIdentifier: 
   sharedIpAddress: 192.168.10.30
@@ -129,6 +129,20 @@ MonoBehaviour:
   - displayName: "2#\u6599\u4ED3\u4E00\u952E\u5173\u76D6"
     dataType: 0
     address: DB1.DBX2.0
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u63D0\u5347\u7F16\u7801\u5668\u91CD\u542F"
+    dataType: 0
+    address: DB1.DBX146.0
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u5F00\u95ED\u7F16\u7801\u5668\u91CD\u542F"
+    dataType: 0
+    address: DB1.DBX146.1
     isWrite: 1
     isPulse: 1
     alarmLevel: 0

@@ -19,11 +19,13 @@ public class TiShengDisplay : MonoBehaviour
         tmp = PLCConfigManager.Instance.GetFloatValue(key);
         if (tmp > SettingPanel.GetTiShengHeight())
         {
-            info.text = "此区域无料";
+            info.text = "无料";
+            info.color=Color.red;
         }
         else
         {
             info.text =tmp.ToString("F2");
+            info.color=Color.white;
         }
        
     }
