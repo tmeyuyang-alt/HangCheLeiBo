@@ -9,12 +9,12 @@
     "IsAdmin": true
   },
   {
-    "name": "于洋",
+    "name": "操作员1",
     "role": "操作员",
-    "account": "yy",
-    "password": "123",
-    "contact": "13540047813",
-    "createDate": "2026-05-13",
+    "account": "pb01",
+    "password": "pb123",
+    "contact": "16608058602",
+    "createDate": "2026-05-18",
     "IsAdmin": false
   }
 ]

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Any, Iterable
 
 from dateutil.relativedelta import relativedelta
@@ -8,6 +8,7 @@ from dateutil.relativedelta import relativedelta
 from .config import settings
 from .db import db
 from .schemas import AggregateType, HistoryQueryRequest, QueryColumn, TimeUnit
+from .time_utils import format_local_seconds, format_tdengine_timestamp, to_local_naive
 
 
 def _escape(s: str) -> str:
@@ -15,7 +16,7 @@ def _escape(s: str) -> str:
 
 
 def _ts_str(dt: datetime) -> str:
-    return dt.strftime("%Y-%m-%d %H:%M:%S.") + f"{dt.microsecond // 1000:03d}"
+    return format_tdengine_timestamp(dt)
 
 
 def resolve_duration(start_at: datetime, value: int, unit: TimeUnit) -> datetime:
@@ -94,7 +95,7 @@ def normalize_filter_values(values: Iterable[str] | None) -> list[str] | None:
 
 
 async def run_history_query(request: HistoryQueryRequest) -> dict[str, Any]:
-    start_at = request.start_at.astimezone(timezone.utc)
+    start_at = to_local_naive(request.start_at)
     end_at = resolve_duration(start_at, request.duration_value, request.duration_unit)
     keyword_filter = request.device_name_contains.strip() if request.device_name_contains else None
 
@@ -207,7 +208,7 @@ async def run_history_query(request: HistoryQueryRequest) -> dict[str, Any]:
             value = row["agg_val"]
             # 统一 key 为 ISO 字符串
             if isinstance(bucket_ts, datetime):
-                ts_key = bucket_ts.isoformat()
+                ts_key = format_local_seconds(bucket_ts)
             else:
                 ts_key = str(bucket_ts)
 

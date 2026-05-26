@@ -237,6 +237,9 @@ namespace UMP
                     {
                         librariesPath = Path.Combine(Application.dataPath, PLUGINS_FOLDER_NAME);
 
+                        if (platform == Platforms.Win && !ContainsLibVLC(librariesPath))
+                            librariesPath = Path.Combine(librariesPath, EditorBitModeFolderName);
+
                         if (platform == Platforms.Linux)
                             librariesPath = Path.Combine(librariesPath, EditorBitModeFolderName);
                     }

@@ -161,6 +161,10 @@ public class HisDataPanel : UIPanel
             {
                 label = "时间";
             }
+            else
+            {
+                label = GetColumnTitle(label);
+            }
 
             fieldKeys.Add(field);
             columnLabels.Add(label);
@@ -444,7 +448,7 @@ public class HisDataPanel : UIPanel
         DateTime parsed;
         if (DateTime.TryParse(normalized, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out parsed))
         {
-            return parsed.ToUniversalTime().ToString("o");
+            return parsed.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         return normalized;
@@ -457,13 +461,68 @@ public class HisDataPanel : UIPanel
             return "--";
         }
 
+        string value = rawValue.Trim();
         DateTime parsed;
-        if (DateTime.TryParse(rawValue, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out parsed))
+        if (HasExplicitTimezone(value) &&
+            DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out parsed))
         {
             return parsed.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
         }
 
-        return rawValue;
+        if (DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out parsed))
+        {
+            return parsed.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        return value;
+    }
+
+    private bool HasExplicitTimezone(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        if (value.EndsWith("Z", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        int len = value.Length;
+        if (len >= 6)
+        {
+            char sign = value[len - 6];
+            if ((sign == '+' || sign == '-') &&
+                char.IsDigit(value[len - 5]) &&
+                char.IsDigit(value[len - 4]) &&
+                value[len - 3] == ':' &&
+                char.IsDigit(value[len - 2]) &&
+                char.IsDigit(value[len - 1]))
+                return true;
+        }
+
+        if (len >= 5)
+        {
+            char sign = value[len - 5];
+            if ((sign == '+' || sign == '-') &&
+                char.IsDigit(value[len - 4]) &&
+                char.IsDigit(value[len - 3]) &&
+                char.IsDigit(value[len - 2]) &&
+                char.IsDigit(value[len - 1]))
+                return true;
+        }
+
+        return false;
+    }
+
+    private string GetColumnTitle(string rawTitle)
+    {
+        if (string.IsNullOrWhiteSpace(rawTitle))
+            return rawTitle;
+
+        string title = rawTitle.Trim();
+        int dotIndex = title.LastIndexOf('.');
+        if (dotIndex >= 0 && dotIndex < title.Length - 1)
+            return title.Substring(dotIndex + 1).Trim();
+
+        return title;
     }
 
     private string FormatDisplayValue(string rawValue)
@@ -574,7 +633,7 @@ public class HisDataPanel : UIPanel
                 continue;
             serieFields.Add(field);
             string label = col["label"]?.ToString();
-            serieLabels.Add(string.IsNullOrWhiteSpace(label) ? field : label);
+            serieLabels.Add(GetColumnTitle(string.IsNullOrWhiteSpace(label) ? field : label));
         }
 
         if (serieFields.Count == 0)
@@ -643,7 +702,7 @@ public class HisDataPanel : UIPanel
             if (item.info != null)
             {
                 item.info.gameObject.SetActive(true);
-                item.info.text = serieLabels[i].Split('.',StringSplitOptions.None)[1];
+                item.info.text = serieLabels[i];
                 item.info.enabled = true;
                
             }

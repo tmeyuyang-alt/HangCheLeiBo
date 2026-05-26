@@ -70,3 +70,17 @@ MonoBehaviour:
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
+  - displayName: "\u8FDC\u7A0B\u53CD\u9988"
+    dataType: 0
+    address: DB1.DBX4.4
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u7535\u6D41"
+    dataType: 0
+    address: DB2.DBD58
+    isWrite: 1
+    isPulse: 1
+    alarmLevel: 0
+    isHistoryData: 0

@@ -92,6 +92,7 @@ public class UMPPostBuilds : MonoBehaviour
         {
             if (!settings.UseExternalLibraries)
             {
+                CopyPlugins(settings.AssetPath + "/Plugins/Win/x86/", dataPath + "/Plugins/");
                 CopyPlugins(settings.AssetPath + "/Plugins/Win/x86/plugins/", dataPath + "/Plugins/plugins/");
             }
             else
@@ -115,6 +116,7 @@ public class UMPPostBuilds : MonoBehaviour
         {
             if (!settings.UseExternalLibraries)
             {
+                CopyPlugins(settings.AssetPath + "/Plugins/Win/x86_64/", dataPath + "/Plugins/");
                 CopyPlugins(settings.AssetPath + "/Plugins/Win/x86_64/plugins/", dataPath + "/Plugins/plugins/");
             }
             else
@@ -264,8 +266,20 @@ public class UMPPostBuilds : MonoBehaviour
         string fileName = string.Empty;
         string destFile = targetPath;
 
+        if (!Directory.Exists(sourcePath))
+            return;
+
         if (!Directory.Exists(targetPath))
             Directory.CreateDirectory(targetPath);
+
+        foreach (var s in Directory.GetFiles(sourcePath))
+        {
+            if (Path.GetExtension(s).Equals(".meta"))
+                continue;
+
+            fileName = Path.GetFileName(s);
+            File.Copy(s, Path.Combine(targetPath, fileName), true);
+        }
 
         string[] directories = Directory.GetDirectories(sourcePath);
 
@@ -285,7 +299,7 @@ public class UMPPostBuilds : MonoBehaviour
                     continue;
 
                 fileName = Path.GetFileName(s);
-                File.Copy(s, Path.Combine(destFile, fileName), false);
+                File.Copy(s, Path.Combine(destFile, fileName), true);
             }
         }
     }

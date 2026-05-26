@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import math
 import random
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Sequence
 
 from .config import settings
 from .db import db
 from .query import normalize_filter_values, resolve_duration
 from .schemas import RandomDataGenerateRequest
+from .time_utils import format_tdengine_timestamp, to_local_naive
 
 BOOL_TYPE = 0
 DINT_TYPE = 1
@@ -72,11 +73,11 @@ def _subtable_name(prefix: str, *parts: str) -> str:
 
 def _ts_str(dt: datetime) -> str:
     """Format datetime to TDengine timestamp string with milliseconds."""
-    return dt.strftime("%Y-%m-%d %H:%M:%S.") + f"{dt.microsecond // 1000:03d}"
+    return format_tdengine_timestamp(dt)
 
 
 async def generate_random_history_data(request: RandomDataGenerateRequest) -> dict[str, object]:
-    start_at = request.start_at.astimezone(timezone.utc)
+    start_at = to_local_naive(request.start_at)
     end_at = resolve_duration(start_at, request.duration_value, request.duration_unit)
     keyword_filter = request.device_name_contains.strip() if request.device_name_contains else None
 

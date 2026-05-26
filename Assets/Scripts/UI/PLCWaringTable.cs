@@ -345,12 +345,56 @@ public class PLCWaringTable : MonoBehaviour
     private string FormatTimestamp(string raw)
     {
         if (string.IsNullOrWhiteSpace(raw)) return "--";
-        if (DateTime.TryParse(raw, CultureInfo.InvariantCulture,
-            DateTimeStyles.RoundtripKind, out DateTime dt))
+        string value = raw.Trim();
+        if (HasExplicitTimezone(value) &&
+            DateTime.TryParse(value, CultureInfo.InvariantCulture,
+                DateTimeStyles.RoundtripKind, out DateTime dt))
         {
             return dt.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
         }
-        return raw;
+
+        if (DateTime.TryParse(value, CultureInfo.InvariantCulture,
+            DateTimeStyles.AssumeLocal, out dt))
+        {
+            return dt.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        return value;
+    }
+
+    private bool HasExplicitTimezone(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        if (value.EndsWith("Z", StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        int len = value.Length;
+        if (len >= 6)
+        {
+            char sign = value[len - 6];
+            if ((sign == '+' || sign == '-') &&
+                char.IsDigit(value[len - 5]) &&
+                char.IsDigit(value[len - 4]) &&
+                value[len - 3] == ':' &&
+                char.IsDigit(value[len - 2]) &&
+                char.IsDigit(value[len - 1]))
+                return true;
+        }
+
+        if (len >= 5)
+        {
+            char sign = value[len - 5];
+            if ((sign == '+' || sign == '-') &&
+                char.IsDigit(value[len - 4]) &&
+                char.IsDigit(value[len - 3]) &&
+                char.IsDigit(value[len - 2]) &&
+                char.IsDigit(value[len - 1]))
+                return true;
+        }
+
+        return false;
     }
 
     private string NormalizeBaseUrl(string raw)

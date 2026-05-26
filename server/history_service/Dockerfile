@@ -5,6 +5,8 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV TZ=Asia/Shanghai
+ENV APP_TIMEZONE=Asia/Shanghai
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt

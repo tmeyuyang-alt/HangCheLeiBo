@@ -13,7 +13,7 @@ public class ShouDongCtrlItem : MonoBehaviour
 
    // public string DianDongKey;
 
-    public string Stopkey;
+    // string Stopkey;
 
     public void Move1()
     {
@@ -44,6 +44,6 @@ public class ShouDongCtrlItem : MonoBehaviour
 
     public void SetStopkey()
     {
-        plcConfigManager.SetPulseBool(Stopkey,true);
+        //plcConfigManager.SetPulseBool(Stopkey,true);
     }
 }

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Any
 from urllib.parse import parse_qs
 
@@ -17,6 +17,7 @@ from .query import run_history_query
 from .alarm import insert_alarm_record, query_alarm_records
 from .feed import get_daily_stats, get_shift_summary_compat
 from .operation_log import insert_operation_log, query_operation_logs
+from .time_utils import now_local, to_local_aware
 from .schemas import (
     AggregateType,
     AlarmOrderType,
@@ -183,7 +184,7 @@ async def generate_random_data_quick(
     plc_id: str = Query(default="plc01"),
 ) -> RandomDataGenerateResponse:
     """无需传参：自动生成当前时间前 6 小时的随机数据，每秒一条，覆盖写入。"""
-    now = datetime.now(tz=timezone.utc)
+    now = now_local()
     request = RandomDataGenerateRequest(
         start_at=now - timedelta(hours=6),
         duration_value=6,
@@ -234,7 +235,7 @@ async def hour_window(
         parsed_any = [device_name_contains_any]
 
     history_request = HistoryQueryRequest(
-        start_at=ts if ts.tzinfo else ts.replace(tzinfo=timezone.utc),
+        start_at=to_local_aware(ts),
         duration_value=1,
         duration_unit=TimeUnit.hours,
         interval_value=1,

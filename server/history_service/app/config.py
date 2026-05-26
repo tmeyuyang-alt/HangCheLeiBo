@@ -28,6 +28,8 @@ class Settings:
     plc_max_read_bytes: int = int(os.getenv("PLC_MAX_READ_BYTES", "200"))
     shift_start_hour: int = int(os.getenv("SHIFT_START_HOUR", "8"))
     shift_length_hours: int = int(os.getenv("SHIFT_LENGTH_HOURS", "12"))
+    # 应用业务时区。TDengine 的时间戳字符串按本地业务时间写入/查询。
+    app_timezone: str = os.getenv("APP_TIMEZONE", "Asia/Shanghai")
     # 数据保留天数
     data_keep_days: int = int(os.getenv("DATA_KEEP_DAYS", "730"))
     # 配置快照存储目录（JSON 文件，不写入数据库）

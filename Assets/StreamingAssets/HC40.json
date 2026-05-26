@@ -1405,7 +1405,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车电机风扇热过载1",
+                    "displayName": "大车风扇热过载1",
                     "dataType": 0,
                     "address": "DB3.DBX8.2",
                     "isWrite": false,
@@ -1414,7 +1414,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车电机风扇热过载2",
+                    "displayName": "大车风扇热过载2",
                     "dataType": 0,
                     "address": "DB3.DBX8.3",
                     "isWrite": false,
@@ -1423,7 +1423,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车抱闸热过载1",
+                    "displayName": "大车刹车热过载1",
                     "dataType": 0,
                     "address": "DB3.DBX8.4",
                     "isWrite": false,
@@ -1432,7 +1432,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车抱闸热过载2",
+                    "displayName": "大车刹车热过载2",
                     "dataType": 0,
                     "address": "DB3.DBX8.5",
                     "isWrite": false,
@@ -1441,7 +1441,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车东极限位",
+                    "displayName": "大车右极限位",
                     "dataType": 0,
                     "address": "DB3.DBX8.6",
                     "isWrite": false,
@@ -1450,7 +1450,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车西极限位",
+                    "displayName": "大车左极限位",
                     "dataType": 0,
                     "address": "DB3.DBX8.7",
                     "isWrite": false,
@@ -1468,7 +1468,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车东软限位",
+                    "displayName": "大车右软限位",
                     "dataType": 0,
                     "address": "DB3.DBX9.1",
                     "isWrite": false,
@@ -1477,7 +1477,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车西软限位",
+                    "displayName": "大车左软限位",
                     "dataType": 0,
                     "address": "DB3.DBX9.2",
                     "isWrite": false,
@@ -1604,7 +1604,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "小车电机风扇热过载",
+                    "displayName": "小车风扇热过载",
                     "dataType": 0,
                     "address": "DB3.DBX6.2",
                     "isWrite": false,
@@ -1613,7 +1613,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "小车抱闸热过载",
+                    "displayName": "小车刹车热过载",
                     "dataType": 0,
                     "address": "DB3.DBX6.3",
                     "isWrite": false,
@@ -1622,7 +1622,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "小车南极限位",
+                    "displayName": "小车后极限位",
                     "dataType": 0,
                     "address": "DB3.DBX6.4",
                     "isWrite": false,
@@ -1631,7 +1631,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "小车北极限位",
+                    "displayName": "小车前极限位",
                     "dataType": 0,
                     "address": "DB3.DBX6.5",
                     "isWrite": false,
@@ -1649,7 +1649,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "小车南软限位",
+                    "displayName": "小车后软限位",
                     "dataType": 0,
                     "address": "DB3.DBX6.7",
                     "isWrite": false,
@@ -1658,9 +1658,145 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "小车北软限位",
+                    "displayName": "小车前软限位",
                     "dataType": 0,
                     "address": "DB3.DBX7.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "开闭",
+            "points": [
+                {
+                    "displayName": "抓",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.0",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "放",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.1",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "停",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.2",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭变频频率",
+                    "dataType": 2,
+                    "address": "DB2.DBD34",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "开闭变频电流",
+                    "dataType": 2,
+                    "address": "DB2.DBD38",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "开闭当前开度",
+                    "dataType": 2,
+                    "address": "DB2.DBD134",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "点动",
+                    "dataType": 0,
+                    "address": "DB1.DBX6.3",
+                    "isWrite": true,
+                    "isPulse": true,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "开闭故障",
+            "points": [
+                {
+                    "displayName": "抓斗总故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭变频器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭风扇热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭抱闸热过载",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭闭环故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭开软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭闭软限位",
+                    "dataType": 0,
+                    "address": "DB3.DBX4.6",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 1,
@@ -1714,142 +1850,6 @@
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
-                }
-            ]
-        },
-        {
-            "deviceName": "抓手",
-            "points": [
-                {
-                    "displayName": "抓",
-                    "dataType": 0,
-                    "address": "DB1.DBX6.0",
-                    "isWrite": true,
-                    "isPulse": true,
-                    "alarmLevel": 0,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "放",
-                    "dataType": 0,
-                    "address": "DB1.DBX6.1",
-                    "isWrite": true,
-                    "isPulse": true,
-                    "alarmLevel": 0,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "停",
-                    "dataType": 0,
-                    "address": "DB1.DBX6.2",
-                    "isWrite": true,
-                    "isPulse": true,
-                    "alarmLevel": 0,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "抓斗变频频率",
-                    "dataType": 2,
-                    "address": "DB2.DBD34",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
-                },
-                {
-                    "displayName": "抓斗变频电流",
-                    "dataType": 2,
-                    "address": "DB2.DBD38",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
-                },
-                {
-                    "displayName": "抓斗当前开度",
-                    "dataType": 2,
-                    "address": "DB2.DBD134",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 0,
-                    "isHistoryData": true
-                },
-                {
-                    "displayName": "点动",
-                    "dataType": 0,
-                    "address": "DB1.DBX6.3",
-                    "isWrite": true,
-                    "isPulse": true,
-                    "alarmLevel": 0,
-                    "isHistoryData": false
-                }
-            ]
-        },
-        {
-            "deviceName": "抓斗故障",
-            "points": [
-                {
-                    "displayName": "抓斗总故障",
-                    "dataType": 0,
-                    "address": "DB3.DBX4.0",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 1,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "抓斗变频器故障",
-                    "dataType": 0,
-                    "address": "DB3.DBX4.1",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 1,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "抓斗电机风扇热过载",
-                    "dataType": 0,
-                    "address": "DB3.DBX4.2",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 1,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "抓斗抱闸热过载",
-                    "dataType": 0,
-                    "address": "DB3.DBX4.3",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 1,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "抓斗闭环故障",
-                    "dataType": 0,
-                    "address": "DB3.DBX4.4",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 1,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "抓斗开软限位",
-                    "dataType": 0,
-                    "address": "DB3.DBX4.5",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 1,
-                    "isHistoryData": false
-                },
-                {
-                    "displayName": "抓斗闭软限位",
-                    "dataType": 0,
-                    "address": "DB3.DBX4.6",
-                    "isWrite": false,
-                    "isPulse": false,
-                    "alarmLevel": 1,
                     "isHistoryData": false
                 }
             ]
@@ -2847,7 +2847,7 @@
                     "isHistoryData": true
                 },
                 {
-                    "displayName": "抓斗当前高度",
+                    "displayName": "开闭当前高度",
                     "dataType": 2,
                     "address": "DB2.DBD130",
                     "isWrite": false,
@@ -2888,7 +2888,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "提升电机风扇热过载",
+                    "displayName": "提升风扇热过载",
                     "dataType": 0,
                     "address": "DB3.DBX2.2",
                     "isWrite": false,
@@ -2897,7 +2897,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "提升抱闸热过载",
+                    "displayName": "提升刹车热过载",
                     "dataType": 0,
                     "address": "DB3.DBX2.3",
                     "isWrite": false,
@@ -2906,7 +2906,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "提升上极限位",
+                    "displayName": "开闭上极限位",
                     "dataType": 0,
                     "address": "DB3.DBX2.4",
                     "isWrite": false,
@@ -2915,7 +2915,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "提升上软限位",
+                    "displayName": "开闭上软限位",
                     "dataType": 0,
                     "address": "DB3.DBX2.5",
                     "isWrite": false,
@@ -2933,7 +2933,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "提升下软限位",
+                    "displayName": "开闭下软限位",
                     "dataType": 0,
                     "address": "DB3.DBX2.7",
                     "isWrite": false,
@@ -3021,7 +3021,7 @@
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
-                    "isHistoryData": false
+                    "isHistoryData": true
                 }
             ]
         },

@@ -4,6 +4,7 @@ from datetime import datetime
 
 from .config import settings
 from .db import db
+from .time_utils import now_local, to_local_naive
 
 
 def _escape(s: str) -> str:
@@ -12,9 +13,7 @@ def _escape(s: str) -> str:
 
 def _to_local_naive(dt: datetime) -> datetime:
     """将 UTC-aware datetime 转为本地 naive datetime，与 TDengine 本地时间保持一致。"""
-    if dt.tzinfo is None:
-        return dt
-    return dt.astimezone().replace(tzinfo=None)
+    return to_local_naive(dt)
 
 
 async def insert_operation_log(
@@ -77,8 +76,8 @@ async def query_operation_logs(
     """
     db_name = settings.tdengine_database
 
-    start_local = _to_local_naive(start_at)
-    end_local   = _to_local_naive(end_at) if end_at is not None else datetime.now()
+    start_local = to_local_naive(start_at)
+    end_local   = to_local_naive(end_at) if end_at is not None else now_local().replace(tzinfo=None)
 
     start_str = start_local.strftime("%Y-%m-%d %H:%M:%S")
     end_str   = end_local.strftime("%Y-%m-%d %H:%M:%S")

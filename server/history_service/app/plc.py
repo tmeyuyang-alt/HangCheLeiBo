@@ -3,11 +3,11 @@ from __future__ import annotations
 import asyncio
 import struct
 from dataclasses import dataclass
-from datetime import datetime, timezone
 from typing import Iterable
 
 from .config import settings
 from .db import db
+from .time_utils import format_tdengine_timestamp, now_local
 
 try:
     import snap7  # type: ignore
@@ -225,8 +225,7 @@ async def collect_once(plc_id: str | None = None) -> int:
         return 0
 
     db_name = settings.tdengine_database
-    now = datetime.now(timezone.utc)
-    ts_str = now.strftime("%Y-%m-%d %H:%M:%S.") + f"{now.microsecond // 1000:03d}"
+    ts_str = format_tdengine_timestamp(now_local())
 
     # 拼接单条 INSERT 语句 (TDengine 多表写入)
     parts: list[str] = []

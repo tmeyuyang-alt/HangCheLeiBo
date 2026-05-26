@@ -20,7 +20,7 @@ MonoBehaviour:
     rgba: 0
   m_BackgroundColor:
     serializedVersion: 2
-    rgba: 4281080595
+    rgba: 4280945680
   m_ColorPalette:
   - serializedVersion: 2
     rgba: 4294939209
@@ -146,8 +146,8 @@ MonoBehaviour:
       rgba: 0
     m_TriangeLen: 20
   m_Serie:
-    m_LineWidth: 1.8
-    m_LineSymbolSize: 5
+    m_LineWidth: 1
+    m_LineSymbolSize: 0
     m_ScatterSymbolSize: 20
     m_CandlestickColor:
       serializedVersion: 2

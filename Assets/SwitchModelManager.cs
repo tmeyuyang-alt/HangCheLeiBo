@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SwitchModelManager : MonoBehaviour
 {
-   public GameObject[] models1,models2;
+   public GameObject[] models1,models2,models3;
    
    public string model1Json;
    public string model2Json;
@@ -31,6 +31,10 @@ public class SwitchModelManager : MonoBehaviour
       {
          VARIABLE.SetActive(true);
       }
+      foreach (var VARIABLE in models3)
+      {
+         VARIABLE.SetActive(false);
+      }
 
       foreach (var VARIABLE in models2)
       {
@@ -50,11 +54,40 @@ public class SwitchModelManager : MonoBehaviour
       {
          VARIABLE.SetActive(false);
       }
+      foreach (var VARIABLE in models3)
+      {
+         VARIABLE.SetActive(false);
+      }
 
       foreach (var VARIABLE in models2)
       {
          VARIABLE.SetActive(true);
       }
    }
+   [ContextMenu("Switch Models3")]
+   public void SwitchModel3()
+   {
+      plcConfig.deviceSignalJsonName = model1Json;
+      warningNotify.configName=plcConfig.deviceSignalJsonName;
+      hisDataPanel.plcId = plcid;
+      warningNotify.plcId = plcid;
+      plcWarningTable.plcId = plcid;
+      
+      foreach (var VARIABLE in models1)
+      {
+         VARIABLE.SetActive(false);
+      }
+
+      foreach (var VARIABLE in models2)
+      {
+         VARIABLE.SetActive(false);
+      }
+      foreach (var VARIABLE in models3)
+      {
+         VARIABLE.SetActive(true);
+      }
+   }
+   
+   
    
 }

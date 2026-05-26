@@ -14,6 +14,8 @@ using UnityEngine.UI;
 /// </summary>
 public class WarningNotify : MonoBehaviour
 {
+    private const string AutoRecoveryHandlingMethod = "自动恢复";
+
     public string configName = "DeviceSignalConfigs.json";
 
     [Header("报警列表")]
@@ -26,6 +28,8 @@ public class WarningNotify : MonoBehaviour
     public InputField inputHandlingMethod;
     public Button btnConfirm;
     public Button btnCancel;
+    [Tooltip("开启后报警恢复时跳过确认弹窗，自动提交处理方法为“自动恢复”的报警记录。")]
+    public bool autoPostOnRecovery;
 
     [Header("服务器")]
     public string baseUrl = "http://127.0.0.1:8000";
@@ -218,14 +222,27 @@ public class WarningNotify : MonoBehaviour
         entry.isRecovered = true;
         UpdateAlarmAudio();
 
+        Debug.Log($"[WarningNotify] 报警恢复: {pt.deviceName} - {pt.displayName}");
+
+        if (autoPostOnRecovery)
+        {
+            if (entry.uiGo != null)
+            {
+                AlarmItemUI ui = entry.uiGo.GetComponent<AlarmItemUI>();
+                if (ui != null)
+                    ui.SetClickable(true, null);
+            }
+
+            StartCoroutine(PostAlarmRecord(entry, AutoRecoveryHandlingMethod, GetCurrentOperatorName()));
+            return;
+        }
+
         if (entry.uiGo != null)
         {
             AlarmItemUI ui = entry.uiGo.GetComponent<AlarmItemUI>();
             if (ui != null)
                 ui.SetClickable(true, () => ShowConfirmPopup(entry));
         }
-
-        Debug.Log($"[WarningNotify] 报警恢复: {pt.deviceName} - {pt.displayName}");
     }
 
     private void ShowConfirmPopup(AlarmEntry entry)
@@ -243,9 +260,7 @@ public class WarningNotify : MonoBehaviour
             return;
 
         string handlingMethod = inputHandlingMethod != null ? inputHandlingMethod.text.Trim() : "";
-        string operatorName = LoginManager.Instance.CurrentUser != null
-            ? LoginManager.Instance.CurrentUser.name.Trim()
-            : "默认账户";
+        string operatorName = GetCurrentOperatorName();
 
         if (string.IsNullOrEmpty(handlingMethod) || string.IsNullOrEmpty(operatorName))
         {
@@ -266,6 +281,14 @@ public class WarningNotify : MonoBehaviour
         _pendingConfirmEntry = null;
         if (confirmPopup != null)
             confirmPopup.SetActive(false);
+    }
+
+    private string GetCurrentOperatorName()
+    {
+        if (LoginManager.Instance != null && LoginManager.Instance.CurrentUser != null)
+            return LoginManager.Instance.CurrentUser.name.Trim();
+
+        return "默认账户";
     }
 
     private IEnumerator PostAlarmRecord(AlarmEntry entry, string handlingMethod, string operatorName)

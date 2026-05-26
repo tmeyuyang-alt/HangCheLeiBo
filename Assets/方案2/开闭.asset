@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f1a17af72ad4558af7a7802cb7d95fc, type: 3}
-  m_Name: "\u6293\u624B"
+  m_Name: "\u5F00\u95ED"
   m_EditorClassIdentifier: 
   sharedIpAddress: 192.168.10.30
   points:
@@ -35,21 +35,21 @@ MonoBehaviour:
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
-  - displayName: "\u6293\u6597\u53D8\u9891\u9891\u7387"
+  - displayName: "\u5F00\u95ED\u53D8\u9891\u9891\u7387"
     dataType: 2
     address: DB2.DBD34
     isWrite: 0
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 1
-  - displayName: "\u6293\u6597\u53D8\u9891\u7535\u6D41"
+  - displayName: "\u5F00\u95ED\u53D8\u9891\u7535\u6D41"
     dataType: 2
     address: DB2.DBD38
     isWrite: 0
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 1
-  - displayName: "\u6293\u6597\u5F53\u524D\u5F00\u5EA6"
+  - displayName: "\u5F00\u95ED\u5F53\u524D\u5F00\u5EA6"
     dataType: 2
     address: DB2.DBD134
     isWrite: 0

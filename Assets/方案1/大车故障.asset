@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1a17af72ad4558af7a7802cb7d95fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 18ef2108e52347e49969ca4d0869cb70, type: 3}
   m_Name: "\u5927\u8F66\u6545\u969C"
   m_EditorClassIdentifier: 
   sharedIpAddress: 192.168.10.20
@@ -28,42 +28,42 @@ MonoBehaviour:
     isPulse: 0
     alarmLevel: 2
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u7535\u673A\u98CE\u6247\u70ED\u8FC7\u8F7D1"
+  - displayName: "\u5927\u8F66\u98CE\u6247\u70ED\u8FC7\u8F7D1"
     dataType: 0
     address: DB3.DBX8.2
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u7535\u673A\u98CE\u6247\u70ED\u8FC7\u8F7D2"
+  - displayName: "\u5927\u8F66\u98CE\u6247\u70ED\u8FC7\u8F7D2"
     dataType: 0
     address: DB3.DBX8.3
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u62B1\u95F8\u70ED\u8FC7\u8F7D1"
+  - displayName: "\u5927\u8F66\u5239\u8F66\u70ED\u8FC7\u8F7D1"
     dataType: 0
     address: DB3.DBX8.4
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u62B1\u95F8\u70ED\u8FC7\u8F7D2"
+  - displayName: "\u5927\u8F66\u5239\u8F66\u70ED\u8FC7\u8F7D2"
     dataType: 0
     address: DB3.DBX8.5
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u4E1C\u6781\u9650\u4F4D"
+  - displayName: "\u5927\u8F66\u53F3\u6781\u9650\u4F4D"
     dataType: 0
     address: DB3.DBX8.6
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u897F\u6781\u9650\u4F4D"
+  - displayName: "\u5927\u8F66\u5DE6\u6781\u9650\u4F4D"
     dataType: 0
     address: DB3.DBX8.7
     isWrite: 0
@@ -77,14 +77,14 @@ MonoBehaviour:
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u4E1C\u8F6F\u9650\u4F4D"
+  - displayName: "\u5927\u8F66\u53F3\u8F6F\u9650\u4F4D"
     dataType: 0
     address: DB3.DBX9.1
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u897F\u8F6F\u9650\u4F4D"
+  - displayName: "\u5927\u8F66\u5DE6\u8F6F\u9650\u4F4D"
     dataType: 0
     address: DB3.DBX9.2
     isWrite: 0

@@ -15,7 +15,7 @@ MonoBehaviour:
   _assetPath: Assets/UniversalMediaPlayer
   _useAudioSource: 0
   _useExternalLibraries: 0
-  _librariesPath: C:\Users\Singleton\Documents\UnityProjects\UniversalMediaPlayer(StandalonePro)\Assets\UniversalMediaPlayer\Plugins\Win\x86_64\
+  _librariesPath: 
   _playersAndroid: 3
   _playersIPhone: 3
   _androidExportedPaths: []

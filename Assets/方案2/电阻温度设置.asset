@@ -41,4 +41,4 @@ MonoBehaviour:
     isWrite: 1
     isPulse: 0
     alarmLevel: 0
-    isHistoryData: 0
+    isHistoryData: 1

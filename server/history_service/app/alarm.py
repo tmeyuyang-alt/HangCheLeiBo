@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime
 
 from .config import settings
 from .db import db
+from .time_utils import format_local_seconds, now_local, to_local_naive
 
 
 def _escape(s: str) -> str:
@@ -14,9 +15,7 @@ def _to_local_naive(dt: datetime) -> datetime:
     """将 UTC-aware datetime 转为本地 naive datetime。
     TDengine 插入时用本地时间字符串，查询也必须用本地时间字符串，否则时间窗口偏移。
     """
-    if dt.tzinfo is None:
-        return dt          # 已经是 naive（本地），直接用
-    return dt.astimezone().replace(tzinfo=None)  # 转到系统本地时区后去掉 tzinfo
+    return to_local_naive(dt)
 
 
 async def insert_alarm_record(
@@ -59,8 +58,8 @@ async def query_alarm_records(
     db_name = settings.tdengine_database
 
     # 统一转为本地 naive datetime，与 WarningNotify 插入的本地时间字符串保持一致
-    start_local = _to_local_naive(start_at)
-    end_local   = _to_local_naive(end_at) if end_at is not None else datetime.now()
+    start_local = to_local_naive(start_at)
+    end_local   = to_local_naive(end_at) if end_at is not None else now_local().replace(tzinfo=None)
 
     start_str = start_local.strftime("%Y-%m-%d %H:%M:%S")
     end_str   = end_local.strftime("%Y-%m-%d %H:%M:%S")
@@ -96,7 +95,7 @@ async def query_alarm_records(
     for row in rows:
         ts_val = row.get("ts", "")
         if hasattr(ts_val, "strftime"):
-            ts_val = ts_val.strftime("%Y-%m-%d %H:%M:%S")
+            ts_val = format_local_seconds(ts_val)
         records.append({
             "trigger_time":    str(ts_val),
             "recovery_time":   str(row.get("recovery_time", "")),

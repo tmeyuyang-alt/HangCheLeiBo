@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1a17af72ad4558af7a7802cb7d95fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 18ef2108e52347e49969ca4d0869cb70, type: 3}
   m_Name: "\u63D0\u5347\u6545\u969C"
   m_EditorClassIdentifier: 
   sharedIpAddress: 192.168.10.20
@@ -28,28 +28,28 @@ MonoBehaviour:
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u63D0\u5347\u7535\u673A\u98CE\u6247\u70ED\u8FC7\u8F7D"
+  - displayName: "\u63D0\u5347\u98CE\u6247\u70ED\u8FC7\u8F7D"
     dataType: 0
     address: DB3.DBX2.2
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u63D0\u5347\u62B1\u95F8\u70ED\u8FC7\u8F7D"
+  - displayName: "\u63D0\u5347\u5239\u8F66\u70ED\u8FC7\u8F7D"
     dataType: 0
     address: DB3.DBX2.3
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u63D0\u5347\u4E0A\u6781\u9650\u4F4D"
+  - displayName: "\u5F00\u95ED\u4E0A\u6781\u9650\u4F4D"
     dataType: 0
     address: DB3.DBX2.4
     isWrite: 0
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u63D0\u5347\u4E0A\u8F6F\u9650\u4F4D"
+  - displayName: "\u5F00\u95ED\u4E0A\u8F6F\u9650\u4F4D"
     dataType: 0
     address: DB3.DBX2.5
     isWrite: 0
@@ -63,7 +63,7 @@ MonoBehaviour:
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u63D0\u5347\u4E0B\u8F6F\u9650\u4F4D"
+  - displayName: "\u5F00\u95ED\u4E0B\u8F6F\u9650\u4F4D"
     dataType: 0
     address: DB3.DBX2.7
     isWrite: 0
