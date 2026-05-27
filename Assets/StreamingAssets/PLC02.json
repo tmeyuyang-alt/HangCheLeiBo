@@ -2,6 +2,10 @@
     "sharedIpAddress": "192.168.10.20",
     "devices": [
         {
+            "deviceName": "DeviceSignalConfig",
+            "points": []
+        },
+        {
             "deviceName": "任务",
             "points": [
                 {
@@ -2468,7 +2472,7 @@
                 {
                     "displayName": "盖板关到位4",
                     "dataType": 0,
-                    "address": "DB1.DBX122.3",
+                    "address": "DB1.DBX121.1",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -2622,7 +2626,7 @@
                 {
                     "displayName": "盖板关到位5",
                     "dataType": 0,
-                    "address": "DB1.DBX122.4",
+                    "address": "DB1.DBX121.2",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -2776,7 +2780,7 @@
                 {
                     "displayName": "盖板关到位6",
                     "dataType": 0,
-                    "address": "DB1.DBX122.5",
+                    "address": "DB1.DBX121.3",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,

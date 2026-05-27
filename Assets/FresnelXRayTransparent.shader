@@ -18,7 +18,7 @@ Shader "Custom/FresnelXRayTransparent"
     {
         Tags
         {
-            "Queue" = "Transparent+20"
+            "Queue" = "Transparent-100"
             "RenderType" = "Transparent"
             "IgnoreProjector" = "True"
         }

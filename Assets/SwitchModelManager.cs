@@ -9,6 +9,7 @@ public class SwitchModelManager : MonoBehaviour
    
    public string model1Json;
    public string model2Json;
+   public string model3Json;
    public string plcid;
    
    public PLCConfigManager plcConfig;
@@ -67,7 +68,7 @@ public class SwitchModelManager : MonoBehaviour
    [ContextMenu("Switch Models3")]
    public void SwitchModel3()
    {
-      plcConfig.deviceSignalJsonName = model1Json;
+      plcConfig.deviceSignalJsonName = model3Json;
       warningNotify.configName=plcConfig.deviceSignalJsonName;
       hisDataPanel.plcId = plcid;
       warningNotify.plcId = plcid;

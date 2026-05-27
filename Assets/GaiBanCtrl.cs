@@ -12,7 +12,7 @@ public class GaiBanCtrl : MonoBehaviour
     public string openKey;
     public string closeKey;
     
-    public Button openButton;
+    //public Button openButton;
     //public Button closeButton;
 
     public string openStateKey;
@@ -39,8 +39,8 @@ public class GaiBanCtrl : MonoBehaviour
    
     private void Start()
     {
-        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
-        openButton.onClick.AddListener(SendOpenCmd);
+        //openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
+        //openButton.onClick.AddListener(SendOpenCmd);
         //closeButton.onClick.AddListener(SendCloseCmd);
         
         openKey=gameObject.name+"开";
@@ -60,7 +60,7 @@ public class GaiBanCtrl : MonoBehaviour
     public void Open()
     {
         RotateTo(OpenArg);
-        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
+        //openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
         //closeButton.gameObject.SetActive(true);
         //openButton.gameObject.SetActive(false);
     }
@@ -69,7 +69,7 @@ public class GaiBanCtrl : MonoBehaviour
     public void Close()
     {
         RotateTo(CloseArg);
-        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"开";
+        //openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"开";
         //closeButton.gameObject.SetActive(false);
         //openButton.gameObject.SetActive(true);
     }
@@ -78,14 +78,14 @@ public class GaiBanCtrl : MonoBehaviour
     {
         KillRotateTween();
         transform.localRotation=Quaternion.Euler(new Vector3(OpenArg,transform.localRotation.eulerAngles.y,transform.localRotation.eulerAngles.z));
-        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
+       // openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"关";
     }
 
     public void CloseQuick()
     {
         KillRotateTween();
         transform.localRotation=Quaternion.Euler(new Vector3(CloseArg,transform.localRotation.eulerAngles.y,transform.localRotation.eulerAngles.z));
-        openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"开";
+        //openButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = gameObject.name+"开";
     }
 
 
