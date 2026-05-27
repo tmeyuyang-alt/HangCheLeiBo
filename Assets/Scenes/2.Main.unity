@@ -138469,7 +138469,7 @@ MonoBehaviour:
   timeIntervalDB: {fileID: 1773941953190260102}
   startTime: {fileID: 5392190510455721543}
   baseUrl: http://127.0.0.1:8000
-  plcId: plc01
+  plcId: plc02
   aggregate: last
   deviceNameContains: 
   condition: {fileID: 6561973569696996679}
