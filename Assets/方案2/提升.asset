@@ -49,7 +49,7 @@ MonoBehaviour:
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 1
-  - displayName: "\u5F00\u95ED\u5F53\u524D\u9AD8\u5EA6"
+  - displayName: "\u63D0\u5347\u5F53\u524D\u9AD8\u5EA6"
     dataType: 2
     address: DB2.DBD130
     isWrite: 0

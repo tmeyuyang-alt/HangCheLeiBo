@@ -35,14 +35,14 @@ MonoBehaviour:
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
-  - displayName: "\u76D6\u677F\u5F00\u5230\u4F4D4"
+  - displayName: "1#\u76D6\u677F4\u5F00\u5230\u4F4D"
     dataType: 0
     address: DB1.DBX142.6
     isWrite: 0
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 1
-  - displayName: "\u76D6\u677F\u5173\u5230\u4F4D4"
+  - displayName: "1#\u76D6\u677F4\u5173\u5230\u4F4D"
     dataType: 0
     address: DB1.DBX142.7
     isWrite: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
-  - displayName: "\u7535\u6D41"
+  - displayName: "1#\u76D6\u677F4\u7535\u6D41"
     dataType: 2
     address: DB2.DBD70
     isWrite: 1

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GaiBanDisplayCtrl : MonoBehaviour
 {
 
-   
+    public bool hasHeader = false;
     public string openKey;
     public string closeKey;
     public string stopKey;
@@ -47,10 +47,15 @@ public class GaiBanDisplayCtrl : MonoBehaviour
         openKey=gameObject.name+"开";
         closeKey = gameObject.name + "关";
         stopKey = gameObject.name + "停";
-        eleKey = gameObject.name + "电流";
+        eleKey = gameObject.name + gameObject.name+ "电流";
 
         openStateKey = gameObject.name + "盖板开到位"+index;
         closeStateKey =gameObject.name + "盖板关到位"+index;
+        if (hasHeader)
+        {
+            openStateKey = gameObject.name +gameObject.name + "开到位";
+            closeStateKey =gameObject.name+gameObject.name + "关到位";
+        }
         farStateKey=gameObject.name + "远程反馈";
         
         

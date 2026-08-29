@@ -14,6 +14,7 @@ public class RiseUpCtrl : MonoBehaviour
     //public float minLimit;
     
     public float maxCarPos;
+    public bool isDebug=false;
     
     [Tooltip("Lerp平滑时间，值越小跟随越快")]
     public float smoothTime = 0.15f;
@@ -21,11 +22,14 @@ public class RiseUpCtrl : MonoBehaviour
     public float curr;
     public void Update()
     {
-        curr = PLCConfigManager.Instance.GetFloatValue(carKey);
-        float tmp = -(curr / maxCarPos) * maxLimit;
-        if (tmp<=downLimit)
+        if (!isDebug)
         {
-            tmp = downLimit;
+            curr = PLCConfigManager.Instance.GetFloatValue(carKey);
+        }
+        float tmp = -(curr / maxCarPos) * maxLimit;
+        if (tmp+offset<=downLimit)
+        {
+            tmp = downLimit-offset;
         }
         Vector3 targetPos = new Vector3(transform.localPosition.x, transform.localPosition.y, tmp+offset);
         float t = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(0.0001f, smoothTime));

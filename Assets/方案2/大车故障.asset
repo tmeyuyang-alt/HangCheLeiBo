@@ -91,7 +91,7 @@ MonoBehaviour:
     isPulse: 0
     alarmLevel: 1
     isHistoryData: 0
-  - displayName: "\u5927\u8F66\u4E2D\u63A7\u6025\u505C"
+  - displayName: "\u4E2D\u63A7\u6025\u505C"
     dataType: 0
     address: DB3.DBX10.0
     isWrite: 0

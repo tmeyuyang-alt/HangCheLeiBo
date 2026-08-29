@@ -33,12 +33,12 @@ namespace UMP
 
         private static class WindowsInterop
         {
-            [DllImport(LIB_WIN_KERNEL, SetLastError = true, CharSet = CharSet.Ansi)]
+            [DllImport(LIB_WIN_KERNEL, SetLastError = true, CharSet = CharSet.Unicode)]
             [return: MarshalAs(UnmanagedType.Bool)]
-            internal static extern bool SetDllDirectory([MarshalAs(UnmanagedType.LPStr)]string lpPathName);
+            internal static extern bool SetDllDirectory([MarshalAs(UnmanagedType.LPWStr)]string lpPathName);
 
-            [DllImport(LIB_WIN_KERNEL, SetLastError = true, CharSet = CharSet.Ansi)]
-            internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)]string lpFileName);
+            [DllImport(LIB_WIN_KERNEL, SetLastError = true, CharSet = CharSet.Unicode)]
+            internal static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPWStr)]string lpFileName);
 
             [DllImport(LIB_WIN_KERNEL, CharSet = CharSet.Ansi, ExactSpelling = true, SetLastError = true)]
             internal static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
@@ -113,6 +113,8 @@ namespace UMP
         {
             var libHandler = IntPtr.Zero;
             var libNameWithExt = string.Empty;
+            var fullLibraryPath = string.Empty;
+            var lastError = 0;
 
             if (string.IsNullOrEmpty(libName) || string.IsNullOrEmpty(libraryPath))
                 return libHandler;
@@ -134,20 +136,24 @@ namespace UMP
             switch (UMPSettings.RuntimePlatform)
             {
                 case UMPSettings.Platforms.Win:
-                    libHandler = WindowsInterop.LoadLibrary(Path.Combine(libraryPath, libNameWithExt));
+                    fullLibraryPath = Path.Combine(libraryPath, libNameWithExt);
+                    libHandler = WindowsInterop.LoadLibrary(fullLibraryPath);
+                    lastError = Marshal.GetLastWin32Error();
                     break;
 
                 case UMPSettings.Platforms.Mac:
-                    libHandler = MacInterop.dlopen(Path.Combine(libraryPath, libNameWithExt), LIN_RTLD_NOW);
+                    fullLibraryPath = Path.Combine(libraryPath, libNameWithExt);
+                    libHandler = MacInterop.dlopen(fullLibraryPath, LIN_RTLD_NOW);
                     break;
 
                 case UMPSettings.Platforms.Linux:
-                    libHandler = LinuxInterop.dlopen(Path.Combine(libraryPath, libNameWithExt), LIN_RTLD_NOW);
+                    fullLibraryPath = Path.Combine(libraryPath, libNameWithExt);
+                    libHandler = LinuxInterop.dlopen(fullLibraryPath, LIN_RTLD_NOW);
                     break;
             }
 
             if (libHandler == IntPtr.Zero)
-                throw new Exception(string.Format("[LoadLibrary] Can't load '{0}' library", libName));
+                throw new Exception(string.Format("[LoadLibrary] Can't load '{0}' library from '{1}'. Win32Error: {2}", libName, fullLibraryPath, lastError));
 
             return libHandler;
         }

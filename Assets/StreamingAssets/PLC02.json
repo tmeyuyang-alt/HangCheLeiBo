@@ -402,7 +402,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "大车中控急停",
+                    "displayName": "中控急停",
                     "dataType": 0,
                     "address": "DB3.DBX10.0",
                     "isWrite": false,
@@ -1754,7 +1754,7 @@
                     "isHistoryData": true
                 },
                 {
-                    "displayName": "开闭当前高度",
+                    "displayName": "提升当前高度",
                     "dataType": 2,
                     "address": "DB2.DBD100",
                     "isWrite": false,
@@ -1958,7 +1958,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "制动电阻箱1当前温度",
+                    "displayName": "电阻箱温度",
                     "dataType": 2,
                     "address": "DB2.DBD12",
                     "isWrite": false,
@@ -2053,7 +2053,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "电流",
+                    "displayName": "盖板1电流",
                     "dataType": 2,
                     "address": "DB2.DBD52",
                     "isWrite": true,
@@ -2207,7 +2207,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "电流",
+                    "displayName": "盖板2电流",
                     "dataType": 2,
                     "address": "DB2.DBD56",
                     "isWrite": true,
@@ -2361,7 +2361,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "电流",
+                    "displayName": "盖板3电流",
                     "dataType": 2,
                     "address": "DB2.DBD60",
                     "isWrite": true,
@@ -2515,7 +2515,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "电流",
+                    "displayName": "盖板4电流",
                     "dataType": 2,
                     "address": "DB2.DBD64",
                     "isWrite": true,
@@ -2669,7 +2669,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "电流",
+                    "displayName": "盖板5电流",
                     "dataType": 2,
                     "address": "DB2.DBD68",
                     "isWrite": true,
@@ -2823,7 +2823,7 @@
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "电流",
+                    "displayName": "盖板6电流",
                     "dataType": 2,
                     "address": "DB2.DBD72",
                     "isWrite": true,
