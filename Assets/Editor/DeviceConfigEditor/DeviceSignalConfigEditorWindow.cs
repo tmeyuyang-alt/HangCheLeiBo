@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -69,6 +70,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
     private const string ConfigAssetSearchFolderPrefsKey = "DeviceSignalConfigEditorWindow.ConfigAssetSearchFolder";
     private const string UploadServerUrlPrefsKey = "DeviceSignalConfigEditorWindow.UploadServerUrl";
     private const string UploadPlcIdPrefsKey = "DeviceSignalConfigEditorWindow.UploadPlcId";
+    private const string AddressIncrementValuePrefsKey = "DeviceSignalConfigEditorWindow.AddressIncrementValue";
     private static readonly string[] AlarmLevelOptions = { "无", "1级", "2级", "3级" };
 
     private DeviceSignalConfigAsset configAsset;
@@ -78,11 +80,13 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
     private List<DeviceSignalConfigAsset> allConfigAssets = new List<DeviceSignalConfigAsset>();
     private List<bool> pointFoldouts = new List<bool>();
     private List<int> pointNamePageIndices = new List<int>();
+    private List<bool> pointCustomNameModes = new List<bool>();
     private string pendingDeviceName = string.Empty;
     private string pendingSharedIpAddress = string.Empty;
     private string configAssetSearchFolder = DefaultConfigAssetSearchFolder;
     private string uploadServerUrl = "http://132.232.253.32:8000";
     private string uploadPlcId = "plc01";
+    private string addressIncrementValue = "0.1";
     private const int NameOptionsPerPage = 20;
 
     [MenuItem("Tools/配置编辑器/设备功能点配置")]
@@ -172,6 +176,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         configAssetSearchFolder = NormalizeAssetFolderPath(EditorPrefs.GetString(ConfigAssetSearchFolderPrefsKey, DefaultConfigAssetSearchFolder));
         uploadServerUrl = EditorPrefs.GetString(UploadServerUrlPrefsKey, "http://132.232.253.32:8000");
         uploadPlcId = EditorPrefs.GetString(UploadPlcIdPrefsKey, "plc01");
+        addressIncrementValue = EditorPrefs.GetString(AddressIncrementValuePrefsKey, "0.1");
         RefreshConfigAssets();
         PersistSelectedNameLibrary();
         PersistSelectedConfigAsset();
@@ -231,6 +236,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
                         configAsset = asset;
                         pendingDeviceName = configAsset != null ? configAsset.name : string.Empty;
                         pendingSharedIpAddress = GetCurrentSharedIpAddress();
+                        ResetPointEditorState();
                         PersistSelectedConfigAsset();
                         GUI.FocusControl(null);
                     }
@@ -334,6 +340,12 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
 
         pendingDeviceName = EditorGUILayout.TextField("设备名称", pendingDeviceName);
         pendingSharedIpAddress = EditorGUILayout.TextField("共享IP地址", pendingSharedIpAddress);
+        EditorGUI.BeginChangeCheck();
+        addressIncrementValue = EditorGUILayout.TextField("地址递增值", addressIncrementValue);
+        if (EditorGUI.EndChangeCheck())
+        {
+            EditorPrefs.SetString(AddressIncrementValuePrefsKey, addressIncrementValue ?? string.Empty);
+        }
 
         EditorGUILayout.Space(8);
         EditorGUILayout.LabelField("服务器上传", EditorStyles.boldLabel);
@@ -527,6 +539,10 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
                     {
                         pointFoldouts.RemoveAt(index);
                     }
+                    if (index >= 0 && index < pointCustomNameModes.Count)
+                    {
+                        pointCustomNameModes.RemoveAt(index);
+                    }
                     MarkConfigDirty();
                     GUIUtility.ExitGUI();
                 }
@@ -539,14 +555,15 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
 
             EditorGUI.BeginChangeCheck();
             string[] options = GetNameOptions();
-            int selectedIndex = GetSelectedNameIndex(point.displayName, options);
-            bool isCustomName = selectedIndex == options.Length - 1;
+            int nameIndex = GetSelectedNameIndex(point.displayName, options);
+            bool useCustomName = GetPointCustomNameMode(index, options, nameIndex);
+            int selectedIndex = useCustomName ? options.Length - 1 : nameIndex;
             bool hasSelectionChanged = DrawPagedNameSelector(index, options, selectedIndex, out int newSelectedIndex);
-            bool useCustomName = isCustomName;
             if (hasSelectionChanged)
             {
                 string selectedName = options[Mathf.Clamp(newSelectedIndex, 0, options.Length - 1)];
                 useCustomName = selectedName == CustomNameOption;
+                SetPointCustomNameMode(index, useCustomName);
                 if (!useCustomName)
                 {
                     point.displayName = selectedName;
@@ -559,7 +576,16 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
             }
 
             point.dataType = (DeviceSignalDataType)EditorGUILayout.EnumPopup("数据类型", point.dataType);
-            point.address = EditorGUILayout.TextField("地址", point.address);
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                point.address = EditorGUILayout.TextField("地址", point.address);
+                GUI.enabled = index > 0;
+                if (GUILayout.Button("递增", GUILayout.Width(64)))
+                {
+                    IncrementAddressFromPrevious(index, point);
+                }
+                GUI.enabled = true;
+            }
             point.isWrite = EditorGUILayout.Toggle("是否写", point.isWrite);
             point.isPulse = EditorGUILayout.Toggle("是否脉冲", point.isPulse);
             int alarmLevelIndex = Mathf.Clamp((int)point.alarmLevel, 0, AlarmLevelOptions.Length - 1);
@@ -579,6 +605,7 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         {
             pointFoldouts.Clear();
             pointNamePageIndices.Clear();
+            pointCustomNameModes.Clear();
             return;
         }
 
@@ -601,9 +628,46 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         {
             pointNamePageIndices.RemoveAt(pointNamePageIndices.Count - 1);
         }
+
+        while (pointCustomNameModes.Count < configAsset.points.Count)
+        {
+            pointCustomNameModes.Add(false);
+        }
+
+        while (pointCustomNameModes.Count > configAsset.points.Count)
+        {
+            pointCustomNameModes.RemoveAt(pointCustomNameModes.Count - 1);
+        }
     }
 
     private const string CustomNameOption = "自定义...";
+
+    private bool GetPointCustomNameMode(int pointIndex, string[] options, int selectedIndex)
+    {
+        bool isLibraryName = selectedIndex >= 0 && selectedIndex < options.Length - 1;
+        if (!isLibraryName)
+        {
+            return true;
+        }
+
+        return pointIndex >= 0 && pointIndex < pointCustomNameModes.Count && pointCustomNameModes[pointIndex];
+    }
+
+    private void SetPointCustomNameMode(int pointIndex, bool isCustom)
+    {
+        EnsurePointFoldouts();
+        if (pointIndex >= 0 && pointIndex < pointCustomNameModes.Count)
+        {
+            pointCustomNameModes[pointIndex] = isCustom;
+        }
+    }
+
+    private void ResetPointEditorState()
+    {
+        pointFoldouts.Clear();
+        pointNamePageIndices.Clear();
+        pointCustomNameModes.Clear();
+    }
 
     private string[] GetNameOptions()
     {
@@ -715,6 +779,207 @@ public class DeviceSignalConfigEditorWindow : EditorWindow
         }
 
         return hasChanged;
+    }
+
+    private void IncrementAddressFromPrevious(int index, DeviceSignalPoint point)
+    {
+        if (configAsset == null || configAsset.points == null || index <= 0 || index >= configAsset.points.Count)
+        {
+            return;
+        }
+
+        string previousAddress = configAsset.points[index - 1]?.address;
+        if (!TryIncrementPlcAddress(previousAddress, addressIncrementValue, out string incrementedAddress, out string errorMessage))
+        {
+            EditorUtility.DisplayDialog("地址递增失败", errorMessage, "确定");
+            return;
+        }
+
+        Undo.RecordObject(configAsset, "Increment Device Signal Address");
+        point.address = incrementedAddress;
+        MarkConfigDirty();
+        GUI.FocusControl(null);
+    }
+
+    private bool TryIncrementPlcAddress(string address, string incrementText, out string incrementedAddress, out string errorMessage)
+    {
+        incrementedAddress = string.Empty;
+        errorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(address))
+        {
+            errorMessage = "上一条功能点地址为空，无法递增。";
+            return false;
+        }
+
+        if (TryParseDbxAddress(address, out int dbNumber, out int startByte, out int bitNumber))
+        {
+            if (!TryParseDbxIncrement(incrementText, out int bitIncrement, out errorMessage))
+            {
+                return false;
+            }
+
+            int totalBits = startByte * 8 + bitNumber + bitIncrement;
+            if (totalBits < 0)
+            {
+                errorMessage = "递增后的 DBX 地址不能小于 0。";
+                return false;
+            }
+
+            incrementedAddress = $"DB{dbNumber}.DBX{totalBits / 8}.{totalBits % 8}";
+            return true;
+        }
+
+        if (TryParseDbByteAddress(address, out dbNumber, out string dataType, out startByte))
+        {
+            if (!TryParseByteIncrement(incrementText, out int byteIncrement, out errorMessage))
+            {
+                return false;
+            }
+
+            int nextByte = startByte + byteIncrement;
+            if (nextByte < 0)
+            {
+                errorMessage = "递增后的 DB 地址不能小于 0。";
+                return false;
+            }
+
+            incrementedAddress = $"DB{dbNumber}.{dataType}{nextByte}";
+            return true;
+        }
+
+        errorMessage = $"无法识别上一条地址：{address}\n支持格式示例：DB1.DBX0.2、DB1.DBW0、DB1.DBD0、DB1.DBB0。";
+        return false;
+    }
+
+    private bool TryParseDbxAddress(string address, out int dbNumber, out int startByte, out int bitNumber)
+    {
+        dbNumber = 0;
+        startByte = 0;
+        bitNumber = 0;
+
+        string normalizedAddress = address.Trim();
+        int dbxIndex = normalizedAddress.IndexOf(".DBX", StringComparison.OrdinalIgnoreCase);
+        if (!normalizedAddress.StartsWith("DB", StringComparison.OrdinalIgnoreCase) || dbxIndex <= 2)
+        {
+            return false;
+        }
+
+        string dbNumberText = normalizedAddress.Substring(2, dbxIndex - 2);
+        string bitAddressText = normalizedAddress.Substring(dbxIndex + 4);
+        string[] parts = bitAddressText.Split('.');
+        return parts.Length == 2
+            && int.TryParse(dbNumberText, NumberStyles.Integer, CultureInfo.InvariantCulture, out dbNumber)
+            && int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out startByte)
+            && int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out bitNumber)
+            && bitNumber >= 0
+            && bitNumber <= 7;
+    }
+
+    private bool TryParseDbByteAddress(string address, out int dbNumber, out string dataType, out int startByte)
+    {
+        dbNumber = 0;
+        dataType = string.Empty;
+        startByte = 0;
+
+        string normalizedAddress = address.Trim();
+        if (!normalizedAddress.StartsWith("DB", StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+
+        string[] supportedTypes = { ".DBB", ".DBW", ".DBD" };
+        foreach (string token in supportedTypes)
+        {
+            int typeIndex = normalizedAddress.IndexOf(token, StringComparison.OrdinalIgnoreCase);
+            if (typeIndex <= 2)
+            {
+                continue;
+            }
+
+            string dbNumberText = normalizedAddress.Substring(2, typeIndex - 2);
+            string startByteText = normalizedAddress.Substring(typeIndex + token.Length);
+            if (startByteText.Contains("."))
+            {
+                return false;
+            }
+
+            if (int.TryParse(dbNumberText, NumberStyles.Integer, CultureInfo.InvariantCulture, out dbNumber)
+                && int.TryParse(startByteText, NumberStyles.Integer, CultureInfo.InvariantCulture, out startByte))
+            {
+                dataType = token.Substring(1).ToUpperInvariant();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool TryParseDbxIncrement(string incrementText, out int bitIncrement, out string errorMessage)
+    {
+        bitIncrement = 0;
+        errorMessage = string.Empty;
+        string normalizedIncrement = string.IsNullOrWhiteSpace(incrementText) ? "0.1" : incrementText.Trim();
+
+        if (normalizedIncrement.Contains("."))
+        {
+            string[] parts = normalizedIncrement.Split('.');
+            if (parts.Length != 2
+                || !int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out int byteIncrement)
+                || !int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out int extraBitIncrement))
+            {
+                errorMessage = "DBX 地址递增值格式错误，请输入 0.1、0.2、1.0 这类 byte.bit 格式。";
+                return false;
+            }
+
+            bitIncrement = byteIncrement * 8 + extraBitIncrement;
+        }
+        else if (int.TryParse(normalizedIncrement, NumberStyles.Integer, CultureInfo.InvariantCulture, out int wholeByteIncrement))
+        {
+            bitIncrement = wholeByteIncrement * 8;
+        }
+        else
+        {
+            errorMessage = "DBX 地址递增值格式错误，请输入 0.1、0.2、1.0 这类 byte.bit 格式。";
+            return false;
+        }
+
+        if (bitIncrement <= 0)
+        {
+            errorMessage = "地址递增值必须大于 0。";
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool TryParseByteIncrement(string incrementText, out int byteIncrement, out string errorMessage)
+    {
+        byteIncrement = 0;
+        errorMessage = string.Empty;
+        string normalizedIncrement = string.IsNullOrWhiteSpace(incrementText) ? "1" : incrementText.Trim();
+
+        if (!decimal.TryParse(normalizedIncrement, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal increment)
+            && !decimal.TryParse(normalizedIncrement, NumberStyles.Number, CultureInfo.CurrentCulture, out increment))
+        {
+            errorMessage = "非 DBX 地址递增值必须是整数字节数，例如 1、2、4。";
+            return false;
+        }
+
+        if (increment != decimal.Truncate(increment))
+        {
+            errorMessage = "非 DBX 地址递增值必须是整数字节数，例如 1、2、4。";
+            return false;
+        }
+
+        byteIncrement = (int)increment;
+        if (byteIncrement <= 0)
+        {
+            errorMessage = "地址递增值必须大于 0。";
+            return false;
+        }
+
+        return true;
     }
 
     private DeviceSignalPoint CreatePointFromPrevious(DeviceSignalPoint previousPoint)

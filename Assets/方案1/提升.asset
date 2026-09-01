@@ -37,7 +37,7 @@ MonoBehaviour:
     isHistoryData: 0
   - displayName: "\u63D0\u5347\u53D8\u9891\u9891\u7387"
     dataType: 2
-    address: DB2.DBD20
+    address: DB2.DBD24
     isWrite: 0
     isPulse: 0
     alarmLevel: 0
@@ -65,14 +65,14 @@ MonoBehaviour:
     isHistoryData: 0
   - displayName: "\u540C\u6B65\u5347"
     dataType: 0
-    address: DB1.DBX1.1
+    address: DB1.DBX1.2
     isWrite: 1
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u540C\u6B65\u964D"
     dataType: 0
-    address: DB1.DBX1.2
+    address: DB1.DBX1.3
     isWrite: 1
     isPulse: 1
     alarmLevel: 0
