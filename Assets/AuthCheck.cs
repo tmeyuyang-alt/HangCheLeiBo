@@ -10,7 +10,7 @@ public class AuthCheck : MonoBehaviour
     {
         if (!LoginManager.Instance.isAdmin)
         {
-            print("NOAUTH");
+            //print("NOAUTH");
             NOAuthEvent.Invoke();
         }
     }

@@ -20,6 +20,12 @@ public class Select3DUICtrl : MonoBehaviour
 
     private void UpdateUI()
     {
+
+        if (TaskListManager.Instance.addTaskPanel.isActiveAndEnabled)
+        {
+            return;
+        }
+        
         totalNum = PLCConfigManager.Instance.GetIntValue(keyCurrTotal);
         
         foreach (var VARIABLE in items)

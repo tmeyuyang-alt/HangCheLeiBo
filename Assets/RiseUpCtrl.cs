@@ -31,7 +31,7 @@ public class RiseUpCtrl : MonoBehaviour
         {
             tmp = downLimit-offset;
         }
-        Vector3 targetPos = new Vector3(transform.localPosition.x, transform.localPosition.y, tmp+offset);
+        Vector3 targetPos = new Vector3(transform.localPosition.x,transform.localPosition.y , tmp+offset);
         float t = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(0.0001f, smoothTime));
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, t);
     }

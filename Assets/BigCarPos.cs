@@ -31,7 +31,7 @@ public class BigCarPos : MonoBehaviour
         {
             tmp = -tmp;
         }
-        Vector3 targetPos = new Vector3(transform.localPosition.x, tmp, transform.localPosition.z);
+        Vector3 targetPos = new Vector3(tmp,transform.localPosition.y, transform.localPosition.z);
         float t = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(0.0001f, smoothTime));
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, t);
     }

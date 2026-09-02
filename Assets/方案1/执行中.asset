@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ef2108e52347e49969ca4d0869cb70, type: 3}
   m_Name: "\u6267\u884C\u4E2D"
   m_EditorClassIdentifier: 
-  sharedIpAddress: 192.168.10.10
+  sharedIpAddress: 127.0.0.1
   points:
   - displayName: "\u653E\u6599\u4ED3\u53F7"
     dataType: 1
@@ -30,14 +30,14 @@ MonoBehaviour:
     isHistoryData: 0
   - displayName: "\u5DF2\u6293\u6597\u6570"
     dataType: 1
-    address: DB4.DBD258
+    address: DB4.DBD284
     isWrite: 0
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u5269\u4F59\u6597\u6570"
     dataType: 1
-    address: DB4.DBD262
+    address: DB4.DBD288
     isWrite: 0
     isPulse: 0
     alarmLevel: 0

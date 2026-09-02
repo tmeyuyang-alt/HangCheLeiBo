@@ -88,68 +88,68 @@ public class TaskItem : MonoBehaviour
     {
         
         
-      //  ZhuaLiaoNameInfo.text = plcConfigManager.GetIntValue(ZhuaLiaoCangNameKey).ToString();
-       // XiaLiaoNameInfo.text = plcConfigManager.GetIntValue(XiaLiaoCangNameKey).ToString();
+       ZhuaLiaoNameInfo.text = plcConfigManager.GetIntValue(ZhuaLiaoCangNameKey).ToString();
+       XiaLiaoNameInfo.text = plcConfigManager.GetIntValue(XiaLiaoCangNameKey).ToString();
 
-        switch (plcConfigManager.GetIntValue(XiaLiaoCangNameKey))
-        {
-            case 0:
-                XiaLiaoNameInfo.text = "--";
-                break;
-            case 1:
-                XiaLiaoNameInfo.text = "1";
-                break;
-            case 2:
-                XiaLiaoNameInfo.text = "2";
-                break;
-            case 3:
-                XiaLiaoNameInfo.text = "3";
-                break;
-           
-        }
-        switch (plcConfigManager.GetIntValue(ZhuaLiaoCangNameKey))
-        {
-            case 0:
-               ZhuaLiaoNameInfo.text = "--";
-                break;
-            case 1:
-                ZhuaLiaoNameInfo.text = "1";
-                break;
-            case 2:
-                ZhuaLiaoNameInfo.text = "2";
-                break;
-            case 3:
-                ZhuaLiaoNameInfo.text = "3";
-                break;
-            case 4:
-                ZhuaLiaoNameInfo.text = "4";
-                break;
-            case 5:
-                ZhuaLiaoNameInfo.text = "5";
-                break;
-            case 6:
-                ZhuaLiaoNameInfo.text = "6";
-                break;
-            case 7:
-                ZhuaLiaoNameInfo.text = "7";
-                break;
-            case 8:
-                ZhuaLiaoNameInfo.text = "8";
-                break;
-            case 9:
-                ZhuaLiaoNameInfo.text = "9";
-                break;
-            case 10:
-                ZhuaLiaoNameInfo.text = "10";
-                break;
-            case 11:
-                ZhuaLiaoNameInfo.text = "11";
-                break;
-            case 12:
-                ZhuaLiaoNameInfo.text = "12";
-                break;
-            
-        }
+        // switch (plcConfigManager.GetIntValue(XiaLiaoCangNameKey))
+        // {
+        //     case 0:
+        //         XiaLiaoNameInfo.text = "--";
+        //         break;
+        //     case 1:
+        //         XiaLiaoNameInfo.text = "1";
+        //         break;
+        //     case 2:
+        //         XiaLiaoNameInfo.text = "2";
+        //         break;
+        //     case 3:
+        //         XiaLiaoNameInfo.text = "3";
+        //         break;
+        //    
+        // }
+        // switch (plcConfigManager.GetIntValue(ZhuaLiaoCangNameKey))
+        // {
+        //     case 0:
+        //        ZhuaLiaoNameInfo.text = "--";
+        //         break;
+        //     case 1:
+        //         ZhuaLiaoNameInfo.text = "1";
+        //         break;
+        //     case 2:
+        //         ZhuaLiaoNameInfo.text = "2";
+        //         break;
+        //     case 3:
+        //         ZhuaLiaoNameInfo.text = "3";
+        //         break;
+        //     case 4:
+        //         ZhuaLiaoNameInfo.text = "4";
+        //         break;
+        //     case 5:
+        //         ZhuaLiaoNameInfo.text = "5";
+        //         break;
+        //     case 6:
+        //         ZhuaLiaoNameInfo.text = "6";
+        //         break;
+        //     case 7:
+        //         ZhuaLiaoNameInfo.text = "7";
+        //         break;
+        //     case 8:
+        //         ZhuaLiaoNameInfo.text = "8";
+        //         break;
+        //     case 9:
+        //         ZhuaLiaoNameInfo.text = "9";
+        //         break;
+        //     case 10:
+        //         ZhuaLiaoNameInfo.text = "10";
+        //         break;
+        //     case 11:
+        //         ZhuaLiaoNameInfo.text = "11";
+        //         break;
+        //     case 12:
+        //         ZhuaLiaoNameInfo.text = "12";
+        //         break;
+        //     
+        // }
 
         ZhuaDouNumInfo.text = plcConfigManager.GetIntValue(ZhuaDouNumKey).ToString();
 

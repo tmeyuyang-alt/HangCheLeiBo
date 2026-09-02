@@ -16,6 +16,10 @@ public class Select3DUIItem : MonoBehaviour
     public string keyName;
     private string currKeyName;
     
+    public Image targetImage;
+    public TextMeshProUGUI targetText;
+    
+    
     bool isSelected = false;
 
     private void Update()
@@ -26,32 +30,42 @@ public class Select3DUIItem : MonoBehaviour
 
     public void SetSelected()
     {
-        GetComponent<Image>().color = selectedColor;
-            //print(gameObject.name+" set");
+        targetImage.gameObject.SetActive(true); 
+        targetText.gameObject.SetActive(true);
+        targetImage.color = selectedColor;
+     
     }
 
     public void SetCurrent()
     {
-        GetComponent<Image>().color = currentColor;
+        targetImage.gameObject.SetActive(true); 
+        targetText.gameObject.SetActive(true);
+        targetImage.color = currentColor;
     }
 
     public void SetDefault()
     {
-        GetComponent<Image>().color = defaultColor;
+        targetImage.gameObject.SetActive(false); 
+        targetText.gameObject.SetActive(false);
     }
     
     void Start()
     {
-        ChangeName();
-        defaultColor = gameObject.GetComponent<Image>().color;
-        GetComponent<Button>().onClick.AddListener(BeenSelected);
+        myName=gameObject.name;
+        //ChangeName();
+       
+        GetComponent<Clickable3DObject>().onClick.AddListener(BeenSelected);
+        
+        targetImage=transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
+        targetText=transform.GetChild(0).transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        defaultColor =targetImage.color;
       
     }
 
     public void BeenSelected()
     {
        isSelected=!isSelected;
-       
+       SetSelected();
        TaskListManager.Instance.addTaskPanel.OnOpen((Convert.ToInt32(myName)));
        
     }

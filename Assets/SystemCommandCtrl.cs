@@ -15,6 +15,8 @@ public class SystemCommandCtrl : MonoBehaviour
     //设置自动
     public string mAutoKey;
 
+    public string HaiKangModeKey;
+
    
 
     public GameObject AuToBtn,ShouDongBtn;
@@ -55,6 +57,16 @@ public class SystemCommandCtrl : MonoBehaviour
     {
         plcConfigManager.SetBool(mShouDongKey, false);
       
+    }
+
+    public void SetHaiKanCommand()
+    {
+        plcConfigManager.SetBool(HaiKangModeKey,true);
+    }
+
+    public void SetDianXuangCommand()
+    {
+        plcConfigManager.SetBool(HaiKangModeKey,false);
     }
     
     
