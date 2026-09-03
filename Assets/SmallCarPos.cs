@@ -6,6 +6,7 @@ public class SmallCarPos : MonoBehaviour
 {
     public bool isNegative=true;
     public string carKey;
+    public PLCValueSource valueSource = PLCValueSource.ActiveCrane;
 
     public float maxLimit;
     //public float minLimit;
@@ -19,7 +20,7 @@ public class SmallCarPos : MonoBehaviour
 
     public void Update()
     {
-        curr = PLCConfigManager.Instance.GetFloatValue(carKey);
+        curr = PLCConfigManager.Instance.GetFloatValue(carKey, valueSource);
         float tmp=0;
         if (isNegative)
         { 

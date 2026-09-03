@@ -1,5 +1,5 @@
 ﻿{
-    "sharedIpAddress": "127.0.0.1",
+    "sharedIpAddress": "192.168.12.12",
     "devices": [
         {
             "deviceName": "DeviceSignalConfig",
@@ -255,7 +255,7 @@
                 {
                     "displayName": "大车当前位置",
                     "dataType": 2,
-                    "address": "DB2.DBD92",
+                    "address": "DB2.DBD72",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -454,7 +454,7 @@
                 {
                     "displayName": "小车当前位置",
                     "dataType": 2,
-                    "address": "DB2.DBD96",
+                    "address": "DB2.DBD76",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -608,7 +608,7 @@
                 {
                     "displayName": "开闭当前开度",
                     "dataType": 2,
-                    "address": "DB2.DBD104",
+                    "address": "DB2.DBD84",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -740,7 +740,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX20.0",
+                    "address": "DB4.DBX44.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -749,7 +749,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX20.1",
+                    "address": "DB4.DBX44.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -758,7 +758,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX20.2",
+                    "address": "DB4.DBX44.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -767,7 +767,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW22",
+                    "address": "DB4.DBW46",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -776,7 +776,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW26",
+                    "address": "DB4.DBW50",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -785,7 +785,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW30",
+                    "address": "DB4.DBW54",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -799,7 +799,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX146.0",
+                    "address": "DB4.DBX170.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -808,7 +808,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX146.1",
+                    "address": "DB4.DBX170.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -817,7 +817,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX146.2",
+                    "address": "DB4.DBX170.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -826,7 +826,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW148",
+                    "address": "DB4.DBW172",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -835,7 +835,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW152",
+                    "address": "DB4.DBW176",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -844,7 +844,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW156",
+                    "address": "DB4.DBW180",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -858,7 +858,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX160.0",
+                    "address": "DB4.DBX184.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -867,7 +867,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX160.1",
+                    "address": "DB4.DBX184.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -876,7 +876,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX160.2",
+                    "address": "DB4.DBX184.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -885,7 +885,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW162",
+                    "address": "DB4.DBW186",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -894,7 +894,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW166",
+                    "address": "DB4.DBW190",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -903,7 +903,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW170",
+                    "address": "DB4.DBW194",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -917,7 +917,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX174.0",
+                    "address": "DB4.DBX198.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -926,7 +926,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX174.1",
+                    "address": "DB4.DBX198.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -935,7 +935,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX174.2",
+                    "address": "DB4.DBX198.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -944,7 +944,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW176",
+                    "address": "DB4.DBW200",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -953,7 +953,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW180",
+                    "address": "DB4.DBW204",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -962,7 +962,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW184",
+                    "address": "DB4.DBW208",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -976,7 +976,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX188.0",
+                    "address": "DB4.DBX212.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -985,7 +985,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX188.1",
+                    "address": "DB4.DBX212.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -994,7 +994,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX188.2",
+                    "address": "DB4.DBX212.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1003,7 +1003,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW190",
+                    "address": "DB4.DBW214",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1012,7 +1012,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW194",
+                    "address": "DB4.DBW218",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1021,7 +1021,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW198",
+                    "address": "DB4.DBW222",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1035,7 +1035,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX202.0",
+                    "address": "DB4.DBX226.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1044,7 +1044,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX202.1",
+                    "address": "DB4.DBX226.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1053,7 +1053,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX202.2",
+                    "address": "DB4.DBX226.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1062,7 +1062,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW204",
+                    "address": "DB4.DBW228",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1071,7 +1071,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW208",
+                    "address": "DB4.DBW232",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1080,7 +1080,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW212",
+                    "address": "DB4.DBW236",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1094,7 +1094,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX216.0",
+                    "address": "DB4.DBX240.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1103,7 +1103,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX216.1",
+                    "address": "DB4.DBX240.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1112,7 +1112,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX216.2",
+                    "address": "DB4.DBX240.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1121,7 +1121,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW218",
+                    "address": "DB4.DBW242",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1130,7 +1130,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW222",
+                    "address": "DB4.DBW246",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1139,7 +1139,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW226",
+                    "address": "DB4.DBW250",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1153,7 +1153,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX230.0",
+                    "address": "DB4.DBX254.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1162,7 +1162,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX230.1",
+                    "address": "DB4.DBX254.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1171,7 +1171,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX230.2",
+                    "address": "DB4.DBX254.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1180,7 +1180,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW232",
+                    "address": "DB4.DBW256",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1189,7 +1189,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW236",
+                    "address": "DB4.DBW260",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1198,7 +1198,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW240",
+                    "address": "DB4.DBW264",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1212,7 +1212,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX34.0",
+                    "address": "DB4.DBX58.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1221,7 +1221,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX34.1",
+                    "address": "DB4.DBX58.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1230,7 +1230,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX34.2",
+                    "address": "DB4.DBX58.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1239,7 +1239,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW36",
+                    "address": "DB4.DBW60",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1248,7 +1248,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW40",
+                    "address": "DB4.DBW64",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1257,7 +1257,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW44",
+                    "address": "DB4.DBW68",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1271,7 +1271,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX48.0",
+                    "address": "DB4.DBX72.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1280,7 +1280,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX48.1",
+                    "address": "DB4.DBX72.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1289,7 +1289,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX48.2",
+                    "address": "DB4.DBX72.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1298,7 +1298,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW50",
+                    "address": "DB4.DBW74",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1307,7 +1307,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW54",
+                    "address": "DB4.DBW78",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1316,7 +1316,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW58",
+                    "address": "DB4.DBW82",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1330,7 +1330,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX62.0",
+                    "address": "DB4.DBX86.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1339,7 +1339,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX62.1",
+                    "address": "DB4.DBX86.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1348,7 +1348,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX62.2",
+                    "address": "DB4.DBX86.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1357,7 +1357,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW64",
+                    "address": "DB4.DBW88",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1366,7 +1366,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW68",
+                    "address": "DB4.DBW92",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1375,7 +1375,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW72",
+                    "address": "DB4.DBW96",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1389,7 +1389,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX76.0",
+                    "address": "DB4.DBX100.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1398,7 +1398,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX76.1",
+                    "address": "DB4.DBX100.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1407,7 +1407,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX76.2",
+                    "address": "DB4.DBX100.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1416,7 +1416,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW78",
+                    "address": "DB4.DBW102",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1425,7 +1425,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW82",
+                    "address": "DB4.DBW106",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1434,7 +1434,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW86",
+                    "address": "DB4.DBW110",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1448,7 +1448,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX90.0",
+                    "address": "DB4.DBX114.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1457,7 +1457,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX90.1",
+                    "address": "DB4.DBX114.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1466,7 +1466,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX90.2",
+                    "address": "DB4.DBX114.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1475,7 +1475,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW92",
+                    "address": "DB4.DBW116",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1484,7 +1484,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW96",
+                    "address": "DB4.DBW120",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1493,7 +1493,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW100",
+                    "address": "DB4.DBW124",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1507,7 +1507,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX104.0",
+                    "address": "DB4.DBX128.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1516,7 +1516,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX104.1",
+                    "address": "DB4.DBX128.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1525,7 +1525,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX104.2",
+                    "address": "DB4.DBX128.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1534,7 +1534,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW106",
+                    "address": "DB4.DBW130",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1543,7 +1543,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW110",
+                    "address": "DB4.DBW134",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1552,7 +1552,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW114",
+                    "address": "DB4.DBW138",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1566,7 +1566,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX118.0",
+                    "address": "DB4.DBX142.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1575,7 +1575,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX118.1",
+                    "address": "DB4.DBX142.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1584,7 +1584,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX118.2",
+                    "address": "DB4.DBX142.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1593,7 +1593,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW120",
+                    "address": "DB4.DBW144",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1602,7 +1602,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW124",
+                    "address": "DB4.DBW148",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1611,7 +1611,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW128",
+                    "address": "DB4.DBW152",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1625,7 +1625,7 @@
                 {
                     "displayName": "删除",
                     "dataType": 0,
-                    "address": "DB4.DBX132.0",
+                    "address": "DB4.DBX156.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1634,7 +1634,7 @@
                 {
                     "displayName": "前移",
                     "dataType": 0,
-                    "address": "DB4.DBX132.1",
+                    "address": "DB4.DBX156.1",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1643,7 +1643,7 @@
                 {
                     "displayName": "后移",
                     "dataType": 0,
-                    "address": "DB4.DBX132.2",
+                    "address": "DB4.DBX156.2",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1652,7 +1652,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW134",
+                    "address": "DB4.DBW158",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1661,7 +1661,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW138",
+                    "address": "DB4.DBW162",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1670,7 +1670,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW142",
+                    "address": "DB4.DBW166",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1729,7 +1729,7 @@
                 {
                     "displayName": "提升当前高度",
                     "dataType": 2,
-                    "address": "DB2.DBD100",
+                    "address": "DB2.DBD80",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1847,7 +1847,7 @@
                 {
                     "displayName": "放料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW244",
+                    "address": "DB4.DBW268",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1856,7 +1856,7 @@
                 {
                     "displayName": "取料仓号",
                     "dataType": 1,
-                    "address": "DB4.DBW248",
+                    "address": "DB4.DBW272",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1865,7 +1865,7 @@
                 {
                     "displayName": "抓料斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW252",
+                    "address": "DB4.DBW276",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1874,7 +1874,7 @@
                 {
                     "displayName": "确认新增",
                     "dataType": 0,
-                    "address": "DB4.DBX256.0",
+                    "address": "DB4.DBX280.0",
                     "isWrite": true,
                     "isPulse": true,
                     "alarmLevel": 0,
@@ -1883,7 +1883,7 @@
                 {
                     "displayName": "已抓斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW258",
+                    "address": "DB4.DBW284",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1892,7 +1892,7 @@
                 {
                     "displayName": "剩余斗数",
                     "dataType": 1,
-                    "address": "DB4.DBW262",
+                    "address": "DB4.DBW288",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1906,7 +1906,7 @@
                 {
                     "displayName": "制动电阻箱温度上限",
                     "dataType": 2,
-                    "address": "DB1.DBD12",
+                    "address": "DB1.DBD44",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1915,7 +1915,7 @@
                 {
                     "displayName": "制动电阻箱温度下限",
                     "dataType": 2,
-                    "address": "DB1.DBD16",
+                    "address": "DB1.DBD48",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1924,16 +1924,25 @@
                 {
                     "displayName": "制动电阻箱温度报警",
                     "dataType": 2,
-                    "address": "DB1.DBD20",
+                    "address": "DB1.DBD52",
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
                     "isHistoryData": false
                 },
                 {
-                    "displayName": "电阻箱温度",
+                    "displayName": "电阻箱温度1",
                     "dataType": 2,
-                    "address": "DB2.DBD12",
+                    "address": "DB2.DBD16",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": true
+                },
+                {
+                    "displayName": "电阻箱温度2",
+                    "dataType": 2,
+                    "address": "DB2.DBD20",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,

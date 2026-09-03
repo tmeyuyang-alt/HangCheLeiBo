@@ -6,6 +6,7 @@ public class BigCarPos : MonoBehaviour
 {
     public bool isDebug=false;
     public string carKey;
+    public PLCValueSource valueSource = PLCValueSource.ActiveCrane;
 
     public float maxLimit;
     //public float minLimit;
@@ -23,7 +24,7 @@ public class BigCarPos : MonoBehaviour
        
         if (!isDebug)
         {
-            curr = PLCConfigManager.Instance.GetFloatValue(carKey);
+            curr = PLCConfigManager.Instance.GetFloatValue(carKey, valueSource);
         }
         float tmp = (curr / maxCarPos) * maxLimit;
 

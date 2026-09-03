@@ -5,6 +5,7 @@ public class HangChePosSync : MonoBehaviour
 {
     [Header("数据源")]
     public PLCConfigManager plcConfigManager;
+    public PLCValueSource valueSource = PLCValueSource.ActiveCrane;
     public string BigCarPosKey;
     public string SmallCarPosKey;
     public string ZhuaDouPosKey;
@@ -58,9 +59,9 @@ public class HangChePosSync : MonoBehaviour
         if (BigCar == null || SmallCar == null || ZhuaDou == null) return;
 
         // 读取 PLC 目标值（与原脚本方向一致）
-        float big = plcConfigManager.GetFloatValue(BigCarPosKey)-2.5f;
-        float small = plcConfigManager.GetFloatValue(SmallCarPosKey);
-        float zhua = plcConfigManager.GetFloatValue(ZhuaDouPosKey);
+        float big = plcConfigManager.GetFloatValue(BigCarPosKey, valueSource)-2.5f;
+        float small = plcConfigManager.GetFloatValue(SmallCarPosKey, valueSource);
+        float zhua = plcConfigManager.GetFloatValue(ZhuaDouPosKey, valueSource);
 
         if (big<=0)
         {
@@ -88,7 +89,7 @@ public class HangChePosSync : MonoBehaviour
         SmallCar.localPosition = SmoothFollow(SmallCar.localPosition, smallTarget, ref _smallVel);
         ZhuaDou.localPosition  = SmoothFollow(ZhuaDou.localPosition,  zhuaTarget,  ref _zhuaVel);
         
-        scrubber.SetProgress(plcConfigManager.GetFloatValue(ZhuaDouOpenKey));
+        scrubber.SetProgress(plcConfigManager.GetFloatValue(ZhuaDouOpenKey, valueSource));
         
     }
 

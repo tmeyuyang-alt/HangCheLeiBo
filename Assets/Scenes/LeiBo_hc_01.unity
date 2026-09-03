@@ -68638,7 +68638,7 @@ MonoBehaviour:
   maxCarPos: 200
   smoothTime: 0.15
   curr: 0
-  isNegative: 0
+  isNegative: 1
 --- !u!1 &813053296
 GameObject:
   m_ObjectHideFlags: 0
@@ -98799,6 +98799,17 @@ MonoBehaviour:
   defaultPort: 102
   defaultRack: 0
   defaultSlot: 1
+  enableCraneSwitching: 1
+  activeCraneIndex: 0
+  craneConfigs:
+  - displayName: 1号行车
+    deviceSignalJsonName: PLC01.json
+  - displayName: 2号行车
+    deviceSignalJsonName: PLC02.json
+  oppositePositionKeys:
+  - 大车大车当前位置
+  - 小车小车当前位置
+  createRuntimeSwitchButton: 1
   autoReconnect: 1
   reconnectInterval: 3
   maxReconnectInterval: 30

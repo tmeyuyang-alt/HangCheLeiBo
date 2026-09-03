@@ -12,32 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ef2108e52347e49969ca4d0869cb70, type: 3}
   m_Name: "\u7535\u963B\u6E29\u5EA6\u8BBE\u7F6E"
   m_EditorClassIdentifier: 
-  sharedIpAddress: 127.0.0.1
+  sharedIpAddress: 192.168.12.12
   points:
   - displayName: "\u5236\u52A8\u7535\u963B\u7BB1\u6E29\u5EA6\u4E0A\u9650"
     dataType: 2
-    address: DB1.DBD12
+    address: DB1.DBD44
     isWrite: 1
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u5236\u52A8\u7535\u963B\u7BB1\u6E29\u5EA6\u4E0B\u9650"
     dataType: 2
-    address: DB1.DBD16
+    address: DB1.DBD48
     isWrite: 1
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u5236\u52A8\u7535\u963B\u7BB1\u6E29\u5EA6\u62A5\u8B66"
     dataType: 2
-    address: DB1.DBD20
+    address: DB1.DBD52
     isWrite: 1
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
-  - displayName: "\u7535\u963B\u7BB1\u6E29\u5EA6"
+  - displayName: "\u7535\u963B\u7BB1\u6E29\u5EA61"
     dataType: 2
-    address: DB2.DBD12
+    address: DB2.DBD16
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 0
+    isHistoryData: 1
+  - displayName: "\u7535\u963B\u7BB1\u6E29\u5EA62"
+    dataType: 2
+    address: DB2.DBD20
     isWrite: 0
     isPulse: 0
     alarmLevel: 0

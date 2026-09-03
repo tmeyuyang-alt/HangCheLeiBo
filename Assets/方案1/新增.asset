@@ -12,46 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18ef2108e52347e49969ca4d0869cb70, type: 3}
   m_Name: "\u65B0\u589E"
   m_EditorClassIdentifier: 
-  sharedIpAddress: 127.0.0.1
+  sharedIpAddress: 192.168.12.12
   points:
   - displayName: "\u653E\u6599\u4ED3\u53F7"
     dataType: 1
-    address: DB4.DBW244
+    address: DB4.DBW268
     isWrite: 1
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u53D6\u6599\u4ED3\u53F7"
     dataType: 1
-    address: DB4.DBW248
+    address: DB4.DBW272
     isWrite: 1
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u6293\u6599\u6597\u6570"
     dataType: 1
-    address: DB4.DBW252
+    address: DB4.DBW276
     isWrite: 1
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u786E\u8BA4\u65B0\u589E"
     dataType: 0
-    address: DB4.DBX256.0
+    address: DB4.DBX280.0
     isWrite: 1
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u5DF2\u6293\u6597\u6570"
     dataType: 1
-    address: DB4.DBW258
+    address: DB4.DBW284
     isWrite: 0
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 0
   - displayName: "\u5269\u4F59\u6597\u6570"
     dataType: 1
-    address: DB4.DBW262
+    address: DB4.DBW288
     isWrite: 0
     isPulse: 0
     alarmLevel: 0
