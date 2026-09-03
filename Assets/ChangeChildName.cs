@@ -9,7 +9,7 @@ public class ChangeChildName : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).name = (i+8).ToString();
+            transform.GetChild(i).name = (transform.childCount-i+7).ToString();
         }
     }
 }
