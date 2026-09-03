@@ -60,6 +60,7 @@ public class WarningNotify : MonoBehaviour
     private class AlarmEntry
     {
         public AlarmPoint point;
+        public string plcId;
         public DateTime triggerTime;
         public DateTime? recoveryTime;
         public bool isRecovered;
@@ -80,6 +81,8 @@ public class WarningNotify : MonoBehaviour
 
     private void Start()
     {
+        UpdatePlcIdFromActiveCrane();
+
         EnsureAlarmAudioSource();
         LoadServerConfig();
 
@@ -94,9 +97,58 @@ public class WarningNotify : MonoBehaviour
         InvokeRepeating("CheckAlarms", 3f, 1f);
     }
 
+    private void OnEnable()
+    {
+        PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
+        UpdatePlcIdFromActiveCrane();
+    }
+
     private void OnDisable()
     {
+        PLCConfigManager.OnActiveCraneChanged -= OnActiveCraneChanged;
         StopAlarmAudio();
+    }
+
+    private void OnActiveCraneChanged(int craneIndex)
+    {
+        UpdatePlcIdFromActiveCrane();
+        ResetRealtimeAlarmsForCraneSwitch();
+        CheckAlarms();
+    }
+
+    private void UpdatePlcIdFromActiveCrane()
+    {
+        if (PLCConfigManager.Instance != null && PLCConfigManager.Instance.TryGetActiveCranePlcId(out string currentPlcId))
+        {
+            plcId = currentPlcId;
+        }
+    }
+
+    private void ResetRealtimeAlarmsForCraneSwitch()
+    {
+        _pendingConfirmEntry = null;
+        if (confirmPopup != null)
+        {
+            confirmPopup.SetActive(false);
+        }
+
+        for (int i = _activeAlarms.Count - 1; i >= 0; i--)
+        {
+            AlarmEntry entry = _activeAlarms[i];
+            if (entry != null && entry.uiGo != null)
+            {
+                Destroy(entry.uiGo);
+            }
+        }
+
+        _activeAlarms.Clear();
+
+        foreach (AlarmPoint pt in _monitorPoints)
+        {
+            pt.lastValue = false;
+        }
+
+        UpdateAlarmAudio();
     }
 
     private void LoadServerConfig()
@@ -162,6 +214,8 @@ public class WarningNotify : MonoBehaviour
 
     private void CheckAlarms()
     {
+        UpdatePlcIdFromActiveCrane();
+
         if (_monitorPoints.Count == 0)
             return;
 
@@ -179,13 +233,16 @@ public class WarningNotify : MonoBehaviour
 
     private void OnAlarmTriggered(AlarmPoint pt)
     {
-        AlarmEntry existing = _activeAlarms.Find(e => e.point.key == pt.key && !e.isRecovered);
+        UpdatePlcIdFromActiveCrane();
+
+        AlarmEntry existing = _activeAlarms.Find(e => e.point.key == pt.key && e.plcId == plcId && !e.isRecovered);
         if (existing != null)
             return;
 
         AlarmEntry entry = new AlarmEntry
         {
             point = pt,
+            plcId = plcId,
             triggerTime = DateTime.Now,
             isRecovered = false
         };
@@ -214,7 +271,7 @@ public class WarningNotify : MonoBehaviour
 
     private void OnAlarmRecovered(AlarmPoint pt)
     {
-        AlarmEntry entry = _activeAlarms.Find(e => e.point.key == pt.key && !e.isRecovered);
+        AlarmEntry entry = _activeAlarms.Find(e => e.point.key == pt.key && e.plcId == plcId && !e.isRecovered);
         if (entry == null)
             return;
 
@@ -303,7 +360,7 @@ public class WarningNotify : MonoBehaviour
             handling_method = handlingMethod,
             operator_name = operatorName,
             alarm_level = entry.point.alarmLevel.ToString(),
-            plc_id = plcId
+            plc_id = string.IsNullOrWhiteSpace(entry.plcId) ? plcId : entry.plcId
         };
 
         string json = JsonUtility.ToJson(payload);

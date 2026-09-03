@@ -6,6 +6,7 @@ public class HangChePosSync : MonoBehaviour
     [Header("数据源")]
     public PLCConfigManager plcConfigManager;
     public PLCValueSource valueSource = PLCValueSource.ActiveCrane;
+    public int craneNumber = 0;
     public string BigCarPosKey;
     public string SmallCarPosKey;
     public string ZhuaDouPosKey;
@@ -46,6 +47,47 @@ public class HangChePosSync : MonoBehaviour
         teleportThreshold = 10f;
         useSmoothDamp = true;
         isLeft = true;
+    }
+
+    private void OnEnable()
+    {
+        PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
+        ApplyCraneValueSource();
+    }
+
+    private void Start()
+    {
+        ApplyCraneValueSource();
+    }
+
+    private void OnDisable()
+    {
+        PLCConfigManager.OnActiveCraneChanged -= OnActiveCraneChanged;
+    }
+
+    private void OnActiveCraneChanged(int craneIndex)
+    {
+        ApplyCraneValueSource();
+    }
+
+    private void ApplyCraneValueSource()
+    {
+        if (craneNumber <= 0)
+        {
+            return;
+        }
+
+        if (plcConfigManager == null)
+        {
+            plcConfigManager = PLCConfigManager.Instance;
+        }
+
+        if (plcConfigManager == null)
+        {
+            return;
+        }
+
+        valueSource = plcConfigManager.GetValueSourceForCraneNumber(craneNumber);
     }
 
     private void Update()

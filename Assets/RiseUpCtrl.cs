@@ -5,6 +5,8 @@ using UnityEngine;
 public class RiseUpCtrl : MonoBehaviour
 {
     public string carKey;
+    public PLCValueSource valueSource = PLCValueSource.ActiveCrane;
+    public int craneNumber = 0;
 
     public float offset = 2;
     
@@ -20,11 +22,43 @@ public class RiseUpCtrl : MonoBehaviour
     public float smoothTime = 0.15f;
 
     public float curr;
+
+    private void OnEnable()
+    {
+        PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
+        ApplyCraneValueSource();
+    }
+
+    private void Start()
+    {
+        ApplyCraneValueSource();
+    }
+
+    private void OnDisable()
+    {
+        PLCConfigManager.OnActiveCraneChanged -= OnActiveCraneChanged;
+    }
+
+    private void OnActiveCraneChanged(int craneIndex)
+    {
+        ApplyCraneValueSource();
+    }
+
+    private void ApplyCraneValueSource()
+    {
+        if (craneNumber <= 0 || PLCConfigManager.Instance == null)
+        {
+            return;
+        }
+
+        valueSource = PLCConfigManager.Instance.GetValueSourceForCraneNumber(craneNumber);
+    }
+
     public void Update()
     {
         if (!isDebug)
         {
-            curr = PLCConfigManager.Instance.GetFloatValue(carKey);
+            curr = PLCConfigManager.Instance.GetFloatValue(carKey, valueSource);
         }
         float tmp = -(curr / maxCarPos) * maxLimit;
         if (tmp+offset<=downLimit)

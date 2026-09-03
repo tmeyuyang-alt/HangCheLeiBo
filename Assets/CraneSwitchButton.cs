@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -6,7 +7,7 @@ public class CraneSwitchButton : MonoBehaviour
 {
     public PLCConfigManager plcConfigManager;
     public Button button;
-    public Text label;
+    public TextMeshProUGUI label;
     public bool createRuntimeButtonIfMissing = false;
     public string labelFormat = "主控：{0}";
 
@@ -34,7 +35,7 @@ public class CraneSwitchButton : MonoBehaviour
 
         if (label == null && button != null)
         {
-            label = button.GetComponentInChildren<Text>(true);
+            label = button.GetComponentInChildren<TextMeshProUGUI>(true);
         }
 
         if (button != null)
@@ -85,7 +86,7 @@ public class CraneSwitchButton : MonoBehaviour
 
         if (label != null && plcConfigManager != null)
         {
-            label.text = string.Format(labelFormat, plcConfigManager.GetActiveCraneDisplayName());
+            label.text = plcConfigManager.GetActiveCraneDisplayName();
         }
     }
 
@@ -136,13 +137,13 @@ public class CraneSwitchButton : MonoBehaviour
         textRectTransform.offsetMin = Vector2.zero;
         textRectTransform.offsetMax = Vector2.zero;
 
-        label = textObject.AddComponent<Text>();
-        label.alignment = TextAnchor.MiddleCenter;
-        label.color = Color.white;
-        label.fontSize = 18;
-        label.resizeTextForBestFit = true;
-        label.resizeTextMinSize = 12;
-        label.resizeTextMaxSize = 18;
-        label.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        // label = textObject.AddComponent<TextMeshProUGUI>();
+        // label.alignment = TextAnchor.MiddleCenter;
+        // label.color = Color.white;
+        // label.fontSize = 18;
+        // label.resizeTextForBestFit = true;
+        // label.resizeTextMinSize = 12;
+        // label.resizeTextMaxSize = 18;
+        //label.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
     }
 }

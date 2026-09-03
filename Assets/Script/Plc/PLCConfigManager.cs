@@ -45,6 +45,18 @@ public class PLCConfigManager : MonoBehaviour
     };
     public bool createRuntimeSwitchButton = false;
 
+    private static readonly string[] defaultOppositeValueKeys =
+    {
+        "\u5927\u8f66\u5927\u8f66\u5f53\u524d\u4f4d\u7f6e",
+        "\u5c0f\u8f66\u5c0f\u8f66\u5f53\u524d\u4f4d\u7f6e",
+        "\u63d0\u5347\u63d0\u5347\u5f53\u524d\u9ad8\u5ea6",
+        "\u63d0\u5347\u5f00\u95ed\u5f53\u524d\u9ad8\u5ea6",
+        "\u8fd0\u884c\u4fe1\u53f7\u5927\u8f66\u5f53\u524d\u4f4d\u7f6e",
+        "\u8fd0\u884c\u4fe1\u53f7\u5c0f\u8f66\u5f53\u524d\u4f4d\u7f6e",
+        "\u8fd0\u884c\u4fe1\u53f7\u6293\u6597\u5f53\u524d\u9ad8\u5ea6",
+        "\u8fd0\u884c\u4fe1\u53f7\u6293\u6597\u5f53\u524d\u5f00\u5ea6"
+    };
+
     [Header("PLC 自动重连")]
     public bool autoReconnect = true;
     public float reconnectInterval = 3f;
@@ -153,7 +165,10 @@ public class PLCConfigManager : MonoBehaviour
             CloseRuntimeState(oppositeState);
 
             reconnectInfo.Clear();
-            plcAddress.Clear();
+            lock (plcAddress)
+            {
+                plcAddress.Clear();
+            }
 
             if (enableCraneSwitching && craneConfigs != null && craneConfigs.Length > 0)
             {
@@ -356,6 +371,11 @@ public class PLCConfigManager : MonoBehaviour
     private HashSet<string> BuildAllowedOppositePositionKeys()
     {
         HashSet<string> keys = new HashSet<string>();
+        foreach (string key in defaultOppositeValueKeys)
+        {
+            keys.Add(key);
+        }
+
         if (oppositePositionKeys == null)
         {
             return keys;
@@ -448,6 +468,44 @@ public class PLCConfigManager : MonoBehaviour
         return "当前行车";
     }
 
+    public int GetActiveCraneNumber()
+    {
+        return activeCraneIndex + 1;
+    }
+
+    public bool TryGetActiveCranePlcId(out string plcId)
+    {
+        plcId = string.Empty;
+        if (!enableCraneSwitching || craneConfigs == null || craneConfigs.Length <= 0)
+        {
+            return false;
+        }
+
+        plcId = $"plc{GetActiveCraneNumber():00}";
+        return true;
+    }
+
+    public PLCValueSource GetValueSourceForCraneNumber(int craneNumber)
+    {
+        if (!enableCraneSwitching || craneConfigs == null || craneConfigs.Length <= 0)
+        {
+            return PLCValueSource.ActiveCrane;
+        }
+
+        int craneIndex = craneNumber - 1;
+        if (craneIndex < 0 || craneIndex >= craneConfigs.Length)
+        {
+            return PLCValueSource.ActiveCrane;
+        }
+
+        if (craneIndex == activeCraneIndex)
+        {
+            return PLCValueSource.ActiveCrane;
+        }
+
+        return craneIndex == GetOppositeCraneIndex() ? PLCValueSource.OppositeCrane : PLCValueSource.ActiveCrane;
+    }
+
     public string GetOppositeCraneDisplayName()
     {
         int oppositeIndex = GetOppositeCraneIndex();
@@ -455,7 +513,6 @@ public class PLCConfigManager : MonoBehaviour
         {
             return craneConfigs[oppositeIndex].displayName.Trim();
         }
-
         return "对侧行车";
     }
 
@@ -782,11 +839,13 @@ public class PLCConfigManager : MonoBehaviour
 
     public object GetValue(string key, int offset, PLCValueSource valueSource)
     {
+        PlcRuntimeState state;
         lock (runtimeStateLock)
         {
-            PlcRuntimeState state = valueSource == PLCValueSource.OppositeCrane ? oppositeState : activeState;
-            return GetValueFromState(state, key, offset);
+            state = valueSource == PLCValueSource.OppositeCrane ? oppositeState : activeState;
         }
+
+        return GetValueFromState(state, key, offset);
     }
 
     public object GetOppositeValue(string key, int offset = 0)
@@ -796,21 +855,17 @@ public class PLCConfigManager : MonoBehaviour
 
     private object GetValueFromState(PlcRuntimeState state, string key, int offset)
     {
-        if (state == null || !state.configs.ContainsKey(key))
+        if (state == null || !state.configs.TryGetValue(key, out PLCConfig config))
         {
             return null;
         }
 
-        PLCConfig config = state.configs[key];
         PLCAddress adr = GetPLCAddress(config.DataBlock);
 
-        if (!state.datablocks.ContainsKey(adr.DbNumber))
+        if (!state.datablocks.TryGetValue(adr.DbNumber, out DataBlockInfo datablockInfo))
         {
             return null;
         }
-
-        var datablockInfo = state.datablocks[adr.DbNumber];
-        if (datablockInfo.data == null) return null;
 
         switch (config.DataType)
         {
@@ -847,30 +902,33 @@ public class PLCConfigManager : MonoBehaviour
 
     private byte[] ReadValueBytes(DataBlockInfo datablockInfo, int startByte, int offset, int count)
     {
+        byte[] data = Volatile.Read(ref datablockInfo.data);
+        if (data == null) return null;
+
         int startIndex = startByte - datablockInfo.min + offset;
-        if (startIndex < 0 || startIndex + count > datablockInfo.data.Length)
+        if (startIndex < 0 || startIndex + count > data.Length)
         {
             return null;
         }
 
         byte[] value = new byte[count];
-        Buffer.BlockCopy(datablockInfo.data, startIndex, value, 0, count);
+        Buffer.BlockCopy(data, startIndex, value, 0, count);
         return value;
     }
 
     public PLCAddress GetPLCAddress(string datablock)
     {
-        PLCAddress adr = null;
-        if (plcAddress.ContainsKey(datablock))
+        lock (plcAddress)
         {
-            adr = plcAddress[datablock];
-        }
-        else
-        {
+            if (plcAddress.TryGetValue(datablock, out PLCAddress adr))
+            {
+                return adr;
+            }
+
             adr = new PLCAddress(datablock);
             plcAddress.Add(datablock, adr);
+            return adr;
         }
-        return adr;
     }
 
     public object GetValueBit(string key, int offset = 0)
@@ -1090,11 +1148,16 @@ public class PLCConfigManager : MonoBehaviour
 
     public void ReadData()
     {
+        PlcRuntimeState activeStateSnapshot;
+        PlcRuntimeState oppositeStateSnapshot;
         lock (runtimeStateLock)
         {
-            ReadRuntimeData(activeState);
-            ReadRuntimeData(oppositeState);
+            activeStateSnapshot = activeState;
+            oppositeStateSnapshot = oppositeState;
         }
+
+        ReadRuntimeData(activeStateSnapshot);
+        ReadRuntimeData(oppositeStateSnapshot);
     }
 
     private void ReadRuntimeData(PlcRuntimeState state)
@@ -1129,15 +1192,16 @@ public class PLCConfigManager : MonoBehaviour
 
                     if (count <= 0) continue;
 
-                    if (db.Value.data == null || db.Value.data.Length != count)
-                        db.Value.data = new byte[count];
+                    byte[] data = new byte[count];
 
-                    bool ok = SafeReadDbBytes(plc, dbNumber, startAddr, count, db.Value.data);
+                    bool ok = SafeReadDbBytes(plc, dbNumber, startAddr, count, data);
                     if (!ok)
                     {
                         MarkDisconnected(connect, kv.Key, $"读取 DB{dbNumber} 失败");
                         break;
                     }
+
+                    Volatile.Write(ref db.Value.data, data);
                 }
             }
 

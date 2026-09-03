@@ -64,10 +64,34 @@ public class HisDataPanel : UIPanel
     private JArray _cachedColumns;
     private JArray _cachedRows;
 
-    
+    private void OnEnable()
+    {
+        PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
+        UpdatePlcIdFromActiveCrane();
+    }
+
+    private void OnDisable()
+    {
+        PLCConfigManager.OnActiveCraneChanged -= OnActiveCraneChanged;
+    }
+
+    private void OnActiveCraneChanged(int craneIndex)
+    {
+        UpdatePlcIdFromActiveCrane();
+    }
+
+    private void UpdatePlcIdFromActiveCrane()
+    {
+        if (PLCConfigManager.Instance != null && PLCConfigManager.Instance.TryGetActiveCranePlcId(out string currentPlcId))
+        {
+            plcId = currentPlcId;
+        }
+    }
 
     public void Start()
     {
+        UpdatePlcIdFromActiveCrane();
+
         string savedBaseUrl = DataUtil.Deserializer<string>(Application.streamingAssetsPath + "/ServerIP.config");
         if (!string.IsNullOrWhiteSpace(savedBaseUrl))
         {
@@ -244,6 +268,7 @@ public class HisDataPanel : UIPanel
 
     public void QueryHistory()
     {
+        UpdatePlcIdFromActiveCrane();
         StopAllCoroutines();
         ClearTableData();
         StartCoroutine(QueryHistoryCoroutine());
@@ -377,6 +402,8 @@ public class HisDataPanel : UIPanel
 
     private HistoryQueryRequest BuildRequestPayload()
     {
+        UpdatePlcIdFromActiveCrane();
+
         string[] selectedDevices    = GetSelectedValues(condition != null ? condition.devices    : null);
         string[] selectedConditions = GetSelectedValues(condition != null ? condition.conditions : null);
         bool hasFilter = selectedDevices.Length > 0 || selectedConditions.Length > 0;

@@ -91,9 +91,35 @@ public class PLCWaringTable : MonoBehaviour
     // 生命周期
     // ------------------------------------------------------------------
 
+    private void OnEnable()
+    {
+        PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
+        UpdatePlcIdFromActiveCrane();
+    }
+
+    private void OnDisable()
+    {
+        PLCConfigManager.OnActiveCraneChanged -= OnActiveCraneChanged;
+    }
+
+    private void OnActiveCraneChanged(int craneIndex)
+    {
+        UpdatePlcIdFromActiveCrane();
+    }
+
+    private void UpdatePlcIdFromActiveCrane()
+    {
+        if (PLCConfigManager.Instance != null && PLCConfigManager.Instance.TryGetActiveCranePlcId(out string currentPlcId))
+        {
+            plcId = currentPlcId;
+        }
+    }
+
     private void Start()
     {
         // 读取服务器地址
+        UpdatePlcIdFromActiveCrane();
+
         string saved = DataUtil.Deserializer<string>(
             Application.streamingAssetsPath + "/ServerIP.config");
         if (!string.IsNullOrWhiteSpace(saved))
@@ -168,6 +194,7 @@ public class PLCWaringTable : MonoBehaviour
 
     public void OnQueryClicked()
     {
+        UpdatePlcIdFromActiveCrane();
         _currentPage = 1;
         StopAllCoroutines();
         StartCoroutine(QueryCoroutine());
@@ -219,6 +246,8 @@ public class PLCWaringTable : MonoBehaviour
 
     private AlarmHistoryRequest BuildPayload()
     {
+        UpdatePlcIdFromActiveCrane();
+
         string deviceName = inputDeviceName != null ? inputDeviceName.text.Trim() : "";
         string startText  = inputStartTime  != null ? inputStartTime.text.Trim()  : "";
         string endText    = inputEndTime    != null ? inputEndTime.text.Trim()     : "";

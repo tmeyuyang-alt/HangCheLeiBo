@@ -11,6 +11,8 @@ public class SettingPanel : MonoBehaviour
 {
    private const string DefaultTiShengHeightConfigName = "TiShengHeight.config";
    private const float DefaultTiShengHeight = 13f;
+   private const string DefaultResistanceBoxTempHighLimitKey = "\u7535\u963B\u6E29\u5EA6\u8BBE\u7F6E\u5236\u52A8\u7535\u963B\u7BB1\u6E29\u5EA6\u4E0A\u9650";
+   private const string DefaultResistanceBoxTempLowLimitKey = "\u7535\u963B\u6E29\u5EA6\u8BBE\u7F6E\u5236\u52A8\u7535\u963B\u7BB1\u6E29\u5EA6\u4E0B\u9650";
 
    public TMP_InputField  inputField;
    public Button setButton;
@@ -18,11 +20,21 @@ public class SettingPanel : MonoBehaviour
    public TMP_InputField tiShengHeightInputField;
    public Button setTiShengHeightButton;
 
+   public TMP_InputField resistanceBoxTempHighLimitInputField;
+   public TMP_InputField resistanceBoxTempLowLimitInputField;
+   public Button setResistanceBoxTempHighLimitButton;
+   public Button setResistanceBoxTempLowLimitButton;
+   public Button setResistanceBoxTempLimitButton;
+
    public string limitKey;
    public string biaoDingKey;
    public string settingPrefsKey;
    public string tiShengHeightConfigName = DefaultTiShengHeightConfigName;
    public float defaultTiShengHeight = DefaultTiShengHeight;
+   public string resistanceBoxTempHighLimitKey = DefaultResistanceBoxTempHighLimitKey;
+   public string resistanceBoxTempLowLimitKey = DefaultResistanceBoxTempLowLimitKey;
+   public string resistanceBoxTempHighLimitPrefsKey;
+   public string resistanceBoxTempLowLimitPrefsKey;
 
    private void Start()
    {
@@ -38,31 +50,33 @@ public class SettingPanel : MonoBehaviour
       {
          setTiShengHeightButton.onClick.AddListener(SetTiShengHeight);
       }
+
+      if (setResistanceBoxTempHighLimitButton != null)
+      {
+         setResistanceBoxTempHighLimitButton.onClick.AddListener(SetResistanceBoxTempHighLimit);
+      }
+
+      if (setResistanceBoxTempLowLimitButton != null)
+      {
+         setResistanceBoxTempLowLimitButton.onClick.AddListener(SetResistanceBoxTempLowLimit);
+      }
+
+      if (setResistanceBoxTempLimitButton != null)
+      {
+         setResistanceBoxTempLimitButton.onClick.AddListener(SetResistanceBoxTempLimits);
+      }
    }
 
    public void UpdateUI()
    {
-      if (inputField == null)
-      {
-         return;
-      }
-
-      if (inputField.isFocused)
-      {
-         return;
-      }
-      inputField.text = PLCConfigManager.Instance.GetFloatValue(limitKey).ToString("F2");
+      UpdatePlcInput(inputField, limitKey);
+      UpdatePlcInput(resistanceBoxTempHighLimitInputField, resistanceBoxTempHighLimitKey);
+      UpdatePlcInput(resistanceBoxTempLowLimitInputField, resistanceBoxTempLowLimitKey);
    }
 
    public void SetLimit()
    {
-      if (inputField == null)
-      {
-         return;
-      }
-
-      PLCConfigManager.Instance.SetValue(limitKey, Convert.ToSingle(inputField.text));
-      SaveLastSetting(inputField.text);
+      SetPlcFloatLimit(inputField, limitKey, GetSettingPrefsKey());
    }
 
    public void SetBiaoDing()
@@ -72,18 +86,9 @@ public class SettingPanel : MonoBehaviour
 
    public void LoadLastSetting()
    {
-      if (inputField == null)
-      {
-         return;
-      }
-
-      string prefsKey = GetSettingPrefsKey();
-      if (!PlayerPrefs.HasKey(prefsKey))
-      {
-         return;
-      }
-
-      inputField.text = PlayerPrefs.GetString(prefsKey);
+      LoadLastSetting(inputField, GetSettingPrefsKey());
+      LoadLastSetting(resistanceBoxTempHighLimitInputField, GetResistanceBoxTempHighLimitPrefsKey());
+      LoadLastSetting(resistanceBoxTempLowLimitInputField, GetResistanceBoxTempLowLimitPrefsKey());
    }
 
    public void LoadTiShengHeightSetting()
@@ -112,16 +117,73 @@ public class SettingPanel : MonoBehaviour
       tiShengHeightInputField.text = FormatFloat(height);
    }
 
+   public void SetResistanceBoxTempHighLimit()
+   {
+      SetPlcFloatLimit(resistanceBoxTempHighLimitInputField, resistanceBoxTempHighLimitKey, GetResistanceBoxTempHighLimitPrefsKey());
+   }
+
+   public void SetResistanceBoxTempLowLimit()
+   {
+      SetPlcFloatLimit(resistanceBoxTempLowLimitInputField, resistanceBoxTempLowLimitKey, GetResistanceBoxTempLowLimitPrefsKey());
+   }
+
+   public void SetResistanceBoxTempLimits()
+   {
+      SetResistanceBoxTempHighLimit();
+      SetResistanceBoxTempLowLimit();
+   }
+
    public static float GetTiShengHeight()
    {
       return GetTiShengHeight(DefaultTiShengHeightConfigName, DefaultTiShengHeight);
    }
 
-   private void SaveLastSetting(string value)
+   private void SaveLastSetting(string value, string prefsKey)
    {
-      string prefsKey = GetSettingPrefsKey();
+      if (string.IsNullOrWhiteSpace(prefsKey))
+      {
+         return;
+      }
+
       PlayerPrefs.SetString(prefsKey, value);
       PlayerPrefs.Save();
+   }
+
+   private void LoadLastSetting(TMP_InputField targetInputField, string prefsKey)
+   {
+      if (targetInputField == null || string.IsNullOrWhiteSpace(prefsKey) || !PlayerPrefs.HasKey(prefsKey))
+      {
+         return;
+      }
+
+      targetInputField.text = PlayerPrefs.GetString(prefsKey);
+   }
+
+   private void UpdatePlcInput(TMP_InputField targetInputField, string key)
+   {
+      if (targetInputField == null || targetInputField.isFocused || PLCConfigManager.Instance == null || string.IsNullOrWhiteSpace(key))
+      {
+         return;
+      }
+
+      targetInputField.text = PLCConfigManager.Instance.GetFloatValue(key).ToString("F2");
+   }
+
+   private void SetPlcFloatLimit(TMP_InputField targetInputField, string key, string prefsKey)
+   {
+      if (targetInputField == null || PLCConfigManager.Instance == null || string.IsNullOrWhiteSpace(key))
+      {
+         return;
+      }
+
+      if (!TryParseFloat(targetInputField.text, out float value))
+      {
+         Debug.LogWarning("[SettingPanel] Invalid float setting: " + targetInputField.text);
+         return;
+      }
+
+      PLCConfigManager.Instance.SetValue(key, value);
+      SaveLastSetting(targetInputField.text, prefsKey);
    }
 
    private string GetSettingPrefsKey()
@@ -132,6 +194,26 @@ public class SettingPanel : MonoBehaviour
       }
 
       return "SettingPanel.LastSetting." + limitKey;
+   }
+
+   private string GetResistanceBoxTempHighLimitPrefsKey()
+   {
+      if (!string.IsNullOrWhiteSpace(resistanceBoxTempHighLimitPrefsKey))
+      {
+         return resistanceBoxTempHighLimitPrefsKey;
+      }
+
+      return "SettingPanel.LastSetting." + resistanceBoxTempHighLimitKey;
+   }
+
+   private string GetResistanceBoxTempLowLimitPrefsKey()
+   {
+      if (!string.IsNullOrWhiteSpace(resistanceBoxTempLowLimitPrefsKey))
+      {
+         return resistanceBoxTempLowLimitPrefsKey;
+      }
+
+      return "SettingPanel.LastSetting." + resistanceBoxTempLowLimitKey;
    }
 
    private static float GetTiShengHeight(string configName, float defaultValue)

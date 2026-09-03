@@ -7,6 +7,7 @@ public class SmallCarPos : MonoBehaviour
     public bool isNegative=true;
     public string carKey;
     public PLCValueSource valueSource = PLCValueSource.ActiveCrane;
+    public int craneNumber = 0;
 
     public float maxLimit;
     //public float minLimit;
@@ -17,6 +18,37 @@ public class SmallCarPos : MonoBehaviour
     public float smoothTime = 0.15f;
 
     public float curr;
+
+    private void OnEnable()
+    {
+        PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
+        ApplyCraneValueSource();
+    }
+
+    private void Start()
+    {
+        ApplyCraneValueSource();
+    }
+
+    private void OnDisable()
+    {
+        PLCConfigManager.OnActiveCraneChanged -= OnActiveCraneChanged;
+    }
+
+    private void OnActiveCraneChanged(int craneIndex)
+    {
+        ApplyCraneValueSource();
+    }
+
+    private void ApplyCraneValueSource()
+    {
+        if (craneNumber <= 0 || PLCConfigManager.Instance == null)
+        {
+            return;
+        }
+
+        valueSource = PLCConfigManager.Instance.GetValueSourceForCraneNumber(craneNumber);
+    }
 
     public void Update()
     {
