@@ -111,6 +111,16 @@ namespace PointCloudDemo
         private RenderState _nextState;     // 后台准备好的下一份
         private bool _hasNext;
         private MaterialPropertyBlock _propertyBlock;
+        private List<GridPoint> _lastPoints;
+        private bool _colorSettingsSnapshotValid;
+        private bool _lastUseConstantColor;
+        private bool _lastColorByHeight;
+        private Color _lastHeightLowColor;
+        private Color _lastHeightHighColor;
+        private int _lastHeightColorBands;
+        private bool _lastLockHeightRange;
+        private float _lastLockedMinY;
+        private float _lastLockedMaxY;
 
         private bool _ready;
         private bool _loading;
@@ -140,7 +150,9 @@ namespace PointCloudDemo
                 var points = useSimulatedData
                     ? GenerateSimulatedGridPoints()
                     : await FetchGridPointsAsync(apiBase, stockId);
+                _lastPoints = points;
                 var newState = BuildBatches(points);
+                CaptureColorSettingsSnapshot();
                 _nextState = newState;
                 _hasNext = true;
             }
@@ -169,6 +181,7 @@ namespace PointCloudDemo
 
             if (!_ready || instanceMaterial == null || instanceMesh == null || _state == null) return;
 
+            RebuildCurrentStateIfColorSettingsChanged();
             ApplyMaterialProps(_state);
             var bounds = new Bounds(Vector3.zero, Vector3.one * 100000f);
 
@@ -234,11 +247,13 @@ namespace PointCloudDemo
         public void GenerateSimulatedPointCloud()
         {
             var points = GenerateSimulatedGridPoints();
+            _lastPoints = points;
             _state = BuildBatches(points);
             _nextState = null;
             _hasNext = false;
             _ready = _state != null;
             ApplyMaterialProps(_state);
+            CaptureColorSettingsSnapshot();
         }
 
         private List<GridPoint> GenerateSimulatedGridPoints()
@@ -415,7 +430,57 @@ namespace PointCloudDemo
 
         private bool ShouldUseHeightColors()
         {
-            return !useConstantColor && colorByHeight;
+            return colorByHeight;
+        }
+
+        private void RebuildCurrentStateIfColorSettingsChanged()
+        {
+            if (!HaveColorSettingsChanged())
+            {
+                return;
+            }
+
+            if (_lastPoints == null || _lastPoints.Count == 0)
+            {
+                CaptureColorSettingsSnapshot();
+                return;
+            }
+
+            _state = BuildBatches(_lastPoints);
+            _nextState = null;
+            _hasNext = false;
+            _ready = _state != null;
+            CaptureColorSettingsSnapshot();
+        }
+
+        private bool HaveColorSettingsChanged()
+        {
+            if (!_colorSettingsSnapshotValid)
+            {
+                return true;
+            }
+
+            return _lastUseConstantColor != useConstantColor ||
+                   _lastColorByHeight != colorByHeight ||
+                   _lastHeightLowColor != heightLowColor ||
+                   _lastHeightHighColor != heightHighColor ||
+                   _lastHeightColorBands != heightColorBands ||
+                   _lastLockHeightRange != lockHeightRange ||
+                   !Mathf.Approximately(_lastLockedMinY, lockedMinY) ||
+                   !Mathf.Approximately(_lastLockedMaxY, lockedMaxY);
+        }
+
+        private void CaptureColorSettingsSnapshot()
+        {
+            _lastUseConstantColor = useConstantColor;
+            _lastColorByHeight = colorByHeight;
+            _lastHeightLowColor = heightLowColor;
+            _lastHeightHighColor = heightHighColor;
+            _lastHeightColorBands = heightColorBands;
+            _lastLockHeightRange = lockHeightRange;
+            _lastLockedMinY = lockedMinY;
+            _lastLockedMaxY = lockedMaxY;
+            _colorSettingsSnapshotValid = true;
         }
 
         private void BuildPlainBatches(List<GridPoint> points, List<Matrix4x4[]> batches)
@@ -488,7 +553,14 @@ namespace PointCloudDemo
         {
             if (instanceMaterial == null || s == null) return;
 
-            if (useConstantColor)
+            if (colorByHeight)
+            {
+                instanceMaterial.DisableKeyword("_COLOR_BY_HEIGHT");
+                ResolveHeightRange(s.MinY, s.MaxY, out float minY, out float maxY);
+                instanceMaterial.SetFloat("_MinY", minY);
+                instanceMaterial.SetFloat("_MaxY", maxY);
+            }
+            else if (useConstantColor)
             {
                 // 统一固定颜色，彻底消除颜色抖动
                 instanceMaterial.DisableKeyword("_COLOR_BY_HEIGHT");
@@ -496,17 +568,7 @@ namespace PointCloudDemo
             }
             else
             {
-                if (colorByHeight)
-                {
-                    instanceMaterial.DisableKeyword("_COLOR_BY_HEIGHT");
-                    ResolveHeightRange(s.MinY, s.MaxY, out float minY, out float maxY);
-                    instanceMaterial.SetFloat("_MinY", minY);
-                    instanceMaterial.SetFloat("_MaxY", maxY);
-                }
-                else
-                {
-                    instanceMaterial.DisableKeyword("_COLOR_BY_HEIGHT");
-                }
+                instanceMaterial.DisableKeyword("_COLOR_BY_HEIGHT");
             }
         }
 

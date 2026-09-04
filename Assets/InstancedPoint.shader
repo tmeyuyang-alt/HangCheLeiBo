@@ -26,12 +26,9 @@ Shader "Custom/InstancedPoint"
             #include "UnityCG.cginc"
 
             // 用自定义名字，避免与引擎内部缓冲重名
-            UNITY_INSTANCING_BUFFER_START(Props)
-                // 颜色用 half4，和 Color 属性保持一致，避免类型不匹配
-                UNITY_DEFINE_INSTANCED_PROP(half4, _BaseColor)
-                UNITY_DEFINE_INSTANCED_PROP(float, _MinY)
-                UNITY_DEFINE_INSTANCED_PROP(float, _MaxY)
-            UNITY_INSTANCING_BUFFER_END(Props)
+            half4 _BaseColor;
+            float _MinY;
+            float _MaxY;
 
             struct appdata
             {
@@ -74,14 +71,10 @@ Shader "Custom/InstancedPoint"
             {
                 UNITY_SETUP_INSTANCE_ID(i);
 
-                half4 baseCol = UNITY_ACCESS_INSTANCED_PROP(Props, _BaseColor);
-
                 #ifdef _COLOR_BY_HEIGHT
-                    float minY = UNITY_ACCESS_INSTANCED_PROP(Props, _MinY);
-                    float maxY = UNITY_ACCESS_INSTANCED_PROP(Props, _MaxY);
-                    return half4(HeightGradient(i.wpos.y, minY, maxY), 1.0h);
+                    return half4(HeightGradient(i.wpos.y, _MinY, _MaxY), 1.0h);
                 #else
-                    return baseCol;
+                    return _BaseColor;
                 #endif
             }
             ENDCG

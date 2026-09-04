@@ -11,7 +11,7 @@ public class SmallCarPos : MonoBehaviour
 
     public float maxLimit;
     //public float minLimit;
-    
+    public bool IsDebug=false;
     public float maxCarPos;
     
     [Tooltip("Lerp平滑时间，值越小跟随越快")]
@@ -52,7 +52,10 @@ public class SmallCarPos : MonoBehaviour
 
     public void Update()
     {
-        curr = PLCConfigManager.Instance.GetFloatValue(carKey, valueSource);
+        if (!IsDebug)
+        {
+            curr = PLCConfigManager.Instance.GetFloatValue(carKey, valueSource);
+        }
         float tmp=0;
         if (isNegative)
         { 
