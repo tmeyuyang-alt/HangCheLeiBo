@@ -457,6 +457,11 @@ public class PLCConfigManager : MonoBehaviour
         Debug.Log($"[PLCConfigManager] 已切换主控行车: {GetActiveCraneDisplayName()}");
     }
 
+    public string GetActiveCraneConfigFileName()
+    {
+        return enableCraneSwitching ? GetCraneConfigFileName(activeCraneIndex) : deviceSignalJsonName;
+    }
+
     public string GetActiveCraneDisplayName()
     {
         if (enableCraneSwitching && craneConfigs != null && activeCraneIndex >= 0 && activeCraneIndex < craneConfigs.Length &&

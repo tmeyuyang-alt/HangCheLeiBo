@@ -49,3 +49,17 @@ MonoBehaviour:
     isPulse: 0
     alarmLevel: 0
     isHistoryData: 1
+  - displayName: "\u7535\u963B\u7BB11\u6E29\u5EA6\u9AD8"
+    dataType: 0
+    address: DB3.DBX10.2
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 1
+    isHistoryData: 0
+  - displayName: "\u7535\u963B\u7BB12\u6E29\u5EA6\u9AD8"
+    dataType: 0
+    address: DB3.DBX10.3
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0

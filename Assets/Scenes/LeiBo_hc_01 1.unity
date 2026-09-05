@@ -177658,9 +177658,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 682b6e08fe7f3544f845540e8c02757d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiBase: http://127.0.0.1/EDGE_SCRAPER
+  apiBase: http://192.168.12.22/EDGE_SCRAPER
   stockId: 1
-  useSimulatedData: 1
+  useSimulatedData: 0
   simulatedLength: 97
   simulatedWidth: 20
   simulatedPointSpacing: 0.5

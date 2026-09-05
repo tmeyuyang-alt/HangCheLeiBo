@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace PointCloudDemo
 {
+    [Serializable] public class StockInfoResponse { public int code; public string msg; public List<StockInfo> data; }
+    // 接口返回数字形式的长 ID，不能经过 float/double 转换。
+    [Serializable] public class StockInfo { public long stockId; public string name; }
     [Serializable] public class RootResponse { public int code; public string msg; public DataPayload data; }
     [Serializable] public class DataPayload
     {
@@ -14,10 +20,10 @@ namespace PointCloudDemo
         public int ypointNum;
         public List<GridPointRaw> gridPointList;
     }
-    [Serializable] public class GridPointRaw { public float x; public float y; public float z; public float distance; }
-    [Serializable] public class GridPoint { public float x, y, z; }
+    [Serializable] public struct GridPointRaw { public float x; public float y; public float z; public float distance; }
+    [Serializable] public struct GridPoint { public float x, y, z; }
 
-    /// <summary>不可变渲染状态（双缓冲）</summary>
+    /// <summary>绘制期间只读；退出绘制后可复用矩阵数组的双缓冲状态</summary>
     public sealed class RenderState
     {
         public readonly List<Matrix4x4[]> Batches = new List<Matrix4x4[]>();
@@ -52,8 +58,9 @@ namespace PointCloudDemo
     public class PointCloudLoader : MonoBehaviour
     {
         [Header("API")]
-        public string apiBase = "http://127.0.0.1/EDGE_SCRAPER";
-        public string stockId = "1";
+        public string apiBase = "http://192.168.12.22/EDGE_SCRAPER";
+        // 保留旧场景的序列化字段；真实数据模式现在加载接口返回的所有库区。
+        [HideInInspector] public string stockId = "1";
 
         [Header("Simulation")]
         public bool useSimulatedData = false;
@@ -109,26 +116,28 @@ namespace PointCloudDemo
         // —— 渲染双缓冲 —— //
         private RenderState _state;         // 当前用于绘制
         private RenderState _nextState;     // 后台准备好的下一份
+        private RenderState _spareState;    // 已退出绘制的缓冲，只有构建任务可以写入
         private bool _hasNext;
         private MaterialPropertyBlock _propertyBlock;
         private List<GridPoint> _lastPoints;
-        private bool _colorSettingsSnapshotValid;
-        private bool _lastUseConstantColor;
-        private bool _lastColorByHeight;
-        private Color _lastHeightLowColor;
-        private Color _lastHeightHighColor;
-        private int _lastHeightColorBands;
-        private bool _lastLockHeightRange;
-        private float _lastLockedMinY;
-        private float _lastLockedMaxY;
+        private List<GridPoint> _nextPoints;
+        private BuildSettings _stateSettings;
+        private BuildSettings _nextSettings;
 
         private bool _ready;
         private bool _loading;
+        private readonly CancellationTokenSource _destroyCancellation = new CancellationTokenSource();
 
         private void Start()
         {
             if (autoStart)
                 StartCoroutine(RefreshLoop());
+        }
+
+        private void OnDestroy()
+        {
+            _destroyCancellation.Cancel();
+            _destroyCancellation.Dispose();
         }
 
         private System.Collections.IEnumerator RefreshLoop()
@@ -143,24 +152,30 @@ namespace PointCloudDemo
         /// <summary>后台拉取 + 构建新批次，不立即替换</summary>
         public async Task ReloadAsync()
         {
-            if (_loading) return;
+            if (_loading || _hasNext || this == null) return;
             _loading = true;
             try
             {
+                var cancellationToken = _destroyCancellation.Token;
                 var points = useSimulatedData
                     ? GenerateSimulatedGridPoints()
-                    : await FetchGridPointsAsync(apiBase, stockId);
-                _lastPoints = points;
-                var newState = BuildBatches(points);
-                CaptureColorSettingsSnapshot();
-                _nextState = newState;
-                _hasNext = true;
+                    : await FetchAllStockGridPointsAsync(apiBase.TrimEnd('/'), cancellationToken);
+                cancellationToken.ThrowIfCancellationRequested();
+                if (this == null) return;
+                await PrepareNextStateAsync(points, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                // 场景销毁后停止请求，不再构建渲染资源。
             }
             catch (Exception ex)
             {
                 Debug.LogError($"[PointCloud] Load failed: {ex.Message}");
             }
-            _loading = false;
+            finally
+            {
+                _loading = false;
+            }
         }
 
         private void Update()
@@ -168,8 +183,12 @@ namespace PointCloudDemo
             // 主线程原子交换，避免当帧空绘制
             if (_hasNext && _nextState != null)
             {
+                _spareState = _state;
                 _state = _nextState;
+                _lastPoints = _nextPoints;
+                _stateSettings = _nextSettings;
                 _nextState = null;
+                _nextPoints = null;
                 _hasNext = false;
                 _ready = _state != null;
 
@@ -181,9 +200,9 @@ namespace PointCloudDemo
 
             if (!_ready || instanceMaterial == null || instanceMesh == null || _state == null) return;
 
-            RebuildCurrentStateIfColorSettingsChanged();
+            if (!_loading && !_hasNext && !_stateSettings.Matches(CaptureBuildSettings()))
+                _ = RebuildCurrentStateAsync();
             ApplyMaterialProps(_state);
-            var bounds = new Bounds(Vector3.zero, Vector3.one * 100000f);
 
             var batches = _state.Batches;
             if (_propertyBlock == null)
@@ -213,31 +232,93 @@ namespace PointCloudDemo
         }
 
         #region HTTP + Parse
-        private static async Task<List<GridPoint>> FetchGridPointsAsync(string apiBase, string stockId)
+        private static async Task<List<GridPoint>> FetchAllStockGridPointsAsync(string apiBase, CancellationToken cancellationToken)
+        {
+            byte[] bytes = await GetResponseBytesAsync($"{apiBase}/api/grid/get-stock-info", cancellationToken);
+            string json = Encoding.UTF8.GetString(bytes);
+            var root = JsonUtility.FromJson<StockInfoResponse>(json);
+            if (root == null || root.code != 200 || root.data == null)
+                throw new Exception($"获取库区列表失败: code={root?.code}, msg={root?.msg}");
+
+            var points = new List<GridPoint>();
+            var loadedStockIds = new HashSet<long>();
+            foreach (var stock in root.data)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                if (stock == null || stock.stockId <= 0)
+                    throw new Exception("库区列表包含无效的 stockId");
+                if (!loadedStockIds.Add(stock.stockId)) continue;
+
+                string id = stock.stockId.ToString(CultureInfo.InvariantCulture);
+                try
+                {
+                    points.AddRange(await FetchGridPointsAsync(apiBase, id, cancellationToken));
+                }
+                catch (Exception ex) when (!(ex is OperationCanceledException))
+                {
+                    throw new Exception($"库区 {stock.name} (stockId={id}) 加载失败: {ex.Message}", ex);
+                }
+            }
+
+            return points;
+        }
+
+        private static async Task<List<GridPoint>> FetchGridPointsAsync(string apiBase, string stockId, CancellationToken cancellationToken)
         {
             string url = $"{apiBase}/api/grid/get-grid-by-stockId?stockId={UnityWebRequest.EscapeURL(stockId)}";
+            byte[] bytes = await GetResponseBytesAsync(url, cancellationToken);
+            // 网络对象仅在主线程访问，UTF-8 解码和 JSON 解析在工作线程完成。
+            return await Task.Run(() => ParseGridPoints(bytes, cancellationToken), cancellationToken);
+        }
+
+        private static List<GridPoint> ParseGridPoints(byte[] bytes, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            string json = Encoding.UTF8.GetString(bytes);
+            var root = JsonUtility.FromJson<RootResponse>(json);
+            if (root == null || root.code != 200 || root.data == null || root.data.gridPointList == null)
+                throw new Exception($"点云响应无效: code={root?.code}, msg={root?.msg}");
+
+            var list = new List<GridPoint>(root.data.gridPointList.Count);
+            for (int i = 0; i < root.data.gridPointList.Count; i++)
+            {
+                if ((i & 1023) == 0) cancellationToken.ThrowIfCancellationRequested();
+                var p = root.data.gridPointList[i];
+                list.Add(new GridPoint { x = p.x, y = p.y, z = p.z });
+            }
+            return list;
+        }
+
+        private static async Task<byte[]> GetResponseBytesAsync(string url, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
             using (var req = UnityWebRequest.Get(url))
             {
+                req.timeout = 15;
                 var op = req.SendWebRequest();
-                while (!op.isDone) await Task.Yield();
+                try
+                {
+                    while (!op.isDone)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        await Task.Yield();
+                    }
+                    cancellationToken.ThrowIfCancellationRequested();
 
 #if UNITY_2020_2_OR_NEWER
-                if (req.result != UnityWebRequest.Result.Success)
-                    throw new Exception(req.error);
+                    if (req.result != UnityWebRequest.Result.Success)
+                        throw new Exception(req.error);
 #else
-                if (req.isNetworkError || req.isHttpError)
-                    throw new Exception(req.error);
+                    if (req.isNetworkError || req.isHttpError)
+                        throw new Exception(req.error);
 #endif
 
-                var json = req.downloadHandler.text ?? "";
-                var root = JsonUtility.FromJson<RootResponse>(json);
-                if (root == null || root.data == null || root.data.gridPointList == null)
-                    throw new Exception("JSON parse failed");
-
-                var list = new List<GridPoint>(root.data.gridPointList.Count);
-                foreach (var p in root.data.gridPointList)
-                    list.Add(new GridPoint { x = p.x, y = p.y, z = p.z });
-                return list;
+                    return req.downloadHandler.data;
+                }
+                finally
+                {
+                    if (!op.isDone) req.Abort();
+                }
             }
         }
         #endregion
@@ -253,7 +334,7 @@ namespace PointCloudDemo
             _hasNext = false;
             _ready = _state != null;
             ApplyMaterialProps(_state);
-            CaptureColorSettingsSnapshot();
+            _stateSettings = CaptureBuildSettings();
         }
 
         private List<GridPoint> GenerateSimulatedGridPoints()
@@ -376,176 +457,189 @@ namespace PointCloudDemo
         #endregion
 
         #region Build Batches
-        private RenderState BuildBatches(List<GridPoint> points)
+        // 只包含值类型；工作线程不得读取 MonoBehaviour / Mesh / Material。
+        private struct BuildSettings
         {
-            var batches = new List<Matrix4x4[]>();
-            var batchColors = new List<Color>();
+            public bool ColorByHeight, LockHeightRange;
+            public Color LowColor, HighColor;
+            public int BandCount;
+            public float MinY, MaxY, Scale;
+            public Vector3 Offset;
 
-            if (instanceMesh == null)
+            public bool Matches(BuildSettings other)
             {
-                var temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                instanceMesh = temp.GetComponent<MeshFilter>().sharedMesh;
-#if UNITY_EDITOR
-                DestroyImmediate(temp);
-#else
-                Destroy(temp);
-#endif
+                return ColorByHeight == other.ColorByHeight && LockHeightRange == other.LockHeightRange &&
+                    LowColor == other.LowColor && HighColor == other.HighColor && BandCount == other.BandCount &&
+                    MinY == other.MinY && MaxY == other.MaxY && Scale == other.Scale && Offset == other.Offset;
             }
-
-            if (points == null || points.Count == 0)
-                return new RenderState(batches, 0f, 0f);
-
-            CalculateHeightRange(points, out float minY, out float maxY);
-
-            if (ShouldUseHeightColors())
-            {
-                BuildHeightColorBatches(points, minY, maxY, batches, batchColors);
-            }
-            else
-            {
-                BuildPlainBatches(points, batches);
-            }
-
-            return new RenderState(batches, minY, maxY, batchColors);
         }
 
-        private void CalculateHeightRange(List<GridPoint> points, out float minY, out float maxY)
+        private BuildSettings CaptureBuildSettings()
         {
-            minY = float.PositiveInfinity;
-            maxY = float.NegativeInfinity;
+            return new BuildSettings
+            {
+                ColorByHeight = colorByHeight, LockHeightRange = lockHeightRange,
+                LowColor = heightLowColor, HighColor = heightHighColor,
+                BandCount = Mathf.Clamp(heightColorBands, 2, 32),
+                MinY = lockedMinY, MaxY = lockedMaxY, Scale = pointScale, Offset = worldOffset
+            };
+        }
 
+        private async Task PrepareNextStateAsync(List<GridPoint> points, CancellationToken cancellationToken)
+        {
+            EnsureInstanceMesh();
+            var settings = CaptureBuildSettings();
+            var spare = _spareState;
+            _spareState = null;
+            var state = await Task.Run(() => BuildBatchesWorker(points, settings, spare, cancellationToken), cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            if (this == null) return;
+            _nextState = state;
+            _nextPoints = points;
+            _nextSettings = settings;
+            _hasNext = true;
+        }
+
+        private async Task RebuildCurrentStateAsync()
+        {
+            _loading = true;
+            try
+            {
+                await PrepareNextStateAsync(_lastPoints, _destroyCancellation.Token);
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[PointCloud] Rebuild failed: {ex.Message}");
+            }
+            finally { _loading = false; }
+        }
+
+        private void EnsureInstanceMesh()
+        {
+            if (instanceMesh != null) return;
+            var temp = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            instanceMesh = temp.GetComponent<MeshFilter>().sharedMesh;
+#if UNITY_EDITOR
+            DestroyImmediate(temp);
+#else
+            Destroy(temp);
+#endif
+        }
+
+        // 保留编辑器菜单的同步生成入口；定时刷新和颜色调整走后台构建。
+        private RenderState BuildBatches(List<GridPoint> points)
+        {
+            EnsureInstanceMesh();
+            return BuildBatchesWorker(points, CaptureBuildSettings(), null, CancellationToken.None);
+        }
+
+        private static RenderState BuildBatchesWorker(List<GridPoint> points, BuildSettings settings,
+            RenderState spare, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var batches = new List<Matrix4x4[]>();
+            var colors = new List<Color>();
+            if (points == null || points.Count == 0) return new RenderState(batches, 0f, 0f);
+
+            float minY = float.PositiveInfinity, maxY = float.NegativeInfinity;
             for (int i = 0; i < points.Count; i++)
             {
+                if ((i & 1023) == 0) cancellationToken.ThrowIfCancellationRequested();
                 float height = points[i].z;
                 if (height < minY) minY = height;
                 if (height > maxY) maxY = height;
             }
+            if (float.IsInfinity(minY) || float.IsInfinity(maxY)) minY = maxY = 0f;
 
-            if (float.IsInfinity(minY) || float.IsInfinity(maxY))
+            if (settings.ColorByHeight)
+                BuildHeightColorBatches(points, settings, minY, maxY, batches, colors, spare, cancellationToken);
+            else
+                BuildPlainBatches(points, settings, batches, spare, cancellationToken);
+            return new RenderState(batches, minY, maxY, colors);
+        }
+
+        private static Matrix4x4[] GetBatchBuffer(RenderState spare, int batchIndex, int length)
+        {
+            if (spare != null && batchIndex < spare.Batches.Count && spare.Batches[batchIndex].Length == length)
+                return spare.Batches[batchIndex];
+            return new Matrix4x4[length];
+        }
+
+        private static void BuildPlainBatches(List<GridPoint> points, BuildSettings settings,
+            List<Matrix4x4[]> batches, RenderState spare, CancellationToken cancellationToken)
+        {
+            for (int start = 0; start < points.Count; start += kBatchSize)
             {
-                minY = 0f;
-                maxY = 0f;
+                cancellationToken.ThrowIfCancellationRequested();
+                int length = Math.Min(kBatchSize, points.Count - start);
+                var matrices = GetBatchBuffer(spare, batches.Count, length);
+                for (int i = 0; i < length; i++) matrices[i] = CreatePointMatrix(points[start + i], settings);
+                batches.Add(matrices);
             }
         }
 
-        private bool ShouldUseHeightColors()
+        private static void BuildHeightColorBatches(List<GridPoint> points, BuildSettings settings,
+            float stateMinY, float stateMaxY, List<Matrix4x4[]> batches, List<Color> colors,
+            RenderState spare, CancellationToken cancellationToken)
         {
-            return colorByHeight;
-        }
+            float minY = settings.LockHeightRange ? settings.MinY : stateMinY;
+            float maxY = settings.LockHeightRange ? settings.MaxY : stateMaxY;
+            NormalizeHeightRange(ref minY, ref maxY);
+            int bandCount = settings.BandCount;
+            var counts = new int[bandCount];
+            var starts = new int[bandCount];
+            var written = new int[bandCount];
 
-        private void RebuildCurrentStateIfColorSettingsChanged()
-        {
-            if (!HaveColorSettingsChanged())
-            {
-                return;
-            }
-
-            if (_lastPoints == null || _lastPoints.Count == 0)
-            {
-                CaptureColorSettingsSnapshot();
-                return;
-            }
-
-            _state = BuildBatches(_lastPoints);
-            _nextState = null;
-            _hasNext = false;
-            _ready = _state != null;
-            CaptureColorSettingsSnapshot();
-        }
-
-        private bool HaveColorSettingsChanged()
-        {
-            if (!_colorSettingsSnapshotValid)
-            {
-                return true;
-            }
-
-            return _lastUseConstantColor != useConstantColor ||
-                   _lastColorByHeight != colorByHeight ||
-                   _lastHeightLowColor != heightLowColor ||
-                   _lastHeightHighColor != heightHighColor ||
-                   _lastHeightColorBands != heightColorBands ||
-                   _lastLockHeightRange != lockHeightRange ||
-                   !Mathf.Approximately(_lastLockedMinY, lockedMinY) ||
-                   !Mathf.Approximately(_lastLockedMaxY, lockedMaxY);
-        }
-
-        private void CaptureColorSettingsSnapshot()
-        {
-            _lastUseConstantColor = useConstantColor;
-            _lastColorByHeight = colorByHeight;
-            _lastHeightLowColor = heightLowColor;
-            _lastHeightHighColor = heightHighColor;
-            _lastHeightColorBands = heightColorBands;
-            _lastLockHeightRange = lockHeightRange;
-            _lastLockedMinY = lockedMinY;
-            _lastLockedMaxY = lockedMaxY;
-            _colorSettingsSnapshotValid = true;
-        }
-
-        private void BuildPlainBatches(List<GridPoint> points, List<Matrix4x4[]> batches)
-        {
-            int total = points.Count;
-            int batchCount = Mathf.CeilToInt(total / (float)kBatchSize);
-            int idx = 0;
-
-            for (int b = 0; b < batchCount; b++)
-            {
-                int len = Mathf.Min(kBatchSize, total - idx);
-                var mats = new Matrix4x4[len];
-
-                for (int i = 0; i < len; i++)
-                {
-                    var p = points[idx + i];
-                    mats[i] = Matrix4x4.TRS(GetRenderPosition(p), Quaternion.identity, Vector3.one * pointScale);
-                }
-
-                batches.Add(mats);
-                idx += len;
-            }
-        }
-
-        private void BuildHeightColorBatches(List<GridPoint> points, float stateMinY, float stateMaxY, List<Matrix4x4[]> batches, List<Color> batchColors)
-        {
-            ResolveHeightRange(stateMinY, stateMaxY, out float minY, out float maxY);
-            int bandCount = Mathf.Clamp(heightColorBands, 2, 32);
-            var bandMatrices = new List<Matrix4x4>[bandCount];
-
-            for (int i = 0; i < bandCount; i++)
-            {
-                bandMatrices[i] = new List<Matrix4x4>();
-            }
-
+            // 先统计，再直接填入最终数组，避免按色带扩容矩阵列表后再复制一遍。
             for (int i = 0; i < points.Count; i++)
             {
-                GridPoint p = points[i];
-                float t = Mathf.InverseLerp(minY, maxY, p.z);
-                int bandIndex = Mathf.Clamp(Mathf.FloorToInt(t * bandCount), 0, bandCount - 1);
-                bandMatrices[bandIndex].Add(Matrix4x4.TRS(GetRenderPosition(p), Quaternion.identity, Vector3.one * pointScale));
+                if ((i & 1023) == 0) cancellationToken.ThrowIfCancellationRequested();
+                counts[GetHeightBand(points[i].z, minY, maxY, bandCount)]++;
             }
-
-            for (int bandIndex = 0; bandIndex < bandMatrices.Length; bandIndex++)
+            for (int band = 0; band < bandCount; band++)
             {
-                List<Matrix4x4> matrices = bandMatrices[bandIndex];
-                if (matrices.Count == 0) continue;
-
-                float colorT = bandCount <= 1 ? 0f : bandIndex / (float)(bandCount - 1);
-                Color color = Color.Lerp(heightLowColor, heightHighColor, colorT);
-
-                for (int idx = 0; idx < matrices.Count; idx += kBatchSize)
+                starts[band] = batches.Count;
+                Color color = Color.Lerp(settings.LowColor, settings.HighColor, band / (float)(bandCount - 1));
+                for (int start = 0; start < counts[band]; start += kBatchSize)
                 {
-                    int len = Mathf.Min(kBatchSize, matrices.Count - idx);
-                    var mats = new Matrix4x4[len];
-                    matrices.CopyTo(idx, mats, 0, len);
-                    batches.Add(mats);
-                    batchColors.Add(color);
+                    int length = Math.Min(kBatchSize, counts[band] - start);
+                    batches.Add(GetBatchBuffer(spare, batches.Count, length));
+                    colors.Add(color);
                 }
+            }
+            for (int i = 0; i < points.Count; i++)
+            {
+                if ((i & 1023) == 0) cancellationToken.ThrowIfCancellationRequested();
+                GridPoint point = points[i];
+                int band = GetHeightBand(point.z, minY, maxY, bandCount);
+                int index = written[band]++;
+                batches[starts[band] + index / kBatchSize][index % kBatchSize] = CreatePointMatrix(point, settings);
             }
         }
 
-        private Vector3 GetRenderPosition(GridPoint p)
+        private static int GetHeightBand(float height, float minY, float maxY, int count)
         {
-            return new Vector3(p.x, p.z, p.y) + worldOffset;
+            float t = Mathf.InverseLerp(minY, maxY, height);
+            return Mathf.Clamp(Mathf.FloorToInt(t * count), 0, count - 1);
+        }
+
+        private static Matrix4x4 CreatePointMatrix(GridPoint point, BuildSettings settings)
+        {
+            // 点仅有统一缩放和平移，不需要逐点调用原生 TRS 进行旋转分解。
+            var matrix = new Matrix4x4();
+            matrix.m00 = matrix.m11 = matrix.m22 = settings.Scale;
+            matrix.m33 = 1f;
+            matrix.m03 = point.x + settings.Offset.x;
+            matrix.m13 = point.z + settings.Offset.y;
+            matrix.m23 = point.y + settings.Offset.z;
+            return matrix;
+        }
+
+        private static void NormalizeHeightRange(ref float minY, ref float maxY)
+        {
+            if (Mathf.Approximately(minY, maxY)) maxY = minY + 0.0001f;
+            if (maxY < minY) (minY, maxY) = (maxY, minY);
         }
 
         /// <summary>统一设置材质：固定颜色或稳定色标</summary>

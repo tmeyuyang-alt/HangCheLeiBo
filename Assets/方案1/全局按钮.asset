@@ -112,3 +112,24 @@ MonoBehaviour:
     isPulse: 1
     alarmLevel: 0
     isHistoryData: 0
+  - displayName: "\u9A7E\u9A76\u5BA4\u53CD\u9988"
+    dataType: 0
+    address: DB2.DBX4.1
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u9065\u63A7\u5668\u53CD\u9988"
+    dataType: 0
+    address: DB2.DBX4.2
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 0
+    isHistoryData: 0
+  - displayName: "\u8FDC\u7A0B\u53CD\u9988"
+    dataType: 0
+    address: DB2.DBX4.3
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 0
+    isHistoryData: 0

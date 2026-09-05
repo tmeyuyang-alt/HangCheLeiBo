@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// 实时报警监控面板。
-/// 从 DeviceSignalConfigs.json 中读取 alarmLevel != None 的 BOOL 点位。
+/// 从当前行车配置中读取 alarmLevel != None 的 BOOL 点位。
 /// </summary>
 public class WarningNotify : MonoBehaviour
 {
@@ -73,6 +73,7 @@ public class WarningNotify : MonoBehaviour
     private readonly List<AlarmPoint> _monitorPoints = new List<AlarmPoint>();
     private readonly List<AlarmEntry> _activeAlarms = new List<AlarmEntry>();
     private AlarmEntry _pendingConfirmEntry;
+    private bool _started;
 
     private void Awake()
     {
@@ -81,7 +82,7 @@ public class WarningNotify : MonoBehaviour
 
     private void Start()
     {
-        UpdatePlcIdFromActiveCrane();
+        UpdateActiveCraneConfiguration();
 
         EnsureAlarmAudioSource();
         LoadServerConfig();
@@ -93,14 +94,20 @@ public class WarningNotify : MonoBehaviour
         if (confirmPopup != null)
             confirmPopup.SetActive(false);
 
-        Invoke("LoadAlarmPoints", 2f);
-        InvokeRepeating("CheckAlarms", 3f, 1f);
+        _started = true;
+        Invoke(nameof(LoadAlarmPoints), 2f);
+        InvokeRepeating(nameof(CheckAlarms), 3f, 1f);
     }
 
     private void OnEnable()
     {
         PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
-        UpdatePlcIdFromActiveCrane();
+        // 面板关闭时可能错过切换事件，重新启用后补齐配置和点位。
+        if (UpdateActiveCraneConfiguration() && _started)
+        {
+            ReloadAlarmPointsForCraneSwitch();
+            CheckAlarms();
+        }
     }
 
     private void OnDisable()
@@ -111,17 +118,34 @@ public class WarningNotify : MonoBehaviour
 
     private void OnActiveCraneChanged(int craneIndex)
     {
-        UpdatePlcIdFromActiveCrane();
-        ResetRealtimeAlarmsForCraneSwitch();
+        UpdateActiveCraneConfiguration();
+        if (!_started) return;
+
+        ReloadAlarmPointsForCraneSwitch();
         CheckAlarms();
     }
 
-    private void UpdatePlcIdFromActiveCrane()
+    private bool UpdateActiveCraneConfiguration()
     {
-        if (PLCConfigManager.Instance != null && PLCConfigManager.Instance.TryGetActiveCranePlcId(out string currentPlcId))
+        PLCConfigManager manager = PLCConfigManager.Instance;
+        if (manager == null || !manager.TryGetActiveCranePlcId(out string currentPlcId))
         {
-            plcId = currentPlcId;
+            return false;
         }
+
+        string currentConfigName = manager.GetActiveCraneConfigFileName();
+        bool changed = plcId != currentPlcId || configName != currentConfigName;
+        plcId = currentPlcId;
+        configName = currentConfigName;
+        return changed;
+    }
+
+    private void ReloadAlarmPointsForCraneSwitch()
+    {
+        ResetRealtimeAlarmsForCraneSwitch();
+        // 切换已立即加载，避免启动时的延迟调用再次重置点位状态。
+        CancelInvoke(nameof(LoadAlarmPoints));
+        LoadAlarmPoints();
     }
 
     private void ResetRealtimeAlarmsForCraneSwitch()
@@ -176,7 +200,7 @@ public class WarningNotify : MonoBehaviour
         string jsonPath = Path.Combine(Application.streamingAssetsPath, configName);
         if (!File.Exists(jsonPath))
         {
-            Debug.LogWarning("[WarningNotify] DeviceSignalConfigs.json 不存在: " + jsonPath);
+            Debug.LogWarning("[WarningNotify] 报警配置不存在: " + jsonPath);
             return;
         }
 
@@ -214,7 +238,8 @@ public class WarningNotify : MonoBehaviour
 
     private void CheckAlarms()
     {
-        UpdatePlcIdFromActiveCrane();
+        if (UpdateActiveCraneConfiguration())
+            ReloadAlarmPointsForCraneSwitch();
 
         if (_monitorPoints.Count == 0)
             return;
@@ -233,8 +258,6 @@ public class WarningNotify : MonoBehaviour
 
     private void OnAlarmTriggered(AlarmPoint pt)
     {
-        UpdatePlcIdFromActiveCrane();
-
         AlarmEntry existing = _activeAlarms.Find(e => e.point.key == pt.key && e.plcId == plcId && !e.isRecovered);
         if (existing != null)
             return;

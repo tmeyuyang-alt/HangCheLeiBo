@@ -201,6 +201,33 @@
                     "isPulse": true,
                     "alarmLevel": 0,
                     "isHistoryData": false
+                },
+                {
+                    "displayName": "驾驶室反馈",
+                    "dataType": 0,
+                    "address": "DB2.DBX4.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "遥控器反馈",
+                    "dataType": 0,
+                    "address": "DB2.DBX4.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "远程反馈",
+                    "dataType": 0,
+                    "address": "DB2.DBX4.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
                 }
             ]
         },
@@ -1947,6 +1974,47 @@
                     "isPulse": false,
                     "alarmLevel": 0,
                     "isHistoryData": true
+                },
+                {
+                    "displayName": "电阻箱1温度高",
+                    "dataType": 0,
+                    "address": "DB3.DBX10.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 1,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "电阻箱2温度高",
+                    "dataType": 0,
+                    "address": "DB3.DBX10.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "门禁",
+            "points": [
+                {
+                    "displayName": "门禁复位",
+                    "dataType": 0,
+                    "address": "DB1.DBX1.6",
+                    "isWrite": true,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "有车报警",
+                    "dataType": 0,
+                    "address": "DB3.DBX12.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 0,
+                    "isHistoryData": false
                 }
             ]
         },

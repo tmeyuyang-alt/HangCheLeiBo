@@ -6,13 +6,15 @@ Shader "Custom/InstancedPoint"
         _BaseColor ("Base Color", Color) = (1,1,1,1)
         _MinY ("Min Y", Float) = 0
         _MaxY ("Max Y", Float) = 1
+        [Toggle] _ZWrite ("Write Depth", Float) = 0
     }
     SubShader
     {
         Tags { "RenderType"="Opaque" "Queue"="Geometry" }
         LOD 100
         Cull Back
-        ZWrite On
+        // 点云仍会被场景中的实体模型遮挡，但不再写入深度挡住后绘制的 3D UI。
+        ZWrite [_ZWrite]
         ZTest LEqual
 
         Pass
