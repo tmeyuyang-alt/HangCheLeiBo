@@ -1,0 +1,4 @@
+{
+    "crane1ApiBase": "http://192.168.12.22/EDGE_SCRAPER",
+    "crane2ApiBase": "http://192.168.12.23/EDGE_SCRAPER"
+}

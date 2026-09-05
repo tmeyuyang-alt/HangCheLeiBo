@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -57,7 +58,15 @@ namespace PointCloudDemo
 
     public class PointCloudLoader : MonoBehaviour
     {
+        [Serializable]
+        private class PointCloudApiConfig
+        {
+            public string crane1ApiBase;
+            public string crane2ApiBase;
+        }
+
         [Header("API")]
+        [Tooltip("运行时由 StreamingAssets/PointCloudConfig.json 按当前行车加载。")]
         public string apiBase = "http://192.168.12.22/EDGE_SCRAPER";
         // 保留旧场景的序列化字段；真实数据模式现在加载接口返回的所有库区。
         [HideInInspector] public string stockId = "1";
@@ -126,18 +135,83 @@ namespace PointCloudDemo
 
         private bool _ready;
         private bool _loading;
-        private readonly CancellationTokenSource _destroyCancellation = new CancellationTokenSource();
+        private CancellationTokenSource _loadCancellation = new CancellationTokenSource();
+        private int _activeCraneIndex = -1;
+        private bool _started;
+        private bool _reloadRequested;
+
+        private void OnEnable()
+        {
+            PLCConfigManager.OnActiveCraneChanged += OnActiveCraneChanged;
+            if (_started) RefreshCraneApiBase();
+        }
+
+        private void OnDisable()
+        {
+            PLCConfigManager.OnActiveCraneChanged -= OnActiveCraneChanged;
+        }
 
         private void Start()
         {
+            _started = true;
+            RefreshCraneApiBase();
             if (autoStart)
                 StartCoroutine(RefreshLoop());
         }
 
         private void OnDestroy()
         {
-            _destroyCancellation.Cancel();
-            _destroyCancellation.Dispose();
+            _loadCancellation.Cancel();
+            _loadCancellation.Dispose();
+        }
+
+        private void RefreshCraneApiBase()
+        {
+            OnActiveCraneChanged(PLCConfigManager.Instance != null
+                ? PLCConfigManager.Instance.activeCraneIndex : 0);
+        }
+
+        private void OnActiveCraneChanged(int craneIndex)
+        {
+            string nextApiBase = LoadCraneApiBase(craneIndex);
+            if (_activeCraneIndex == craneIndex && apiBase == nextApiBase) return;
+
+            _activeCraneIndex = craneIndex;
+            apiBase = nextApiBase;
+            // 旧请求及后台构建只能使用旧 token，取消后不能再发布渲染状态。
+            _loadCancellation.Cancel();
+            _loadCancellation.Dispose();
+            _loadCancellation = new CancellationTokenSource();
+            _state = null;
+            _nextState = null;
+            _spareState = null;
+            _lastPoints = null;
+            _nextPoints = null;
+            _hasNext = false;
+            _ready = false;
+            _reloadRequested = autoStart;
+        }
+
+        private static string LoadCraneApiBase(int craneIndex)
+        {
+            string path = Path.Combine(Application.streamingAssetsPath, "PointCloudConfig.json");
+            try
+            {
+                var config = JsonUtility.FromJson<PointCloudApiConfig>(File.ReadAllText(path, Encoding.UTF8));
+                string value = craneIndex == 0 ? config?.crane1ApiBase
+                    : craneIndex == 1 ? config?.crane2ApiBase : null;
+                value = value?.Trim().TrimEnd('/');
+                if (!Uri.TryCreate(value, UriKind.Absolute, out Uri uri) ||
+                    (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps) ||
+                    !string.IsNullOrEmpty(uri.Query) || !string.IsNullOrEmpty(uri.Fragment))
+                    throw new InvalidDataException($"{craneIndex + 1}号行车的 ApiBase 未配置或不是有效的 HTTP(S) 基础地址");
+                return value;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"[PointCloud] 配置加载失败 ({path}): {ex.Message}");
+                return string.Empty;
+            }
         }
 
         private System.Collections.IEnumerator RefreshLoop()
@@ -153,10 +227,12 @@ namespace PointCloudDemo
         public async Task ReloadAsync()
         {
             if (_loading || _hasNext || this == null) return;
+            _reloadRequested = false;
+            if (!useSimulatedData && string.IsNullOrWhiteSpace(apiBase)) return;
             _loading = true;
             try
             {
-                var cancellationToken = _destroyCancellation.Token;
+                var cancellationToken = _loadCancellation.Token;
                 var points = useSimulatedData
                     ? GenerateSimulatedGridPoints()
                     : await FetchAllStockGridPointsAsync(apiBase.TrimEnd('/'), cancellationToken);
@@ -166,7 +242,7 @@ namespace PointCloudDemo
             }
             catch (OperationCanceledException)
             {
-                // 场景销毁后停止请求，不再构建渲染资源。
+                // 行车切换或场景销毁后停止请求，不再构建渲染资源。
             }
             catch (Exception ex)
             {
@@ -180,6 +256,10 @@ namespace PointCloudDemo
 
         private void Update()
         {
+            // 等待旧操作完成取消后，立即加载新行车，不受上一轮刷新等待影响。
+            if (_reloadRequested && !_loading && !_hasNext)
+                _ = ReloadAsync();
+
             // 主线程原子交换，避免当帧空绘制
             if (_hasNext && _nextState != null)
             {
@@ -505,7 +585,7 @@ namespace PointCloudDemo
             _loading = true;
             try
             {
-                await PrepareNextStateAsync(_lastPoints, _destroyCancellation.Token);
+                await PrepareNextStateAsync(_lastPoints, _loadCancellation.Token);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
