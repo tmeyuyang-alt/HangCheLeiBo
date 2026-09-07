@@ -111688,7 +111688,7 @@ PrefabInstance:
       objectReference: {fileID: 1608985147518626250, guid: 7bdc8d3154367bc4a9fedcc384edebb7, type: 3}
     - target: {fileID: 6881171979143790065, guid: c45fd704cf7e186448717c7b3a782d72, type: 3}
       propertyPath: autoPostOnRecovery
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6881171979143790065, guid: c45fd704cf7e186448717c7b3a782d72, type: 3}
       propertyPath: alarmItemPrefabEven
