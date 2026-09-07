@@ -1,9 +1,91 @@
 ﻿{
-    "sharedIpAddress": "192.168.12.11",
+    "sharedIpAddress": "192.168.12.12",
     "devices": [
         {
-            "deviceName": "DeviceSignalConfig",
-            "points": []
+            "deviceName": "CPU",
+            "points": [
+                {
+                    "displayName": "主站DI1模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "主站DI2模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "主站DI3模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "主站DQ1模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "主站DQ2模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "主站AI1模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "门禁DI1模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.6",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "中控DI1模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX14.7",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "中控DI2模块故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX15.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                }
+            ]
         },
         {
             "deviceName": "任务",
@@ -69,6 +151,74 @@
                     "isWrite": true,
                     "isPulse": false,
                     "alarmLevel": 0,
+                    "isHistoryData": false
+                }
+            ]
+        },
+        {
+            "deviceName": "传感器",
+            "points": [
+                {
+                    "displayName": "提升编码器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.0",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "开闭编码器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.1",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "大车雷达故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.2",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "小车雷达故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.3",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "电阻箱1温度传感器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.5",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "电阻箱2温度传感器故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.6",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
+                    "isHistoryData": false
+                },
+                {
+                    "displayName": "扫描雷达故障",
+                    "dataType": 0,
+                    "address": "DB3.DBX16.4",
+                    "isWrite": false,
+                    "isPulse": false,
+                    "alarmLevel": 2,
                     "isHistoryData": false
                 }
             ]

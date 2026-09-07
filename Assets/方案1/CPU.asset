@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18ef2108e52347e49969ca4d0869cb70, type: 3}
+  m_Name: CPU
+  m_EditorClassIdentifier: 
+  sharedIpAddress: 192.168.12.12
+  points:
+  - displayName: "\u4E3B\u7AD9DI1\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.0
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u4E3B\u7AD9DI2\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.1
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u4E3B\u7AD9DI3\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.2
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u4E3B\u7AD9DQ1\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.3
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u4E3B\u7AD9DQ2\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.4
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u4E3B\u7AD9AI1\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.5
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u95E8\u7981DI1\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.6
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u4E2D\u63A7DI1\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX14.7
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
+  - displayName: "\u4E2D\u63A7DI2\u6A21\u5757\u6545\u969C"
+    dataType: 0
+    address: DB3.DBX15.0
+    isWrite: 0
+    isPulse: 0
+    alarmLevel: 2
+    isHistoryData: 0
