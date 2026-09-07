@@ -18,10 +18,12 @@ public class AddTask : MonoBehaviour
     public InputField mInputZhuaDou;
     
     public Dropdown mDropFangLiao;
+    public Dropdown mPickLiao;
     public Text mDropZhuaLiao;
 
     public int tmparg;
 
+    public bool isHik = false;
 
     public void OnOpen(int arg)
     {
@@ -33,7 +35,18 @@ public class AddTask : MonoBehaviour
     public void SetValue()
     {
         plcConfigManager.SetValue(FangLiaoKey, mDropFangLiao.value+1);
-        plcConfigManager.SetValue(ZhuaLiaoKey, tmparg);
+        
+        
+        if (!isHik)
+        {
+            plcConfigManager.SetValue(ZhuaLiaoKey, tmparg);
+        }
+        else
+        {
+            print("@@@@@!####"+ (mPickLiao.value + 1).ToString());
+            plcConfigManager.SetValue(ZhuaLiaoKey, mPickLiao.value+1);
+        }
+       
         plcConfigManager.SetValue(ZhuaDouNumKey, Convert.ToInt32(mInputZhuaDou.text));
         plcConfigManager.SetValue(ConfirmKey, true);
         gameObject.SetActive(false);

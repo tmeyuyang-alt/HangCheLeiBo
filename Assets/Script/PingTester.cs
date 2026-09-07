@@ -12,6 +12,8 @@ public class PingTester : MonoBehaviour
     [Tooltip("要 Ping 的地址，可以是域名或 IP")]
     public string target = "192.168.20.1";
 
+    public string config="PLCIP.config";
+
     [Tooltip("两次 Ping 之间的间隔 (秒)")]
     public float interval = 2f;
 
@@ -32,7 +34,7 @@ public class PingTester : MonoBehaviour
 
     private void OnEnable()
     {
-        target = DataUtil.Deserializer<string>(Application.streamingAssetsPath + "/PLCIP.config");
+        target = DataUtil.Deserializer<string>(Application.streamingAssetsPath + "/"+config);
         _routine = StartCoroutine(PingLoop());
     }
 
