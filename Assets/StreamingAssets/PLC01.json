@@ -414,7 +414,7 @@
                 {
                     "displayName": "大车变频频率",
                     "dataType": 2,
-                    "address": "DB2.DBD44",
+                    "address": "DB2.DBD48",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -423,7 +423,7 @@
                 {
                     "displayName": "大车变频电流",
                     "dataType": 2,
-                    "address": "DB2.DBD48",
+                    "address": "DB2.DBD52",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -613,7 +613,7 @@
                 {
                     "displayName": "小车变频频率",
                     "dataType": 2,
-                    "address": "DB2.DBD36",
+                    "address": "DB2.DBD40",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -622,7 +622,7 @@
                 {
                     "displayName": "小车变频电流",
                     "dataType": 2,
-                    "address": "DB2.DBD40",
+                    "address": "DB2.DBD44",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -767,7 +767,7 @@
                 {
                     "displayName": "开闭变频频率",
                     "dataType": 2,
-                    "address": "DB2.DBD28",
+                    "address": "DB2.DBD32",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -776,7 +776,7 @@
                 {
                     "displayName": "开闭变频电流",
                     "dataType": 2,
-                    "address": "DB2.DBD32",
+                    "address": "DB2.DBD36",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,
@@ -1897,7 +1897,7 @@
                 {
                     "displayName": "提升变频电流",
                     "dataType": 2,
-                    "address": "DB2.DBD24",
+                    "address": "DB2.DBD28",
                     "isWrite": false,
                     "isPulse": false,
                     "alarmLevel": 0,

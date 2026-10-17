@@ -158892,14 +158892,14 @@ MonoBehaviour:
   pointScale: 1
   worldOffset: {x: -92, y: 0, z: -9}
   useConstantColor: 0
-  constantColor: {r: 0.15, g: 0.7, b: 1, a: 1}
+  constantColor: {r: 0, g: 0.64705884, b: 1, a: 1}
   colorByHeight: 1
-  heightLowColor: {r: 0.1, g: 0.35, b: 1, a: 1}
-  heightHighColor: {r: 1, g: 0.11372549, b: 0, a: 1}
-  heightColorBands: 22
+  heightLowColor: {r: 0, g: 0, b: 0, a: 1}
+  heightHighColor: {r: 1, g: 0.49803922, b: 0.3647059, a: 1}
+  heightColorBands: 32
   lockHeightRange: 1
-  lockedMinY: 0
-  lockedMaxY: 6
+  lockedMinY: -4.3
+  lockedMaxY: 6.9
   refreshInterval: 3
   autoStart: 1
 --- !u!4 &2016157448
