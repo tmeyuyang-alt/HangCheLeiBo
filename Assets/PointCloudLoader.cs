@@ -93,16 +93,17 @@ namespace PointCloudDemo
         public Vector3 worldOffset = Vector3.zero;
 
         [Header("Color & Shading")]
-        [Tooltip("使用固定颜色（推荐：稳定、无色带跳变）")]
-        public bool useConstantColor = true;
+        [Tooltip("使用固定颜色（关闭按高度着色时生效）")]
+        public bool useConstantColor = false;
         public Color constantColor = new Color(0.15f, 0.7f, 1f, 1f);
 
-        [Tooltip("关闭固定颜色后，改为按高度着色")]
-        public bool colorByHeight = false;
-        public Color heightLowColor = new Color(0.1f, 0.35f, 1f, 1f);
-        public Color heightHighColor = new Color(1f, 0.65f, 0.05f, 1f);
+        [Tooltip("按高度着色：低处浅绿，中间亮黄，高处橙红；优先于固定颜色")]
+        public bool colorByHeight = true;
+        public Color heightLowColor = new Color(0.65f, 1f, 0.65f, 1f);
+        public Color heightMidColor = new Color(1f, 1f, 0f, 1f);
+        public Color heightHighColor = new Color(1f, 0.49803922f, 0.3647059f, 1f);
         [Range(2, 32)]
-        public int heightColorBands = 12;
+        public int heightColorBands = 32;
 
         [Tooltip("按高度着色时，锁定色标范围以避免每帧变色")]
         public bool lockHeightRange = true;
@@ -541,7 +542,7 @@ namespace PointCloudDemo
         private struct BuildSettings
         {
             public bool ColorByHeight, LockHeightRange;
-            public Color LowColor, HighColor;
+            public Color LowColor, MidColor, HighColor;
             public int BandCount;
             public float MinY, MaxY, Scale;
             public Vector3 Offset;
@@ -549,7 +550,7 @@ namespace PointCloudDemo
             public bool Matches(BuildSettings other)
             {
                 return ColorByHeight == other.ColorByHeight && LockHeightRange == other.LockHeightRange &&
-                    LowColor == other.LowColor && HighColor == other.HighColor && BandCount == other.BandCount &&
+                    LowColor == other.LowColor && MidColor == other.MidColor && HighColor == other.HighColor && BandCount == other.BandCount &&
                     MinY == other.MinY && MaxY == other.MaxY && Scale == other.Scale && Offset == other.Offset;
             }
         }
@@ -559,7 +560,7 @@ namespace PointCloudDemo
             return new BuildSettings
             {
                 ColorByHeight = colorByHeight, LockHeightRange = lockHeightRange,
-                LowColor = heightLowColor, HighColor = heightHighColor,
+                LowColor = heightLowColor, MidColor = heightMidColor, HighColor = heightHighColor,
                 BandCount = Mathf.Clamp(heightColorBands, 2, 32),
                 MinY = lockedMinY, MaxY = lockedMaxY, Scale = pointScale, Offset = worldOffset
             };
@@ -680,7 +681,11 @@ namespace PointCloudDemo
             for (int band = 0; band < bandCount; band++)
             {
                 starts[band] = batches.Count;
-                Color color = Color.Lerp(settings.LowColor, settings.HighColor, band / (float)(bandCount - 1));
+                // 中间黄色是独立色标，避免浅绿与橙红直接混合后发灰。
+                float t = band / (float)(bandCount - 1);
+                Color color = t < 0.5f
+                    ? Color.Lerp(settings.LowColor, settings.MidColor, t * 2f)
+                    : Color.Lerp(settings.MidColor, settings.HighColor, (t - 0.5f) * 2f);
                 for (int start = 0; start < counts[band]; start += kBatchSize)
                 {
                     int length = Math.Min(kBatchSize, counts[band] - start);
